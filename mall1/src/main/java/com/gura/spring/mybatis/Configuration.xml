@@ -7,10 +7,12 @@
 	<typeAliases>
 		<typeAlias type="com.gura.spring.movie.dto.MovieDto" alias="MovieDto"/>
 		<typeAlias type="com.gura.spring.notice.dto.NoticeDto" alias="noticeDto"/>
+		<typeAlias type="com.gura.spring.users.UsersDto" alias="usersDto"/>
 	</typeAliases>
 	<!-- 필요한 Mapper xml 등록하기  -->
 	<mappers>
 		<mapper resource="com/gura/spring/mybatis/MovieMapper.xml"/>
 		<mapper resource="com/gura/spring/mybatis/NoticeMapper.xml"/>
+		<mapper resource="com/gura/spring/mybatis/UsersMapper.xml"/>
 	</mappers>
 </configuration>
