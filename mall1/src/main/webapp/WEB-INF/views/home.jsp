@@ -25,7 +25,7 @@
 
 	<h1>변경</h1>
 	<br />
-	<a href="">상품 게시판 </a>
+	<a href="${pageContext.request.contextPath}/movie/list.do">영화 목록</a>
 	<br />
 	<a href="">리뷰</a>
 	<br />
