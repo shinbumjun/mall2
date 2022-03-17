@@ -31,7 +31,7 @@
 	<br />
 	<a href="">문의사항</a>
 	<br />
-	<a href="">공지사항</a>
+	<a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
 	<br />
 	<a href="">마이페이지</a>
 

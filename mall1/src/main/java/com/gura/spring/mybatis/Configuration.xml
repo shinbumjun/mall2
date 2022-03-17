@@ -6,9 +6,11 @@
 	<!-- 자주 사용하는 type 의 별칭을 등록 해 놓고  Mapper xml 에서 사용할수 있다. -->
 	<typeAliases>
 		<typeAlias type="com.gura.spring.movie.dto.MovieDto" alias="MovieDto"/>
+		<typeAlias type="com.gura.spring.notice.dto.NoticeDto" alias="noticeDto"/>
 	</typeAliases>
 	<!-- 필요한 Mapper xml 등록하기  -->
 	<mappers>
 		<mapper resource="com/gura/spring/mybatis/MovieMapper.xml"/>
+		<mapper resource="com/gura/spring/mybatis/NoticeMapper.xml"/>
 	</mappers>
 </configuration>
