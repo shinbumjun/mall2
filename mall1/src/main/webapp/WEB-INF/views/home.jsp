@@ -10,6 +10,11 @@
 </head>
 <body>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<%--
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="본인 페이지에 notice 혹은 info 혹은 movie 적용" name="thisPage"/>
+</jsp:include>
+ --%>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
 <c:choose>
