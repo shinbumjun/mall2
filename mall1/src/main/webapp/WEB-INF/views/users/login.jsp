@@ -9,10 +9,10 @@
 </head>
 <body>
 <script>
-	if("${not empty sessionScope.id }"){
-		window.location.href ="${requestScope.url }";
+	if("${id}"){
+		location.href ="${requestScope.url }";
 	} else{
-		window.location.href="loginform.do?url=${requestScope.encodedUrl }";
+		location.href ="loginform.do?url=${requestScope.encodedUrl }&nid=1";
 	}
 </script>
 </body>
