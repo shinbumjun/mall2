@@ -2,8 +2,9 @@ package com.gura.spring.users;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,5 +25,6 @@ public interface UsersService {
 	public void getList(HttpServletRequest request);
 	public void deleteUser2(String id, HttpServletRequest request);
 	public void upgraded(String id,HttpServletRequest request);
+
 }
 

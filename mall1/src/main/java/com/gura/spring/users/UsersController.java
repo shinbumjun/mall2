@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,6 +62,14 @@ public class UsersController {
 		session.removeAttribute("id");
 		return "redirect:/home.do";
 	}
+	
+	//아이디 중복 확인을 해서 json 문자열을 리턴해주는 메소드 
+	@RequestMapping("/users/checkid")
+	@ResponseBody
+	public Map<String, Object> checkid(String inputId){
+		//UsersService 가 리턴해주는 Map 을 리턴해서 json 문자열을 응답한다. 
+		return service.isExistId(inputId);
+	}	
 
 	@RequestMapping("/users/private/upgrade")
 	public ModelAndView upgrade(@RequestParam String id, ModelAndView mView, HttpServletRequest request) {

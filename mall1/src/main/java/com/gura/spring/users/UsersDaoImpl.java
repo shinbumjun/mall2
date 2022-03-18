@@ -35,6 +35,16 @@ public class UsersDaoImpl implements UsersDao{
 	}
 
 	@Override
+
+	public boolean isExist(String inputId) {
+		//인자로 전달 받은 아이디가 존재 하는지 select 해 본다.
+		String id=session.selectOne("users.isExist", inputId);
+		if(id==null) {
+			return false;
+		}else {
+			return true;
+	  }
+
 	public void updatePwd(UsersDto dto) {
 		session.update("users.pwdUpdate", dto);
 	}
@@ -68,6 +78,7 @@ public class UsersDaoImpl implements UsersDao{
 	@Override
 	public void upgrade(String id) {
 		session.update("users.upgrade", id);
+
 	}
 
 }
