@@ -1,5 +1,8 @@
 ## github 사용법
-
+  빈 저장소 github
+  1. local 에 먼저 저장소를 만들고 (git init)
+  2. comit 을 한후 (commit 하기전에 .gitignore 파일을 추가)
+  
 
 
 최서빈
