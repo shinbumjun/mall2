@@ -13,6 +13,7 @@
 	<h1>영화 수정</h1>
 	<form action="update.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }" />
+		<input type="hidden" name="imagePath" id="imagePath" value="${dto.imagePath }"/>
 		<div>
 			<label class="form-label" for="writer">작성자</label>
 			<input class="form-control" type="text" id="writer" value="${dto.writer }" disabled/>
