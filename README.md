@@ -6,7 +6,7 @@
   4. 그리고 push
 
 최서빈
->상품 게시판 : 
+>상품 게시판 : https://github.com/shinbumjun/mall2/issues/9#issue-1173167920
 
 신범준
 ```
