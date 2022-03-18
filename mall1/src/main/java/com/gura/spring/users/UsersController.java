@@ -1,7 +1,9 @@
 package com.gura.spring.users;
 
 import java.net.URLEncoder;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.gura.spring.users.UsersService;
 
 
 @Controller
@@ -60,6 +62,82 @@ public class UsersController {
 		return "redirect:/home.do";
 	}
 
+	@RequestMapping("/users/private/upgrade")
+	public ModelAndView upgrade(@RequestParam String id, ModelAndView mView, HttpServletRequest request) {
+		service.upgraded(id, request);
+		mView.setViewName("users/upgrade");
+		return mView;
+	}
+	
+	@RequestMapping("/users/private/management")
+	public String list(HttpServletRequest request) {
+		service.getList(request);
+		
+		return "users/management";
+	}
+	
+	@RequestMapping("/users/private/delete2")
+	public ModelAndView delete2(@RequestParam String id, ModelAndView mView,HttpServletRequest request) {
+		service.deleteUser2(id, request);
+		
+		mView.setViewName("redirect:/users/private/management.do");
+		return mView;
+	}	
+	
+	@RequestMapping("/users/delete")
+	public ModelAndView delete(HttpSession session, ModelAndView mView,HttpServletRequest request) {
+		service.deleteUser(session, mView);
+		mView.setViewName("users/delete");
+		return mView;
+	}
+	
+	@RequestMapping(value = "/users/private/ajax_profile_upload",
+			method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> ajaxProfileUpload(HttpServletRequest request,
+			@RequestParam MultipartFile image){
+
+		//서비스를 이용해서 이미지를 upload 폴더에 저장하고 리턴되는 Map 을 리턴해서 json 문자열 응답하기
+		return service.saveProfileImage(request, image);
+	}
+	
+	@RequestMapping("/users/private/pwd_update")
+	public ModelAndView pwdUpdate(UsersDto dto, 
+			ModelAndView mView, HttpSession session) {
+		//서비스에 필요한 객체의 참조값을 전달해서 비밀번호 수정 로직을 처리한다.
+		service.updateUserPwd(session, dto, mView);
+		//view page 로 forward 이동해서 작업 결과를 응답한다.
+		mView.setViewName("users/pwd_update");
+		return mView;
+	}
+	
+	@RequestMapping("/users/private/pwd_updateform")
+	public String pwdUpdateForm() {
+
+		return "users/pwd_updateform";
+	}
+	
+	@RequestMapping("/users/private/info")
+	public ModelAndView info(HttpSession session, ModelAndView mView) {
+		service.getInfo(session, mView);
+		mView.setViewName("users/info");
+		
+		return mView;
+	}
+	
+	@RequestMapping("/users/private/mypage")
+	public ModelAndView mypage(HttpSession session, ModelAndView mView, HttpServletRequest request,UsersDto dto) {
+		service.getInfo(session, mView);
+		mView.setViewName("users/mypage");
+		return mView;
+	}
+	
+	@RequestMapping(value="/users/mypageupdate", method = RequestMethod.POST)
+	public ModelAndView update(UsersDto dto, HttpSession session, ModelAndView mView, HttpServletRequest request) {
+		service.updateUser(dto, session);
+		mView.setViewName("redirect:/users/private/info.do");
+		return mView;
+	}
 }
 
 

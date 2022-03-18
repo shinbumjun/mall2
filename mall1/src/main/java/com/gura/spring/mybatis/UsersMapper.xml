@@ -1,17 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="users">
+	<select id="isExist" parameterType="java.lang.String" resultType="string">
+		SELECT id 
+		FROM users
+		WHERE id=#{id}
+	</select>
 
 	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
 		(id, pwd, email, regdate)
 		VALUES(#{id }, #{pwd }, #{email }, SYSDATE)
 	</insert>
-
-	<select id="getData" parameterType="string" resultType="usersDto">
-		SELECT id, pwd, email, profile, regdate
+	
+	<select id="getData" parameterType="String" resultType="usersDto">
+		Select id,pwd,email,profile,regdate,adminNum
 		FROM users
-		WHERE id=#{id }
+		where id=#{id}
 	</select>
 	
+	<update id="update" parameterType="usersDto">
+		UPDATE users
+		SET email=#{email }, profile=#{profile }
+		WHERE id=#{id }
+	</update>
+	
+	<update id="pwdUpdate" parameterType="usersDto">
+		UPDATE users
+		SET pwd=#{newPwd}
+		WHERE id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="usersDto">
+		DELETE FROM users
+		WHERE id=#{id}
+	</delete>
+	
+<select id="userList" parameterType="usersDto" resultType="usersDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT id,email,regdate,adminNum
+				FROM users
+				<choose>
+					<when test="idWord != null">
+						WHERE id LIKE '%${idWord }%' 
+					</when>
+				</choose>
+				ORDER BY id DESC) result1)
+		WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
+	</select>
+
+	<select id="getCount" parameterType="usersDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM users
+		<choose>
+			<when test="idWord != null">
+				WHERE id LIKE '%${idWord}%' 
+			</when>
+
+		</choose>		
+	</select>
+	
+	<update id="upgrade" parameterType="usersDto">
+		UPDATE users
+		SET adminNum=1
+		WHERE id=#{id }
+	</update>
 </mapper>

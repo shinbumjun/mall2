@@ -33,7 +33,7 @@
 	<br />
 	<a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
 	<br />
-	<a href="">마이페이지</a>
+	<a href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
 
 </div>
 </body>

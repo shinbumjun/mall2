@@ -8,10 +8,15 @@ public class UsersDto {
 	private String profile;
 	private String regdate;
 	private String newPwd;
+	private String adminNum;
+	private int startRowNum;
+	private int	endRowNum;
+	private String idWord;
 	
-	public UsersDto() {}
+	public UsersDto () {}
 
-	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd) {
+	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd, String adminNum,
+			int startRowNum, int endRowNum, String idWord) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -19,6 +24,34 @@ public class UsersDto {
 		this.profile = profile;
 		this.regdate = regdate;
 		this.newPwd = newPwd;
+		this.adminNum = adminNum;
+		this.startRowNum = startRowNum;
+		this.endRowNum = endRowNum;
+		this.idWord = idWord;
+	}
+
+	public String getIdWord() {
+		return idWord;
+	}
+
+	public void setIdWord(String idWord) {
+		this.idWord = idWord;
+	}
+
+	public int getStartRowNum() {
+		return startRowNum;
+	}
+
+	public void setStartRowNum(int startRowNum) {
+		this.startRowNum = startRowNum;
+	}
+
+	public int getEndRowNum() {
+		return endRowNum;
+	}
+
+	public void setEndRowNum(int endRowNum) {
+		this.endRowNum = endRowNum;
 	}
 
 	public String getId() {
@@ -68,6 +101,14 @@ public class UsersDto {
 	public void setNewPwd(String newPwd) {
 		this.newPwd = newPwd;
 	}
+
+	public String getAdminNum() {
+		return adminNum;
+	}
+
+	public void setAdminNum(String adminNum) {
+		this.adminNum = adminNum;
+	};
 	
 	
 }
