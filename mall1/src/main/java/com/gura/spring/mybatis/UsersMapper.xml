@@ -14,4 +14,10 @@
 		WHERE id=#{id }
 	</select>
 	
+	<select id="isExist" parameterType="java.lang.String" resultType="string">
+		SELECT id 
+		FROM users
+		WHERE id=#{id}
+	</select>
+	
 </mapper>
