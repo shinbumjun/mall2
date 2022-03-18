@@ -36,7 +36,7 @@
 		WHERE id=#{id}
 	</delete>
 	
-	<select id="userList" parameterType="usersDto" resultType="usersDto">
+<select id="userList" parameterType="usersDto" resultType="usersDto">
 		SELECT *
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
@@ -61,6 +61,12 @@
 			</when>
 
 		</choose>		
+	</select>
+	
+	<select id="isExist" parameterType="java.lang.String" resultType="string">
+		SELECT id 
+		FROM users
+		WHERE id=#{id}
 	</select>
 	
 	<update id="upgrade" parameterType="usersDto">
