@@ -18,7 +18,7 @@
 >회원가입 : https://github.com/shinbumjun/mall2/issues/10#issue-1173177695
 
 이은정
->공지사항 :
+>공지사항 : https://github.com/shinbumjun/mall2/issues/11#issue-1173178776
 
 임진형
 >마이페이지 :
