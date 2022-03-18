@@ -132,9 +132,11 @@ public class MovieServiceImpl implements MovieService {
 		request.setAttribute("pageNum", pageNum);	//현재 페이지 번호
 		request.setAttribute("totalPageCount", totalPageCount);	//모든 페이지 count
 		
-		String id= (String) session.getAttribute("id");
-		UsersDto userdto = userdao.getData(id);
-		request.setAttribute("adminNum", userdto.getAdminNum());
+		if(session.getAttribute("id") !=null) {
+			String id= (String) session.getAttribute("id");
+			UsersDto userdto = userdao.getData(id);
+			request.setAttribute("adminNum", userdto.getAdminNum());
+		}
 	}
 	
 	//이미지 추가 - 이미지 업로드 & db 저장
