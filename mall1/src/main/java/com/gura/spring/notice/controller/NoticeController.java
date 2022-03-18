@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.gura.spring.notice.dto.NoticeDto;
 import com.gura.spring.notice.service.NoticeService;
@@ -20,9 +21,9 @@ public class NoticeController {
 	private NoticeService service;
 	
 	@RequestMapping("/notice/list")
-	public String getList(HttpServletRequest request) {
+	public String getList(HttpServletRequest request, HttpSession session) {
 		
-		service.getList(request);
+		service.getList(request, session);
 		
 		return "notice/list";
 	}
@@ -35,19 +36,21 @@ public class NoticeController {
 	
 	//새글 저장 요청 처리 
 	@RequestMapping(value = "/notice/insert", method = { RequestMethod.POST })
-	@ResponseBody
-	public int insert(NoticeDto dto, HttpSession session) {
+	public String insert(NoticeDto dto, HttpSession session) {
 		
-		
+		//System.out.println("!!!!!!!!!!!!!!!!!!!");
+		//System.out.println(dto.getTitle());
+		//System.out.println(dto.getContent());
+
 		//글 작성자는 세션에서 얻어낸다. 
 		//String id=(String)session.getAttribute("id");
 		//객체에 글 작성자도 담기
 		dto.setWriter("admin");
 		dto.setViewCount(0);
 		
-		return service.saveContent(dto);
-		
-		//return "notice/insert";
+		service.saveContent(dto);
+
+		return "notice/insert";
 	}
 
 	//글 삭제 요청 처리 

@@ -4,6 +4,7 @@ import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.gura.spring.exception.NotDeleteException;
 import com.gura.spring.notice.dao.NoticeDao;
 import com.gura.spring.notice.dto.NoticeDto;
+import com.gura.spring.users.UsersDao;
+import com.gura.spring.users.UsersDto;
 
 
 
@@ -20,9 +23,12 @@ public class NoticeServiceImpl implements NoticeService{
 	
 	@Autowired
 	private NoticeDao noticedao;
+	
+	@Autowired
+	private UsersDao userDao;
 
 	@Override
-	public void getList(HttpServletRequest request) {
+	public void getList(HttpServletRequest request, HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=5;
 		//하단 페이지를 몇개씩 표시할 것인지
@@ -101,6 +107,12 @@ public class NoticeServiceImpl implements NoticeService{
 		request.setAttribute("totalPageCount", totalPageCount);
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
+		
+		String id= (String) session.getAttribute("id");
+		UsersDto user = userDao.getData(id);
+		
+		request.setAttribute("adminNum", user.getAdminNum());
+		System.out.println("!!! " + user.getAdminNum());
 		}
 
 		

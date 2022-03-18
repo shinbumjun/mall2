@@ -34,7 +34,9 @@
 </head>
 <body>
 <div class="container">
-	<a href="/notice/insertform.do">new 공지사항</a>
+	<c:if test="${adminNum eq 1 }">
+		<a href="/notice/insertform.do">new 공지사항</a>
+	</c:if>
 	<h1>공지사항 목록 입니다.</h1>
 	<table>
 		<thead>
