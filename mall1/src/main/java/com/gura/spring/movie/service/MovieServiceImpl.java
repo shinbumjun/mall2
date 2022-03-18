@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +17,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gura.spring.exception.NotDeleteException;
 import com.gura.spring.movie.dao.MovieDao;
 import com.gura.spring.movie.dto.MovieDto;
+import com.gura.spring.users.UsersDto;
+import com.gura.spring.users.UsersDao;
 
 @Service
 public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private MovieDao dao;
+	
+	@Autowired
+	private UsersDao userdao;
 	
 	//업데이트
 	@Override
@@ -28,6 +34,7 @@ public class MovieServiceImpl implements MovieService {
 		dao.update(dto);
 	}
 
+	
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
 		//세션에서 로그인된 아이디를 읽어와서
@@ -223,11 +230,15 @@ public class MovieServiceImpl implements MovieService {
 	
 	//영화 목록 detail 페이지에 필요한 data를 ModelAndView 에 저장
 	@Override
-	public void getDetail(ModelAndView mView, int num) {
+	public void getDetail(ModelAndView mView,HttpSession session, int num) {
 		//dao 로 해당 게시글 num 에 해당하는 데이터(dto)를 가져온다.
 		MovieDto dto = dao.getData(num);
 		//ModelAndView 에 가져온 MovieDto 를 담는다.
 		mView.addObject("dto", dto);
+		
+		String id=(String)session.getAttribute("id");
+		UsersDto userdto=userdao.getData(id);
+		mView.addObject("userdto",userdto);
 	}
 
 	@Override
