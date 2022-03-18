@@ -21,5 +21,5 @@
 >공지사항 : https://github.com/shinbumjun/mall2/issues/11#issue-1173178776
 
 임진형
->마이페이지 :
+>마이페이지 : https://github.com/shinbumjun/mall2/issues/12#issue-1173179696
 
