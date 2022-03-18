@@ -51,7 +51,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 	
 	//영화 목록 이미지 list
-	public void getList(HttpServletRequest request) {
+	public void getList(HttpServletRequest request,HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=8;
 		//하단 페이지를 몇개씩 표시할 것인지
@@ -132,6 +132,9 @@ public class MovieServiceImpl implements MovieService {
 		request.setAttribute("pageNum", pageNum);	//현재 페이지 번호
 		request.setAttribute("totalPageCount", totalPageCount);	//모든 페이지 count
 		
+		String id= (String) session.getAttribute("id");
+		UsersDto userdto = userdao.getData(id);
+		request.setAttribute("adminNum", userdto.getAdminNum());
 	}
 	
 	//이미지 추가 - 이미지 업로드 & db 저장
@@ -242,7 +245,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public List<MovieDto> getList2(HttpServletRequest request) {
+	public List<MovieDto> getList2(HttpServletRequest request,HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
 		final int PAGE_ROW_COUNT=8;
 		//하단 페이지를 몇개씩 표시할 것인지
@@ -272,6 +275,7 @@ public class MovieServiceImpl implements MovieService {
 		List<MovieDto> list = dao.getList(dto);
 		
 		return list;
+	
 	}
 
 	@Override

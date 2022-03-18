@@ -12,9 +12,9 @@ import com.gura.spring.movie.dto.MovieDto;
 
 public interface MovieService {
 	//영화 목록의 list 가져오기
-	public void getList(HttpServletRequest request);
+	public void getList(HttpServletRequest request,HttpSession session);
 	//영화 목록 목록을 리턴하는 메소드 
-	public List<MovieDto> getList2(HttpServletRequest request);
+	public List<MovieDto> getList2(HttpServletRequest request,HttpSession session);
 	
 	//영화 목록에 사진 upload & DB 저장하기
 	public void saveImage(MovieDto dto, HttpServletRequest request);
@@ -28,4 +28,5 @@ public interface MovieService {
 	public void updateContent(MovieDto dto);
 	public void deleteContent(int num, HttpServletRequest request);
 	public void getData(HttpServletRequest request);
+
 }
