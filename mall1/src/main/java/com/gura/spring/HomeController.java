@@ -41,11 +41,10 @@ public class HomeController {
 		 if(session.getAttribute("id") !=null) {
 			 	//세션이 존재할 때만 
 			 	String id=(String)session.getAttribute("id");
+			 	//아이디 정보 받아옴
 				service.getInfo(session, mView);
 		    } 
-		
 		mView.setViewName("home");
-		
 		return mView;
 
 	}
