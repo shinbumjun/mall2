@@ -15,7 +15,7 @@
 >문의사항 :
 
 송형민
->회원가입 :
+>회원가입 : https://github.com/shinbumjun/mall2/issues/10#issue-1173177695
 
 이은정
 >공지사항 :
