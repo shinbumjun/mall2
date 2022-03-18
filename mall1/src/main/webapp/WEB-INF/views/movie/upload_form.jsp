@@ -12,6 +12,7 @@
 	<div class="container">
 	   	<h1>영화 업로드 폼</h1>
 	   	<form action="${pageContext.request.contextPath}/movie/upload.do" method="post" enctype="multipart/form-data">
+	      	<input type="hidden" name="imagePath" id="imagePath"/>
 	      	<div>
 	         	<label class="form-label" for="title">영화 제목</label>
 	         	<input class="form-control" type="text" name="title" id="title"/>
