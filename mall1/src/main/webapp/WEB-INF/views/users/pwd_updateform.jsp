@@ -6,9 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>users/pwd_update.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" >
 </head>
 <body>
 <div class="container">
+	<nav>
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/">Home</a>
+         </li>
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
+         </li>
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/users/private/mypage.do">마이페이지</a>
+         </li>
+         <li class="breadcrumb-item active">비밀번호 변경페이지</li>
+      </ul>
+   </nav>
 	<h1>비밀번호 수정 폼</h1>
 	<form action="${pageContext.request.contextPath}/users/private/pwd_update.do" method="post" id="myForm">
 		<div>

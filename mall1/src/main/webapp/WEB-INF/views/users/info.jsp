@@ -15,9 +15,18 @@
 		border-radius: 50%;
 	}
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" >
 </head>
 <body>
 <div class="container">
+	<nav>
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/">Home</a>
+         </li>
+         <li class="breadcrumb-item active">마이페이지</li>
+      </ul>
+   </nav>
 	<h1>회원 정보입니다.</h1>
 	<table>
 		<tr>

@@ -18,9 +18,21 @@
 		display: none;
 	}
 </style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" >
 </head>
 <body>
 <div class="container">
+	<nav>
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/">Home</a>
+         </li>
+         <li class="breadcrumb-item">
+            <a href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
+         </li>
+         <li class="breadcrumb-item active">내정보 관리</li>
+      </ul>
+   </nav>
 	<h1>내정보보기 페이지입니다.</h1>
 	<a id="profileLink" href="javascript:">
 		<c:choose>
