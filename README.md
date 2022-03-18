@@ -5,11 +5,11 @@
   3. https://github.com/shinbumjun/mall2 여기를 remote 저장소로 등록
   4. 그리고 push
 
-https://github.com/shinbumjun/mall2/issues/9#issue-1173167920
+
 
 최서빈
 ```
-상품 게시판 
+상품 게시판 : https://github.com/shinbumjun/mall2/issues/9#issue-1173167920
 ```
 신범준
 ```
