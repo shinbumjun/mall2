@@ -2,6 +2,8 @@ package com.gura.spring.users;
 
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,18 +15,27 @@ public class UsersDaoImpl implements UsersDao{
 	private SqlSession session;
 	
 	@Override
+	public boolean isExist(String inputId) {
+		String id=session.selectOne("users.isExist", inputId);
+		if(id==null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+	@Override
 	public void insert(UsersDto dto) {
-		session.insert("users.insert", dto);
-		
+		session.insert("users.insert",dto);
 	}
 
 	@Override
 	public UsersDto getData(String id) {
-		// 존재하지 않은 아이디면 null 이 리턴된다. 
 		return session.selectOne("users.getData", id);
 	}
 
 	@Override
+
 	public boolean isExist(String inputId) {
 		//인자로 전달 받은 아이디가 존재 하는지 select 해 본다.
 		String id=session.selectOne("users.isExist", inputId);
@@ -32,7 +43,42 @@ public class UsersDaoImpl implements UsersDao{
 			return false;
 		}else {
 			return true;
-		}
+	  }
+
+	public void updatePwd(UsersDto dto) {
+		session.update("users.pwdUpdate", dto);
+	}
+
+	@Override
+	public void update(UsersDto dto) {
+		session.update("users.update", dto);
+	}
+
+	@Override
+	public void delete(String id) {
+		session.delete("users.delete",id);
+	}
+
+	@Override
+	public List<UsersDto> userList(UsersDto dto) {
+		return session.selectList("users.userList", dto);
+	}
+
+	@Override
+	public int getCount(UsersDto dto) {
+		
+		return session.selectOne("users.getCount",dto);
+	}
+
+	@Override
+	public void delete2(String id) {
+		session.delete("users.delete",id);
+	}
+
+	@Override
+	public void upgrade(String id) {
+		session.update("users.upgrade", id);
+
 	}
 
 }
