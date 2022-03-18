@@ -10,7 +10,7 @@ import com.gura.spring.notice.dto.NoticeDto;
 public interface NoticeService {
 	
 	public void getList(HttpServletRequest request, HttpSession session);
-	public void getDetail(HttpServletRequest request);
+	public void getDetail(HttpServletRequest request, HttpSession session);
 	public int saveContent(NoticeDto dto);
 	public void updateContent(NoticeDto dto);
 	public void deleteContent(int num, HttpServletRequest request);

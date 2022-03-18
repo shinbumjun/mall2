@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.gura.spring.exception.NotDeleteException;
 import com.gura.spring.notice.dao.NoticeDao;
@@ -82,14 +83,12 @@ public class NoticeServiceImpl implements NoticeService{
 		//글 목록 얻어오기 
 		List<NoticeDto> list= noticedao.getList(dto);
 		//전체글의 갯수
-		int totalRow = noticedao.getCount(dto);
-				
+		int totalRow = noticedao.getCount(dto);		
 		//하단 시작 페이지 번호 
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
 		//하단 끝 페이지 번호
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 				
-
 		//전체 페이지의 갯수
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		//끝 페이지 번호가 전체 페이지 갯수보다 크다면 잘못된 값이다.
@@ -97,7 +96,6 @@ public class NoticeServiceImpl implements NoticeService{
 		endPageNum=totalPageCount; //보정해 준다.
 		}
 		//view page 에서 필요한 값을 request 에 담아준다.
-		
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("startPageNum", startPageNum);
 		request.setAttribute("endPageNum", endPageNum);
@@ -108,18 +106,19 @@ public class NoticeServiceImpl implements NoticeService{
 		request.setAttribute("list", list);
 		request.setAttribute("totalRow", totalRow);
 		
-		String id= (String) session.getAttribute("id");
-		UsersDto user = userDao.getData(id);
+		String id = (String) session.getAttribute("id");
 		
-		request.setAttribute("adminNum", user.getAdminNum());
-		System.out.println("!!! " + user.getAdminNum());
+		if(!StringUtils.isEmpty(id)) {
+			UsersDto user = userDao.getData(id);
+			request.setAttribute("adminNum", user.getAdminNum());
+		} else {
+			request.setAttribute("adminNum", 0);
 		}
-
 		
-	
+	}
 
 	@Override
-	public void getDetail(HttpServletRequest request) {
+	public void getDetail(HttpServletRequest request, HttpSession session) {
 	//자세히 보여줄 글번호를 읽어온다. 
 	int num=Integer.parseInt(request.getParameter("num"));
 	//조회수 올리기
@@ -149,15 +148,25 @@ public class NoticeServiceImpl implements NoticeService{
 	}else if(condition.equals("writer")){ //작성자 검색인 경우
 	dto.setWriter(keyword);	
 		} // 다른 검색 조건을 추가 하고 싶다면 아래에 else if() 를 계속 추가 하면 된다.
-	}
-	// CafeDto 객체를 메소드의 인자로 전달해서 새로운 CafeDto 객체의 참조값을 얻어온다. 
-	
+	}	
 	dto=noticedao.getData(dto.getNum());
 
 	//특수기호를 인코딩한 키워드를 미리 준비한다. 
 	String encodedK=URLEncoder.encode(keyword);
 	
 	request.setAttribute("dto", dto);
+	
+	String id = (String) session.getAttribute("id");
+	
+	
+	//id != null && id != ""
+	//!StringUtils.isEmpty(id)
+	if(!StringUtils.isEmpty(id)) {
+		UsersDto user = userDao.getData(id);
+		request.setAttribute("adminNum", user.getAdminNum());
+	} else {
+		request.setAttribute("adminNum", 0);
+	}
 		
 	}
 
@@ -202,11 +211,6 @@ public class NoticeServiceImpl implements NoticeService{
 		//request 에 담아준다.
 		request.setAttribute("dto", dto);
 	}
-
-		
-	
-
-
 
 
 }
