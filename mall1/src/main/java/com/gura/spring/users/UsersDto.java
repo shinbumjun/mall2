@@ -9,6 +9,7 @@ public class UsersDto {
 	private String regdate;
 	private String newPwd;
 	private String adminNum;
+	private int point;
 	private int startRowNum;
 	private int	endRowNum;
 	private String idWord;
@@ -16,7 +17,7 @@ public class UsersDto {
 	public UsersDto () {}
 
 	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd, String adminNum,
-			int startRowNum, int endRowNum, String idWord) {
+			int point, int startRowNum, int endRowNum, String idWord) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -25,6 +26,7 @@ public class UsersDto {
 		this.regdate = regdate;
 		this.newPwd = newPwd;
 		this.adminNum = adminNum;
+		this.point = point;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.idWord = idWord;
@@ -108,6 +110,14 @@ public class UsersDto {
 
 	public void setAdminNum(String adminNum) {
 		this.adminNum = adminNum;
+	}
+
+	public int getPoint() {
+		return point;
+	}
+
+	public void setPoint(int point) {
+		this.point = point;
 	};
 	
 	

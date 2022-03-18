@@ -19,6 +19,10 @@
 			<p>
 				<a href="${pageContext.request.contextPath}/users/private/info.do">${sessionScope.id }</a> 로그인중... 
 				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
+				<c:if test="${dto.adminNum eq 0 }">
+					<p>현재 포인트 : ${dto.point }</p>
+					<button>충전</button>
+				</c:if>
 			</p>
 		</c:otherwise>
 	</c:choose>
