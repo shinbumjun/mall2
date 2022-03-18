@@ -19,12 +19,14 @@
 </head>
 <body>
 <div class="container">
-	<nav>
+	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
       <ul class="breadcrumb">
          <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/">Home</a>
+            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
          </li>
-         <li class="breadcrumb-item active">마이페이지</li>
+         <li class="breadcrumb-item active">
+			<a class="nav-link disabled" href="">마이페이지</a>
+		</li>
       </ul>
    </nav>
 	<h1>회원 정보입니다.</h1>

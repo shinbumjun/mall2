@@ -197,7 +197,6 @@ public class UsersServiceImpl implements UsersService{
 	@Override
 	public void deleteUser2(String id, HttpServletRequest request) {
 		UsersDto dto=dao.getData(id);
-		String id2=(String)request.getAttribute("id");
 		dao.delete2(id);
 	}
 	

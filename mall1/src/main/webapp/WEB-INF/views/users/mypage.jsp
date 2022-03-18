@@ -22,15 +22,17 @@
 </head>
 <body>
 <div class="container">
-	<nav>
+	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
       <ul class="breadcrumb">
          <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/">Home</a>
+            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
          </li>
          <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
+            <a class="nav-link" href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
          </li>
-         <li class="breadcrumb-item active">내정보 관리</li>
+         <li class="breadcrumb-item active">
+			<a class="nav-link disabled" href="">내정보 관리</a>
+		</li>
       </ul>
    </nav>
 	<h1>내정보보기 페이지입니다.</h1>
