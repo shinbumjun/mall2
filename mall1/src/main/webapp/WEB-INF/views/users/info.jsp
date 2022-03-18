@@ -50,6 +50,7 @@
 				<li><a href="${pageContext.request.contextPath}/users/private/mypage.do">내 정보 관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/users/private/management.do">유저관리</a></li>
 				<li><a href="${pageContext.request.contextPath}/users/private/users_product">상품구매관리</a></li>
+				<li><a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a></li>
 			</c:if>
 		</ul>
 	</div>

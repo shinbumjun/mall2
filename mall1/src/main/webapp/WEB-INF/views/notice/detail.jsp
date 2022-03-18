@@ -60,17 +60,7 @@
 		<%-- </c:if> --%>
 	</ul>
 
-<%-- 	 관리자용 공지사항 등록 버튼  
-			<span class="lectureRegister">
-			<td colspan="2">
-				<a href="/mall2/notice/List.do?type=${requestScope.notice.list}"><button class="btn btn-success">공지사항 전체</button></a>
-				 <c:if test="${sessionScope.memberType=='administrator'}">
-				<a href="/mall2/notice/insertForm.do?no=${requestScope.notice.insrtform}&page=${param.page}"><button class="btn btn-primary">공지사항 수정</button></a>
-				<a href="/mall2/notice/delete.do?no=${requestScope.notice.delete}&type=${requestScope.notice.list}&page=${param.page}"><button class="btn btn-danger">공지사항 삭제</button></a>	
-				</c:if>
-			</td>	
-			</span>
-	  --%>
+
 </div>
 </body>
 </html>
