@@ -14,7 +14,7 @@
 	</insert>
 	
 	<select id="getData" parameterType="String" resultType="usersDto">
-		Select id,pwd,email,profile,regdate,adminNum
+		Select id,pwd,email,profile,regdate,adminNum,point
 		FROM users
 		where id=#{id}
 	</select>
@@ -41,7 +41,7 @@
 		FROM
 			(SELECT result1.*, ROWNUM AS rnum
 			FROM
-				(SELECT id,email,regdate,adminNum
+				(SELECT id,email,regdate,adminNum,point
 				FROM users
 				<choose>
 					<when test="idWord != null">
