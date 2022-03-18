@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -174,9 +175,9 @@ public class MovieController {
 	//movie 게시글의 num 이 parameter get 방식으로 넘어온다.
 	//detail 페이지
 	@RequestMapping(value = "/movie/detail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView mView, @RequestParam int num) {
+	public ModelAndView detail(ModelAndView mView,HttpSession session, @RequestParam int num) {
 		//갤러리 detail 페이지에 필요한 data를 num 으로 가져와, ModelAndView 에 저장
-		service.getDetail(mView, num);
+		service.getDetail(mView,session, num);
 		mView.setViewName("movie/detail");
 		
 		return mView;

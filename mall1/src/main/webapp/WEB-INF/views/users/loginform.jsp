@@ -31,6 +31,9 @@
 			<div class="text-center my-3">
 				<input class="form-control" type="password" name="pwd" placeholder="비밀번호"/>
 			</div>
+			<c:if test="${ not empty param.nid }">
+			<p class="text-danger"> 아이디 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.</p>
+			</c:if>
 			<div class="d-grid gap-2">
 				<button type="submit" class="btn btn-success">로그인</button>
 			</div>
