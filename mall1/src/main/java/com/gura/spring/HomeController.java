@@ -37,8 +37,13 @@ public class HomeController {
 		request.setAttribute("notice", notice);
 		//view 페이지 (jsp페이지) 로 forward 이동해서 응답 
 		
-		String id=(String)session.getAttribute("id");
-		service.getInfo(session, mView);
+		
+		 if(session.getAttribute("id") !=null) {
+			 	//세션이 존재할 때만 
+			 	String id=(String)session.getAttribute("id");
+				service.getInfo(session, mView);
+		    } 
+		
 		mView.setViewName("home");
 		
 		return mView;
