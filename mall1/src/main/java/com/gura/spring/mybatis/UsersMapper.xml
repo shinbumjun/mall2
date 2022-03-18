@@ -63,12 +63,6 @@
 		</choose>		
 	</select>
 	
-	<select id="isExist" parameterType="java.lang.String" resultType="string">
-		SELECT id 
-		FROM users
-		WHERE id=#{id}
-	</select>
-	
 	<update id="upgrade" parameterType="usersDto">
 		UPDATE users
 		SET adminNum=1
