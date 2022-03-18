@@ -34,14 +34,14 @@ public class NoticeController {
 		return "notice/insertform";
 	}
 	
-	//새글 저장 요청 처리 
+	
 	@RequestMapping(value = "/notice/insert", method = { RequestMethod.POST })
 	public String insert(NoticeDto dto, HttpSession session) {
 		
 		//System.out.println("!!!!!!!!!!!!!!!!!!!");
 		//System.out.println(dto.getTitle());
 		//System.out.println(dto.getContent());
-
+		
 		//글 작성자는 세션에서 얻어낸다. 
 		//String id=(String)session.getAttribute("id");
 		//객체에 글 작성자도 담기
@@ -53,7 +53,6 @@ public class NoticeController {
 		return "notice/insert";
 	}
 
-	//글 삭제 요청 처리 
 	@RequestMapping("/notice/delete")
 	public String delete(@RequestParam int num, HttpServletRequest request) {
 
@@ -70,17 +69,16 @@ public class NoticeController {
 		return "notice/updateform";
 	}
 	
-	//글 수정 요청 처리 
 	@RequestMapping(value = "/notice/update", method = RequestMethod.POST)
 	public String update(NoticeDto dto) {
 		service.updateContent(dto);
 		return "notice/update";
 	}	
 	
-	//글 자세히 보기 요청 처리
 	@RequestMapping("/notice/detail")
-	public String detail(HttpServletRequest request) {
-		service.getDetail(request);
+	public String detail(HttpServletRequest request, HttpSession session) {
+		
+		service.getDetail(request ,session);
 		return "notice/detail";
 	}
 

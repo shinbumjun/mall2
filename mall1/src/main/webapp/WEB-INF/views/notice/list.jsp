@@ -38,6 +38,7 @@
 		<a href="/notice/insertform.do">new 공지사항</a>
 	</c:if>
 	<h1>공지사항 목록 입니다.</h1>
+	<a href="${pageContext.request.contextPath }/">Home</a>
 	<table>
 		<thead>
 			<tr>
@@ -108,7 +109,6 @@
 		</p>
 	</c:if>
 </div>
-
 </body>
 </html>
 
