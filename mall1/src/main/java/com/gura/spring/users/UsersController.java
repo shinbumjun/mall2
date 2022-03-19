@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.movie.dto.MovieDto;
+
 
 @Controller
 public class UsersController {
@@ -154,6 +156,14 @@ public class UsersController {
 		mView.setViewName("/chargePoint");
 		return mView;
 	}
+	
+	@RequestMapping(value = "/movie/buy", method = RequestMethod.GET)
+	public ModelAndView buyMovie(HttpSession session, UsersDto dto, ModelAndView mView,MovieDto moviedto, @RequestParam int num,HttpServletRequest request) {
+		service.buyMovie(session,dto,mView,moviedto,num,request);
+		mView.setViewName("movie/buy");
+		return mView;
+	}
+
 }
 
 
