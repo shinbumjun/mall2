@@ -25,6 +25,6 @@ public interface UsersService {
 	public void getList(HttpServletRequest request);
 	public void deleteUser2(String id, HttpServletRequest request);
 	public void upgraded(String id,HttpServletRequest request);
-
+	public void chargePoint(HttpSession session, UsersDto dto, ModelAndView mView);
 }
 

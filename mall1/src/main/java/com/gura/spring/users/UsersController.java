@@ -147,6 +147,13 @@ public class UsersController {
 		mView.setViewName("redirect:/users/private/info.do");
 		return mView;
 	}
+	
+	@RequestMapping("/chargePoint")
+	public ModelAndView chargePoint(HttpSession session, UsersDto dto, ModelAndView mView) {
+		service.chargePoint(session,dto,mView);
+		mView.setViewName("/chargePoint");
+		return mView;
+	}
 }
 
 
