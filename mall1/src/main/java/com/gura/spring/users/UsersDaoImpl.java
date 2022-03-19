@@ -70,4 +70,14 @@ public class UsersDaoImpl implements UsersDao{
 
 	}
 
+	@Override
+	public void chargePoint(UsersDto dto) {
+		session.update("users.chargePoint", dto);
+	}
+	
+	@Override
+	public void buyMovie(UsersDto dto) {
+		session.update("users.buyMovie", dto);
+	}
+
 }

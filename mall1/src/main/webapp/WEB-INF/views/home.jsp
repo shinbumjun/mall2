@@ -28,7 +28,10 @@
 				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
 				<c:if test="${dto.adminNum eq 0 }">
 					<p>현재 포인트 : ${dto.point }</p>
-					<button>충전</button>
+					<form action="${pageContext.request.contextPath}/chargePoint.do" method="post" id="myForm">
+					<input type="hidden" name="point" id="point"/>
+					<button type="submit" id="chargeBtn">충전</button>
+					</form>
 				</c:if>
 			</p>
 		</c:otherwise>
@@ -47,6 +50,12 @@
 	<a href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
 
 </div>
+<script>
+	document.querySelector("#chargeBtn").addEventListener("click", function(e){
+		let chargePoint = prompt("얼마를 충전하시겠습니까?","");
+		document.querySelector("#point").value = chargePoint;
+	});
+</script>
 </body>
 </html> 
 

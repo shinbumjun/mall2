@@ -14,4 +14,6 @@ public interface UsersDao {
 	public List<UsersDto> userList(UsersDto dto);
 	public int getCount(UsersDto dto);
 	public void upgrade(String id);
+	public void chargePoint(UsersDto dto);
+	public void buyMovie(UsersDto dto);
 }
