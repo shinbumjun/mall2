@@ -87,19 +87,20 @@ public class MovieController {
 	//ajax 요청에 대해 Movie 목록을 출력할 컨트롤러 메소드 
 	@RequestMapping("/api/movie/list")
 	@ResponseBody 
-	public List<MovieDto> getList2(HttpServletRequest request){
+	public List<MovieDto> getList2(HttpServletRequest request,ModelAndView mView,HttpSession session){
 		
-		return service.getList2(request);
+		return service.getList2(request,session);
 	}
 	
 	//movie list 페이지로 이동
 	@RequestMapping(value = "/movie/list")
-	public String getList(HttpServletRequest request) {
+	public String getList(HttpServletRequest request,HttpSession session) {
 		//view 페이지에 사용될 데이터는 request 영역에 담는다.
-		service.getList(request);
+		service.getList(request,session);
 		
 		return "movie/list";
 	}
+	
 	
 	//movie 사진 업로드 form 페이지로 이동
 	@RequestMapping(value = "/movie/upload_form")

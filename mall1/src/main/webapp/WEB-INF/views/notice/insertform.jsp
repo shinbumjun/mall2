@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,21 +11,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div class="container">
 	<h1>공지사항 추가</h1>
-	<!-- <form action="insert.do" method="post" id="insertForm"> -->
+	<form action="insert.do" method="post" id="insertForm">
 		<div class="mb-3">
 			<label class="form-label" for="title">제목</label>
 			<input class="form-control" type="text" name="title" id="title"/>
 		</div>
 		<div class="mb-3">
-			<label class="form-label" for="content">내용</label>
+			<label class="form-label" for="content">내용</label> 
 			<textarea class="form-control"  name="content" id="content"></textarea>
 		</div>
-		<button class="btn btn-primary" type="button" id="saveBtn">저장</button>
-	<!-- </form> -->
+		<button class="btn btn-primary" type="submit">저장</button>
+	</form>
 	<script>
-	
-		$("#saveBtn").click(function() {
+	/* 	$("#saveBtn").click(function() {
 			console.log($('#title').val() + " / " + $('#content').val());
+			
 		
 			$.ajax({
 				url: 'insert.do',
@@ -39,9 +40,7 @@
 					}
 				}
 			});
-		});
-	
-	
+		}); */
 	</script>
 </div>
 <%--
@@ -110,6 +109,7 @@
 			oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
 			//textarea 이외에 입력한 내용을 여기서 검증하고 
 			const title=document.querySelector("#title").value;
+			//const content = document.querySelector("#content").value;
 			
 			//만일 폼 제출을 막고 싶으면  
 			//e.preventDefault();
@@ -118,7 +118,7 @@
 				alert("제목을 5글자 이상 입력하세요!");
 				e.preventDefault();
 			}
-			
+					
 		});
 </script>
 </body>

@@ -45,8 +45,11 @@
 </head>
 <body>
 <div class="container">
-   	<a href="${pageContext.request.contextPath}/movie/upload_form.do">영화 업로드 form</a><br/>
-   	<a href="${pageContext.request.contextPath}/movie/ajax_form.do">영화 업로드 ajax</a>
+	<c:if test="${adminNum eq '1' }">
+   		<a href="${pageContext.request.contextPath}/movie/upload_form.do">영화 업로드 form</a><br/>
+   		<a href="${pageContext.request.contextPath}/movie/ajax_form.do">영화 업로드 ajax</a>
+   	</c:if>
+   	
    	<h1>영화 목록</h1>
    	
    	<div style="clear:both;"></div>

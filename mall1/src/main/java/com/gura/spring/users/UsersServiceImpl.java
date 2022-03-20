@@ -17,10 +17,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.movie.dao.MovieDao;
+import com.gura.spring.movie.dto.MovieDto;
+
 
 @Service
 public class UsersServiceImpl implements UsersService{
 
+	@Autowired
+	private MovieDao moviedao;
 	@Autowired
 	private UsersDao dao;
 	@Override
@@ -215,4 +220,60 @@ public class UsersServiceImpl implements UsersService{
 		dao.upgrade(id);
 	}
 
+	@Override
+	public void chargePoint(HttpSession session, UsersDto dto, ModelAndView mView) {
+		//세션 영역에서 로그인된 아이디 읽어오기
+		String id=(String)session.getAttribute("id");
+		//DB 에 저장된 회원정보 얻어오기
+		UsersDto resultDto=dao.getData(id);
+		//DB 에 저장된 포인트
+		int point=resultDto.getPoint();
+		//클라이언트가 입력한 포인트
+		int newpoint =dto.getPoint();
+	
+		int sumPoint = point + newpoint;
+		
+		dto.setPoint(sumPoint);
+		//dto 에 로그인된 아이디도 넣어준다.
+		dto.setId(id);
+		//dao 를 이용해서 DB 에 수정 반영한다.
+		dao.chargePoint(dto);
+	
+		mView.addObject("id", id);
+	}
+	
+	@Override
+	public void buyMovie(HttpSession session, UsersDto dto, ModelAndView mView, MovieDto moviedto, int num,HttpServletRequest request) {
+		//세션 영역에서 로그인된 아이디 읽어오기
+				String id=(String)session.getAttribute("id");
+				//DB 에 저장된 회원정보 얻어오기
+				UsersDto resultDto=dao.getData(id);
+				//DB 에 저장된 포인트
+				int point=resultDto.getPoint();
+				//영화 가격
+				MovieDto moviedto1 = moviedao.getData(num);
+				int movieprice =moviedto1.getPrice();
+				
+				//전달 값
+				request.setAttribute("point", point);
+				request.setAttribute("price", movieprice);
+				request.setAttribute("num", num);
+				
+				if (point>=movieprice) {
+					int resultPoint = point - movieprice;
+					dto.setPoint(resultPoint);
+					//dto 에 로그인된 아이디도 넣어준다.
+					dto.setId(id);
+					//dao 를 이용해서 DB 에 수정 반영한다.
+					dao.buyMovie(dto);
+					mView.addObject("id", id);
+					request.setAttribute("newpoint", resultPoint);
+				}
+				
+	}
+
+	public Object member_login(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

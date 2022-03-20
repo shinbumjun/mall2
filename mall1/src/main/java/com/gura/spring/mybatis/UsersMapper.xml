@@ -69,4 +69,15 @@
 		WHERE id=#{id }
 	</update>
 
+	<update id="chargePoint" parameterType="usersDto">
+		UPDATE users
+		SET point= #{point }
+		WHERE id=#{id }
+	</update>
+	
+	<update id="buyMovie" parameterType="usersDto">
+		UPDATE users
+		SET point= #{point }
+		WHERE id=#{id }
+	</update>
 </mapper>

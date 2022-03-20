@@ -62,7 +62,9 @@
 	</table>
    	<ul>
    		<li><a href="">리뷰 보러가기</a></li>
-   		<li><a href="purchase.do?num=${dto.num }">구매</a></li>
+   		<c:if test="${userdto.adminNum eq '0' }">
+   			<li><a href="buy.do?num=${dto.num }">구매</a></li>
+   		</c:if>
    		<c:if test="${userdto.adminNum eq '1' }">
 			<li><a href="updateform.do?num=${dto.num }">수정</a></li>
 			<li><a href="delete.do?num=${dto.num}" onclick="return confirm('삭제하시겠습니까?');">삭제</a></li>

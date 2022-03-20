@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.movie.dto.MovieDto;
 import com.gura.spring.users.UsersDto;
 
 public interface UsersService {
@@ -25,6 +26,7 @@ public interface UsersService {
 	public void getList(HttpServletRequest request);
 	public void deleteUser2(String id, HttpServletRequest request);
 	public void upgraded(String id,HttpServletRequest request);
-
+	public void chargePoint(HttpSession session, UsersDto dto, ModelAndView mView);
+	public void buyMovie(HttpSession session, UsersDto dto, ModelAndView mView, MovieDto moviedto, int num,HttpServletRequest request);
 }
 

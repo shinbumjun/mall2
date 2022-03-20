@@ -21,35 +21,29 @@ import org.springframework.web.servlet.ModelAndView;
 import com.gura.spring.users.UsersDto;
 import com.gura.spring.users.UsersService;
 
-
 @Controller
 public class HomeController {
 
 	@Autowired
 	private UsersService service;
-	
+
 	@RequestMapping("/home")
-	public ModelAndView home(HttpServletRequest request,HttpSession session, ModelAndView mView) {
-		//DB 에서 읽어온 공지사항이라고 가정하자 
-		List<String> notice=new ArrayList<String>();
+	public ModelAndView home(HttpServletRequest request, HttpSession session, ModelAndView mView) {
+		// DB 에서 읽어온 공지사항이라고 가정하자
+		List<String> notice = new ArrayList<String>();
 		notice.add("쇼핑몰입니다");
-		//공지 사항을 request 에 담기
+		// 공지 사항을 request 에 담기
 		request.setAttribute("notice", notice);
-		//view 페이지 (jsp페이지) 로 forward 이동해서 응답 
-		
-		 if(session.getAttribute("id") !=null) {
-			 	//세션이 존재할 때만 
-			 	String id=(String)session.getAttribute("id");
-			 	//아이디 정보 받아옴
-				service.getInfo(session, mView);
-		    } 
+		// view 페이지 (jsp페이지) 로 forward 이동해서 응답
+
+		if (session.getAttribute("id") != null) {
+			// 세션이 존재할 때만
+			String id = (String) session.getAttribute("id");
+			// 아이디 정보 받아옴
+			service.getInfo(session, mView);
+		}
 		mView.setViewName("home");
 		return mView;
 
 	}
 }
-
-
-
-
-

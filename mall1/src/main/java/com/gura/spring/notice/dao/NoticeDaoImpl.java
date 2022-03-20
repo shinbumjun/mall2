@@ -41,7 +41,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	@Override
 	public NoticeDto getData(NoticeDto dto) {
 		return null;
-//		return session.selectOne("notice.getData", dto.getNum());
+		//return session.selectOne("notice.getData", dto.getNum());
 	}
 
 	@Override
