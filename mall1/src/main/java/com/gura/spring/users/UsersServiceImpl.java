@@ -272,4 +272,9 @@ public class UsersServiceImpl implements UsersService{
 				}
 				
 	}
+
+	public Object member_login(HashMap<String, String> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
