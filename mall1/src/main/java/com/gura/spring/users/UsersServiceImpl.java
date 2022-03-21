@@ -267,6 +267,7 @@ public class UsersServiceImpl implements UsersService{
 					dto.setId(id);
 					//dao 를 이용해서 DB 에 수정 반영한다.
 					dao.buyMovie(dto);
+					moviedao.buyNumCount(moviedto1);
 					mView.addObject("id", id);
 					request.setAttribute("newpoint", resultPoint);
 				}
