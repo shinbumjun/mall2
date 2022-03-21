@@ -35,7 +35,7 @@ public class QnaController {
 	@Autowired private com.gura.spring.qna.service.QnaPage page;
 	
 	//글 목록
-	@RequestMapping("/list.qna")
+	@RequestMapping("/qna/list")
 	public String list(Model model, HttpSession session, @RequestParam(defaultValue = "1") int curPage, String search, String keyword) {
 		//QNA 클릭 하면 관리자로 자동 로그인
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -55,13 +55,13 @@ public class QnaController {
 	}
 	
 	//신규 글 작성 화면 요청=========================================================
-	@RequestMapping("/new.qna")
+	@RequestMapping("/qna/new")
 	public String qna() {
 		return "qna/new";
 	}
 	
 	//신규 글 저장 처리 요청
-	@RequestMapping("/insert.qna")
+	@RequestMapping("/qna/insert")
 	public String insert(MultipartFile file, com.gura.spring.qna.service.QnaVO vo, HttpSession session) {
 		//첨부한 파일을 서버 시스템에 업로드하는 처리
 		if(!file.isEmpty()) {
@@ -73,11 +73,11 @@ public class QnaController {
 		//화면에서 입력한 정보를 DB에 저장한 후
 		service.qna_insert(vo);
 		//목록 화면으로 연결
-		return "redirect:list.qna";
+		return "redirect:/qna/list.do";
 	}
 	
 	//QNA 글 상세 화면 요청
-	@RequestMapping("/detail.qna")
+	@RequestMapping("/qna/detail")
 	public String detail(int id, Model model) {
 		//선택한 QNA 글에 대한 조회수 증가 처리
 		service.qna_read(id);
@@ -91,14 +91,14 @@ public class QnaController {
 	} //detail()
 	
 	//첨부 파일 다운로드 요청
-	@ResponseBody @RequestMapping("/download.qna")
+	@ResponseBody @RequestMapping("/qna/download")
 	public void download(int id, HttpSession session, HttpServletResponse response) {
 		com.gura.spring.qna.service.QnaVO vo = service.qna_detail(id);
 		download(vo.getFilename(), vo.getFilepath(), session, response);
 	} // download()
 	
 	//QNA 글 삭제 처리 요청
-	@RequestMapping("/delete.qna")
+	@RequestMapping("/qna/delete")
 	public String delete(int id, HttpSession session) {
 		//선택한 QNA 글에 첨부한 파일이 있다면 서버의 물리적 영역에서 해당 파일도 삭제한다
 		com.gura.spring.qna.service.QnaVO vo = service.qna_detail(id);
@@ -110,11 +110,11 @@ public class QnaController {
 		//선택한 QNA 글을 DB에서 삭제한 후 목록 화면으로 연결
 		service.qna_delete(id);
 		
-		return "redirect:list.qna";
+		return "redirect:/qna/list.do";
 	} //delete()
 	
 	//QNA 글 수정 화면 요청
-	@RequestMapping("/modify.qna")
+	@RequestMapping("/qna/modify")
 	public String modify(int id, Model model) {
 		//선택한 QNA 글 정보를 DB에서 조회해와 수정 화면에 출력
 		model.addAttribute("vo", service.qna_detail(id));
@@ -122,7 +122,7 @@ public class QnaController {
 	} //modify()
 	
 	//QNA 글 수정 처리 요청
-	@RequestMapping("/update.qna")
+	@RequestMapping("/qna/update")
 	public String update(com.gura.spring.qna.service.QnaVO vo, MultipartFile file, HttpSession session, String attach) {
 		//원래 글의 첨부 파일 관련 정보를 조회
 		com.gura.spring.qna.service.QnaVO qna = service.qna_detail(vo.getId());
@@ -157,11 +157,11 @@ public class QnaController {
 		//화면에서 변경한 정보를 DB에 저장한 후 상세 화면으로 연결
 		service.qna_update(vo);
 		
-		return "redirect:detail.qna?id=" + vo.getId();
+		return "redirect:/qna/detail?id=" + vo.getId();
 	} //update()
 	
 	//답글 쓰기 화면 요청==================================================================
-	@RequestMapping("/reply.qna")
+	@RequestMapping("/qna/reply")
 	public String reply(Model model, int id) {
 		//원글의 정보를 답글 쓰기 화면에서 알 수 있도록 한다.
 		model.addAttribute("vo", service.qna_detail(id));
@@ -170,7 +170,7 @@ public class QnaController {
 	} //reply()
 	
 	//신규 답글 저장 처리 요청==============================================================
-	@RequestMapping("/reply_insert.qna")
+	@RequestMapping("/qna/reply_insert")
 	public String reply_insert(com.gura.spring.qna.service.QnaVO vo, HttpSession session, MultipartFile file) {
 		if(!file.isEmpty()) {
 			vo.setFilename(file.getOriginalFilename());
@@ -180,7 +180,7 @@ public class QnaController {
 		
 		//화면에서 입력한 정보를 DB에 저장한 후 목록 화면으로 연결
 		service.qna_reply_insert(vo);
-		return "redirect:list.qna";
+		return "redirect:/qna/list.do";
 	} //reply_insert()
 	
 	public String upload(String category, MultipartFile file, HttpSession session) {

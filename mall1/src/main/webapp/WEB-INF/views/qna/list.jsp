@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>qna/list.jsp</title>
+<title>/qna/list.jsp</title>
 </head>
 <body>
 <h3>QnA</h3>
