@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>/views/review/detail.jsp</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
 	.content{
 		border: 1px dotted gray;
@@ -111,12 +112,13 @@
 			<strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기 
 		</p>
 	</c:if>
-	<table>
+	<table class="table table-hover">
+
 		<tr>
-			<th>글번호</th>
-			<td>${dto.num }</td>
+			<th class="table-light">글번호</th>
+			<td class="table-light">${dto.num }</td>
 		</tr>
-		<tr>
+		<tr >
 			<th>작성자</th>
 			<td>${dto.writer }</td>
 		</tr>
@@ -134,9 +136,10 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<div class="content">${dto.content }</div>
+				<div class="content" >${dto.content }</div>
 			</td>
 		</tr>
+
 	</table>
 	<ul>
 		<li><a href="list.do">목록보기</a></li>
