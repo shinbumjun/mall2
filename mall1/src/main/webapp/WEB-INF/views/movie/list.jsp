@@ -44,6 +44,10 @@
 </style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<c:if test="${adminNum eq '1' }">
    		<a href="${pageContext.request.contextPath}/movie/upload_form.do">영화 업로드 form</a><br/>

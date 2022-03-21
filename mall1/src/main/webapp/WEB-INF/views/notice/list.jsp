@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>/notice/list.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
 	.page-ui a{
 		text-decoration: none;
@@ -33,6 +34,10 @@
 </style> 
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="notice" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<c:if test="${adminNum eq 1 }">
 		<a href="/notice/insertform.do">new 공지사항</a>
