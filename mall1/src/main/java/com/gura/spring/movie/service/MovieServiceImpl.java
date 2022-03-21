@@ -289,4 +289,10 @@ public class MovieServiceImpl implements MovieService {
 		//request 에 담아준다.
 		request.setAttribute("dto", dto);
 	}
+
+
+	@Override
+	public void buyNumCount(MovieDto dto) {
+		dao.buyNumCount(dto);
+	}
 }
