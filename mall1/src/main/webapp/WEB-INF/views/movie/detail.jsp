@@ -61,7 +61,7 @@
 		</tr>
 	</table>
    	<ul>
-   		<li><a href="">리뷰 보러가기</a></li>
+   		<li><a href="${pageContext.request.contextPath}/review/list.do">리뷰 보러가기</a></li>
    		<c:if test="${userdto.adminNum eq '0' }">
    			<li><a href="buy.do?num=${dto.num }">구매</a></li>
    		</c:if>
