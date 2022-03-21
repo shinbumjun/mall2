@@ -13,10 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.buy.dao.BuyDao;
+import com.gura.spring.buy.dto.BuyDto;
 import com.gura.spring.movie.dao.MovieDao;
 import com.gura.spring.movie.dto.MovieDto;
 
@@ -24,6 +25,8 @@ import com.gura.spring.movie.dto.MovieDto;
 @Service
 public class UsersServiceImpl implements UsersService{
 
+	@Autowired
+	private BuyDao buydao;
 	@Autowired
 	private MovieDao moviedao;
 	@Autowired
@@ -252,13 +255,28 @@ public class UsersServiceImpl implements UsersService{
 				int point=resultDto.getPoint();
 				//영화 가격
 				MovieDto moviedto1 = moviedao.getData(num);
-				int movieprice =moviedto1.getPrice();
 				
+				String title=moviedto1.getTitle();
+				int movieprice =moviedto1.getPrice();
+				int buyNum=moviedto1.getBuyNum();
+				int score=(int) moviedto1.getScore();
+				String releaseDate=moviedto1.getReleaseDate();
+				int price=moviedto1.getPrice();
+				
+				BuyDto buyDto=new BuyDto();
+				buyDto.setTitle(title);
+				buyDto.setId(id);
+				buyDto.setPrice(price);
+				buyDto.setBuyNum(buyNum);
+				buyDto.setScore(score);
+				buyDto.setReleaseDate(releaseDate);
+		
+				buydao.insert(buyDto);
 				//전달 값
 				request.setAttribute("point", point);
 				request.setAttribute("price", movieprice);
 				request.setAttribute("num", num);
-				
+				request.setAttribute("id", id);
 				if (point>=movieprice) {
 					int resultPoint = point - movieprice;
 					dto.setPoint(resultPoint);

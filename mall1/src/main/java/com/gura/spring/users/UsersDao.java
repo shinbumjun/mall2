@@ -2,6 +2,8 @@ package com.gura.spring.users;
 
 import java.util.List;
 
+import com.gura.spring.movie.dto.MovieDto;
+
 public interface UsersDao {
 	public void insert(UsersDto dto);
 	public UsersDto getData(String id);

@@ -80,4 +80,5 @@
 		SET point= #{point }
 		WHERE id=#{id }
 	</update>
+	
 </mapper>

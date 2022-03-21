@@ -11,10 +11,12 @@
 <script>
 	if(${point}>=${price}){
 		alert("구매 되었습니다! \n 잔여포인트 : ${newpoint}");
+		location.href="${pageContext.request.contextPath}/users/private/purchasehistory.do"
 	}else{
 		alert("구매에 실패하였습니다 . \n 포인트가 부족합니다.");
+		location.href="${pageContext.request.contextPath}/movie/detail.do?num=${num}"
 	}
-	location.href="${pageContext.request.contextPath}/movie/detail.do?num=${num}"
+
 </script>
 </body>
 </html>
