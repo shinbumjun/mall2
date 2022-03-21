@@ -6,9 +6,24 @@
 <head>
 <meta charset="UTF-8">
 <title>users/management.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" >
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
+	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item">
+            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
+         </li>
+         <li class="breadcrumb-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
+         </li>
+         <li class="breadcrumb-item active">
+			<a class="nav-link disabled" href="">유저관리</a>
+		</li>
+      </ul>
+   </nav>
 	<h1>회원목록입니다.</h1>
 	<table>
 		<thead>
@@ -17,6 +32,7 @@
 				<th>이메일</th>
 				<th>등록일</th>
 				<th>구분</th>
+				<th>보유포인트</th>
 				<th>회원탈퇴</th>
 				<th>권한부여</th>
 			</tr>
@@ -28,6 +44,7 @@
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
 					<td>${tmp.adminNum }</td>
+					<td>${tmp.point }</td>
 					<td>
 					<c:if test="${tmp.id ne 'manager' }">
 						<a href="javascript:deleteConfirm('${tmp.id }')">탈퇴</a>
