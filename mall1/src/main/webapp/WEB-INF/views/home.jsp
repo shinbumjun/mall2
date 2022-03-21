@@ -41,7 +41,7 @@
 	<br />
 	<a href="${pageContext.request.contextPath}/movie/list.do">영화 목록</a>
 	<br />
-	<a href="">리뷰</a>
+	<a href="${pageContext.request.contextPath}/review/list.do">리뷰 목록</a>
 	<br />
 	<a href="">문의사항</a>
 	<br />
