@@ -10,6 +10,19 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
+      <ul class="breadcrumb">
+         <li class="breadcrumb-item">
+            <a class="nav-link" href="${pageContext.request.contextPath }/">Home</a>
+         </li>
+         <li class="breadcrumb-item ">
+			<a class="nav-link" href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
+		</li>
+		<li class="breadcrumb-item active">
+			<a class="nav-link disabled" href="">구매내역</a>
+		</li>
+      </ul>
+   </nav>
 		<h1>구매내역입니다.</h1>
 	<table>
 		<thead>
