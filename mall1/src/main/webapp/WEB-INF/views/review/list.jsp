@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/notice/list.jsp</title>
+<title>/views/review/list.jsp</title>
 <style>
 	.page-ui a{
 		text-decoration: none;
@@ -30,16 +30,13 @@
 		float: left;
 		padding: 5px;
 	}
-</style> 
+</style>
 </head>
 <body>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <div class="container">
-	<c:if test="${adminNum eq 1 }">
-		<a href="/notice/insertform.do">new 공지사항</a>
-	</c:if>
-	<h1>공지사항 목록 입니다.</h1>
-	<a href="${pageContext.request.contextPath }/">Home</a>
-	<table>
+	<a href="private/insertform.do">리뷰작성</a>
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>글번호</th>
@@ -63,7 +60,6 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	</div>
 	<div class="page-ui clearfix">
 		<ul>
 			<c:if test="${startPageNum ne 1 }">
@@ -89,10 +85,10 @@
 				</li>
 			</c:if>
 		</ul>
-	
-	
+	</div>
+
 	<div style="clear:both;"></div>
-	
+
 	<form action="list.do" method="get"> 
 		<label for="condition">검색조건</label>
 		<select name="condition" id="condition">
@@ -111,15 +107,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

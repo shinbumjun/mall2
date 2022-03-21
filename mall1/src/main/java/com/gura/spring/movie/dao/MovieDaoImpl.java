@@ -68,5 +68,10 @@ public class MovieDaoImpl implements MovieDao {
 	public void update(MovieDto dto) {
 		session.update("movie.update", dto);
 	}
+
+	@Override
+	public void buyNumCount(MovieDto dto) {
+		session.update("movie.buyNumCount", dto);
+	}
 	
 }

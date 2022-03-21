@@ -54,12 +54,12 @@
 	</table>
 	<ul>
 		<li><a href="list.do">목록보기</a></li>
-		<%-- <c:if test="${dto.writer eq id }"> --%>
+		<c:if test="${adminNum eq 1 }">
 			<li><a href="/notice/updateform.do?num=${dto.num }">수정</a></li>
 			<li><a href="/notice/delete.do?num=${dto.num }">삭제</a></li>
-		<%-- </c:if> --%>
+			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
+		</c:if> 
 	</ul>
-
 
 </div>
 </body>

@@ -28,5 +28,5 @@ public interface MovieService {
 	public void updateContent(MovieDto dto);
 	public void deleteContent(int num, HttpServletRequest request);
 	public void getData(HttpServletRequest request);
-
+	public void buyNumCount(MovieDto dto);
 }
