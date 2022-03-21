@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%--네비 바--%>
+<%--네비바--%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="${pageContext.request.contextPath}/">에이콘 무비</a>
+    <a class="navbar-brand" href="${pageContext.request.contextPath}/">Acorn MOVIE</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,9 +23,15 @@
           <a class="nav-link" href="#">문의사항</a>
         </li>
       </ul>
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="영화 검색" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+
       <form class="d-flex" action="movie/list.do"  method="get">
         <input class="form-control me-2" type="search" id="keyword" name="keyword" placeholder="영화 검색" aria-label="Search" value="${keyword }">
         <button class="btn btn-outline-success" type="submit">Search</button>
+
       </form>
     </div>
   </div>
