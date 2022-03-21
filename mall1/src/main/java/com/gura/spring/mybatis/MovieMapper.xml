@@ -57,4 +57,10 @@
 		SET title=#{title}, category=#{category}, content=#{content}, price=#{price}, releaseDate=#{releaseDate}
 		WHERE num=#{num}
 	</update>
+	
+	<update id="buyNumCount" parameterType="movieDto">
+		UPDATE board_movie
+		SET buyNum=buyNum +1
+		WHERE num=#{num}
+	</update>
 </mapper>

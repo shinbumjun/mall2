@@ -17,4 +17,6 @@ public interface MovieDao {
 	public void delete(int num);
 	//글 수정
 	public void update(MovieDto dto);
+	//영화구매 카운트 추가
+	public void buyNumCount(MovieDto dto);
 }

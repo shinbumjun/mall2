@@ -9,7 +9,7 @@
 >상품 게시판 : https://github.com/shinbumjun/mall2/issues/9#issue-1173167920
 
 신범준
->리뷰 : 
+>리뷰 : https://github.com/shinbumjun/mall2/issues/25#issue-1174870435
 
 문세현
 >문의사항 :
