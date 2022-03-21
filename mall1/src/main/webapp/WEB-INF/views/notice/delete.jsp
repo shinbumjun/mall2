@@ -10,7 +10,7 @@
 <div class="container">
 	<h1>알림</h1>
 	<p>
-		<%-- <strong>${requestScope.id }</strong> --%> 글 삭제 됬습니다.
+		<%-- <strong>${requestScope.id }</strong> 글 삭제 됬습니다. --%>
 		<a href="${pageContext.request.contextPath}/home.do">인덱스로 가기</a>
 	</p>
 </div>
