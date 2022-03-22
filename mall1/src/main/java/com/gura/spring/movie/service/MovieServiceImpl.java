@@ -194,9 +194,13 @@ public class MovieServiceImpl implements MovieService {
 		//ModelAndView 에 가져온 MovieDto 를 담는다.
 		mView.addObject("dto", dto);
 		
-		String id=(String)session.getAttribute("id");
-		UsersDto userdto=userdao.getData(id);
-		mView.addObject("userdto",userdto);
+		
+		if(session.getAttribute("id") !=null) {
+			String id=(String)session.getAttribute("id");
+			UsersDto userdto=userdao.getData(id);
+			mView.addObject("userdto",userdto);
+		}
+		
 	}
 	
 	@Override
