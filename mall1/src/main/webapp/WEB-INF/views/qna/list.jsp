@@ -126,5 +126,10 @@
 			<li><a href="${pageContext.request.contextPath }/qna/reply.do">답변 달기</a></li>
 		</c:if>	
 	</ul>		
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>
