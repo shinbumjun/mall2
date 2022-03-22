@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
@@ -9,7 +9,7 @@
 <title>qna/detail.jsp</title>
 </head>
 <body>
-<h3>QNA글 조회</h3>
+<h3>Q&A 글 조회</h3>
 <table>
 	<tr>
 		<th class="w-px160">제목</th>
@@ -31,9 +31,9 @@
 		<th>첨부 파일</th>
 		<td colspan="5" class="left">
 			${vo.filename }
-			<core:if test="${!empty vo.filename }">
+			<c:if test="${!empty vo.filename }">
 				<a href="download.do?id=${vo.id }" style="margin-left: 15px"><i class="fas fa-download font-img"></i></a>
-			</core:if>
+			</c:if>
 		</td>
 	</tr>
 </table>
@@ -41,14 +41,11 @@
 <div class="btnSet">
 	<a class="btn-fill" href="list.do">목록으로</a>
 	<!-- 관리자인 경우 수정 삭제 가능 -->
-	<core:if test="${login_info.admin eq 'Y' }">
+	<c:if test="${adminNum eq 1 }">
 		<a class="btn-fill" href="modify.do?id=${vo.id }">수정</a>
-		<a class="btn-fill" onclick="if(confirm('정말 삭제하시겠습니까?')) { href='delete.qna?id=${vo.id }' }">삭제</a>
-	</core:if>
-	<!-- 로그인이 된 경우 답글 쓰기 가능 -->
-	<core:if test="${!empty login_info }">
+		<a class="btn-fill" onclick="if(confirm('정말 삭제하시겠습니까?')) { href='delete.do?id=${vo.id }' }">삭제</a>
 		<a class="btn-fill" href="reply.do?id=${vo.id }">답글 쓰기</a>
-	</core:if>
+	</c:if>
 </div>
 </body>
 </html>
