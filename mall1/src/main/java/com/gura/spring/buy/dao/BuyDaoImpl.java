@@ -39,6 +39,11 @@ public class BuyDaoImpl implements BuyDao{
 	public BuyDto getData(int num) {
 		return session.selectOne("buy.getData", num);
 	}
+
+	@Override
+	public int getBuyCount(BuyDto dto) {
+		return session.selectOne("buy.getBuyCount",dto);
+	}
 	
 	
 

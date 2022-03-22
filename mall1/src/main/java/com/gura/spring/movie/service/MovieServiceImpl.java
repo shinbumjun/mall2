@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.buy.dao.BuyDao;
+import com.gura.spring.buy.dto.BuyDto;
 import com.gura.spring.exception.NotDeleteException;
 import com.gura.spring.movie.dao.MovieDao;
 import com.gura.spring.movie.dto.MovieDto;
@@ -27,6 +29,9 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Autowired
 	private UsersDao userdao;
+	
+	@Autowired
+	private BuyDao buydao;
 	
 	//업데이트
 	@Override
@@ -188,7 +193,7 @@ public class MovieServiceImpl implements MovieService {
 	
 	//영화 목록 detail 페이지에 필요한 data를 ModelAndView 에 저장
 	@Override
-	public void getDetail(ModelAndView mView,HttpSession session, int num) {
+	public void getDetail(HttpServletRequest request,ModelAndView mView,HttpSession session, int num) {
 		//dao 로 해당 게시글 num 에 해당하는 데이터(dto)를 가져온다.
 		MovieDto dto = dao.getData(num);
 		//ModelAndView 에 가져온 MovieDto 를 담는다.
@@ -199,6 +204,10 @@ public class MovieServiceImpl implements MovieService {
 			String id=(String)session.getAttribute("id");
 			UsersDto userdto=userdao.getData(id);
 			mView.addObject("userdto",userdto);
+			
+			BuyDto buydto = new BuyDto();
+			int buyCount = buydao.getBuyCount(buydto);
+			request.setAttribute("buyCount", buyCount);
 		}
 		
 	}
@@ -214,8 +223,5 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 
-	@Override
-	public void buyNumCount(MovieDto dto) {
-		dao.buyNumCount(dto);
-	}
+
 }

@@ -13,4 +13,5 @@ public interface BuyDao {
 	public void insert(BuyDto dto);
 	public BuyDto getData(int num);
 	public void delete(int num);
+	public int getBuyCount(BuyDto buydto);
 }
