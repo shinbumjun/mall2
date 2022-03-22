@@ -72,7 +72,7 @@
 				<c:if test="${dto.adminNum eq 1 }">
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/mypage.do">내 정보 관리</a></li>
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/management.do">유저관리</a></li>
-					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/users_product">상품구매관리</a></li>
+					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/users_product.do">환불관리</a></li>
 				</c:if>
 			</ul>
 		</div>
