@@ -8,7 +8,7 @@
 </head>
 <body>
 <h3>QnA</h3>
-<form method="post" action="list.qna" id="list">
+<form method="post" action="list.do" id="list">
 	<input type="hidden" name="curPage" value="1" />
 	
 	<div id="list-top">
@@ -49,7 +49,7 @@
 				<core:forEach var="i" begin="1" end="${vo.indent }">
 					${i eq vo.indent ? "<img src='img/re.gif' />" : "&nbsp;&nbsp;" }
 				</core:forEach>
-				<a href="detail.qna?id=${vo.id }" >${vo.title }</a>
+				<a href="detail.do?id=${vo.id }" >${vo.title }</a>
 			</td>
 			<td>${vo.writer }</td>
 			<td>${vo.writedate }</td>

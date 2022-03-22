@@ -9,20 +9,20 @@
 	<select id="detail" resultType="QnaVO">
 		SELECT q.*, (SELECT id FROM users m WHERE m.id = q.writer) id
 		FROM qna q
-		WHERE id=#{id }
+		WHERE no=#{no }
 	</select>
 	
 	<update id="read">
-		UPDATE qna SET readcnt = readcnt + 1 WHERE id=#{id }	
+		UPDATE qna SET readcnt = readcnt + 1 WHERE no=#{no }	
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM qna WHERE id=#{id }
+		DELETE FROM qna WHERE no=#{no }
 	</delete>
 	
 	<update id="update">
 		UPDATE qna SET title = #{title }, content = #{content }, filename = #{filename, jdbcType=VARCHAR }, filepath = #{filepath, jdbcType=VARCHAR }
-		WHERE id = #{id }
+		WHERE no = #{no }
 	</update>
 	
 	<select id="list" resultType="QnaVO">
