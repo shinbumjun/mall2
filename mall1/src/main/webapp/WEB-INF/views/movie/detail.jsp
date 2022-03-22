@@ -46,7 +46,7 @@
 		</tr>
 		<tr>
 			<th>가격</th>
-			<td>${dto.price } 캐시</td>
+			<td>${dto.price } ⓟ</td>
 		</tr>
 		<c:if test="${userdto.adminNum eq '1' }">
 		<tr>

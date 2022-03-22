@@ -41,6 +41,12 @@
 	   	*/
 		object-fit: contain;	
    	}
+  
+	a { 
+	text-decoration:none;
+	color:black;
+	 } 
+</style> 
 </style>
 </head>
 <body>
@@ -78,7 +84,9 @@
 	               		</div>
             		</a>
             		<div class="card-body">
-						<p class="card-text"><strong>${tmp.title }</strong></p>
+            			<a href="${pageContext.request.contextPath}/movie/detail.do?num=${tmp.num}">
+							<p class="card-text" align="center" style="border: 5px double #DCDCDC; padding: 0.4em; border-radius: 5em;"><strong>${tmp.title }</strong></p>
+						</a>
 						<c:choose>
 							<c:when test="${tmp.score eq 0.0 }">
 								<p class="card-text"><strong>★</strong> 별점 없음</p>
@@ -87,7 +95,7 @@
 								<p class="card-text"><strong>★${tmp.score }</strong></p>
 							</c:otherwise>
 						</c:choose>
-               			<p class="card-text">구매 <strong>${tmp.price }</strong>캐시</p>
+               			<p class="card-text">구매 <strong>${tmp.price }</strong> ⓟ	</p>
                
             		</div>
          		</div>
