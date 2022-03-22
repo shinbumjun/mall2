@@ -85,7 +85,7 @@
             		</a>
             		<div class="card-body">
             			<a href="${pageContext.request.contextPath}/movie/detail.do?num=${tmp.num}">
-							<p class="card-text" align="center" style="border: 5px double #DCDCDC; padding: 0.4em; border-radius: 5em;"><strong>${tmp.title }</strong></p>
+							<p class="card-text" align="center" style="border: 5px double #DCDCDC; padding: 0.4em; border-radius: 5em; margin-bottom:1em"><strong>${tmp.title }</strong></p>
 						</a>
 						<c:choose>
 							<c:when test="${tmp.score eq 0.0 }">
