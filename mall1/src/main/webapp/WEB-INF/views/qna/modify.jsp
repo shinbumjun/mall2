@@ -12,7 +12,7 @@
 1. method="post"
 2. enctype="multipart/form-data"
  -->
-<form action="update.qna" method="post" enctype="multipart/form-data">
+<form action="update.do" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="${vo.id }"/>
 	<input type="hidden" name="attach" />
 	<table>
