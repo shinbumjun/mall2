@@ -68,7 +68,7 @@
 				<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>	
 			</c:if>
 			<c:if test="${ buyCount ne '0' }">
-				<input class="btn btn-primary" type="button" value="보유중">
+				<a href="/users/private/purchasehistory.do"><input class="btn btn-primary" type="button" value="보유중"></a>
 			</c:if>
    		</c:if>
    		<c:if test="${userdto.adminNum eq '1' }">

@@ -199,13 +199,16 @@ public class MovieServiceImpl implements MovieService {
 		//ModelAndView 에 가져온 MovieDto 를 담는다.
 		mView.addObject("dto", dto);
 		
-		
+	
 		if(session.getAttribute("id") !=null) {
 			String id=(String)session.getAttribute("id");
 			UsersDto userdto=userdao.getData(id);
 			mView.addObject("userdto",userdto);
+			String title=request.getParameter("title");
 			
 			BuyDto buydto = new BuyDto();
+			buydto.setId(id);
+			buydto.setTitle(dto.getTitle());
 			int buyCount = buydao.getBuyCount(buydto);
 			request.setAttribute("buyCount", buyCount);
 		}
