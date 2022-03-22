@@ -32,22 +32,22 @@
 		<td colspan="5" class="left">
 			${vo.filename }
 			<core:if test="${!empty vo.filename }">
-				<a href="download.qna?id=${vo.id }" style="margin-left: 15px"><i class="fas fa-download font-img"></i></a>
+				<a href="download.do?id=${vo.id }" style="margin-left: 15px"><i class="fas fa-download font-img"></i></a>
 			</core:if>
 		</td>
 	</tr>
 </table>
 
 <div class="btnSet">
-	<a class="btn-fill" href="list.qna">목록으로</a>
+	<a class="btn-fill" href="list.do">목록으로</a>
 	<!-- 관리자인 경우 수정 삭제 가능 -->
 	<core:if test="${login_info.admin eq 'Y' }">
-		<a class="btn-fill" href="modify.qna?id=${vo.id }">수정</a>
+		<a class="btn-fill" href="modify.do?id=${vo.id }">수정</a>
 		<a class="btn-fill" onclick="if(confirm('정말 삭제하시겠습니까?')) { href='delete.qna?id=${vo.id }' }">삭제</a>
 	</core:if>
 	<!-- 로그인이 된 경우 답글 쓰기 가능 -->
 	<core:if test="${!empty login_info }">
-		<a class="btn-fill" href="reply.qna?id=${vo.id }">답글 쓰기</a>
+		<a class="btn-fill" href="reply.do?id=${vo.id }">답글 쓰기</a>
 	</core:if>
 </div>
 </body>
