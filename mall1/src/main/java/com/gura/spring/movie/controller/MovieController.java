@@ -51,46 +51,6 @@ public class MovieController {
 		return new ModelAndView("movie/update");
 	}
 	
-	//ajax 요청에 대해 Movie 하단 페이징 처리에 필요한 데이터 리턴하는 메소드
-	@RequestMapping("/api/movie/paging")
-	@ResponseBody
-	public Map<String, Object> paging(@RequestParam int pageNum){
-		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=8;
-		//하단 페이지를 몇개씩 표시할 것인지
-		final int PAGE_DISPLAY_COUNT=5;
-		
-		//하단 시작 페이지 번호 
-		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT) * PAGE_DISPLAY_COUNT;
-		//하단 끝 페이지 번호
-		int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
-	   
-		//전체 row 의 갯수
-		int totalRow = dao.getCount();
-		//전체 페이지의 갯수 구하기
-		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
-		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
-		if(endPageNum > totalPageCount){
-			endPageNum = totalPageCount; //보정해 준다. 
-		}
-		//json 문자열로 응답할 데이터를 일단 Map 에 담는다.
-		Map<String, Object> map=new HashMap<>();
-		map.put("startPageNum", startPageNum);
-		map.put("endPageNum", endPageNum);
-		map.put("totalPageCount", totalPageCount);
-		// Map 을 리턴해주면 Map 에 담긴 데이터가 
-		// {"startPageNum": x, "endPageNum":x, "totalPageCount":x} 의 json 문자열로 
-		// 변환되어서 응답된다. 
-		return map;
-	}
-	
-	//ajax 요청에 대해 Movie 목록을 출력할 컨트롤러 메소드 
-	@RequestMapping("/api/movie/list")
-	@ResponseBody 
-	public List<MovieDto> getList2(HttpServletRequest request,ModelAndView mView,HttpSession session){
-		
-		return service.getList2(request,session);
-	}
 	
 	//movie list 페이지로 이동
 	@RequestMapping(value = "/movie/list")
@@ -120,36 +80,6 @@ public class MovieController {
 		return new ModelAndView("movie/upload");
 	}
 	
-	//movie 사진 업로드 form - ajax form
-	@RequestMapping(value = "/movie/ajax_form")
-	public ModelAndView authAjaxForm(HttpServletRequest request) {
-		
-		return new ModelAndView("movie/ajax_form");
-	}
-
-	//movie 사진 업로드 - ajax
-	//json 으로 return 할 것
-	@RequestMapping(value = "/movie/ajax_upload")
-	@ResponseBody
-	public Map<String, Object> authAjaxUpload(MovieDto dto, HttpServletRequest request){		
-		//form 에서 dto 로 데이터 받아옴
-		//dto : MultipartFile image 를 가지고 있다.
-		//request : imagePath 만드는데 사용, session 영역의 id 가져오는데 사용
-		//return : { "imagePath" : "/upload/123456img_name.png" } 형식의 JSON 응답
-		return service.uploadAjaxImage(dto, request);
-	}
-	
-	//movie 사진 업로드 - ajax
-	//json 으로 return 할 것
-	@RequestMapping(value = "/movie/ajax_upload2")
-	@ResponseBody
-	public Map<String, Object> testAjaxUpload2(MovieDto dto, HttpServletRequest request){		
-		//form 에서 dto 로 데이터 받아옴
-		//dto : MultipartFile image 를 가지고 있다.
-		//request : imagePath 만드는데 사용, session 영역의 id 가져오는데 사용
-		//return : { "imagePath" : "/upload/123456img_name.png" } 형식의 JSON 응답
-		return service.uploadAjaxImage(dto, request);
-	}
 	
 	//imagePath 구성 X -> dto 로 imagePath 를 받아서 DB 에 저장하기
 	@RequestMapping(value = "/movie/insert")

@@ -62,8 +62,7 @@
 	</table>
    	<ul>
 
-   		<li><a href="${pageContext.request.contextPath}/review/detail.do?num=${dto.num }">리뷰 보러가기</a></li>
-
+   		<a href="${pageContext.request.contextPath}/review/detail.do?num=${dto.num }"><input class="btn btn-secondary" type="button"  value="이 영화 리뷰 보기"></a>
    		<c:if test="${userdto.adminNum eq '0' }">
    			<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>
    		</c:if>
