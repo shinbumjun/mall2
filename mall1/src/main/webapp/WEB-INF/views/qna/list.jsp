@@ -140,7 +140,21 @@
 			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
 		</p>
 	</c:if>
+<<<<<<< HEAD
 	<!-- footer -->
+=======
+	<ul>
+		<c:if test="${adminNum eq 0 }">
+			<li><a href="${pageContext.request.contextPath }/qna/new.do">글쓰기</a></li>
+			<li><a href="${pageContext.request.contextPath }/qna/modify.do">수정</a></li>
+			<li><a href="${pageContext.request.contextPath }/qna/delete.do">삭제</a></li>
+		</c:if> 
+		<c:if test="${adminNum eq 1 }">
+			<li><a href="${pageContext.request.contextPath }/qna/reply.do">답변 달기</a></li>
+		</c:if>	
+	</ul>		
+<!-- footer -->
+>>>>>>> e96264e6372fa2bcd070da912eb739785681625e
 <div class="text-center">
 	<hr />
 	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>

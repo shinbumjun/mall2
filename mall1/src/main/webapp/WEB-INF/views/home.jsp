@@ -152,6 +152,11 @@
 	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
 </div>
 </div>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 <script>
 	document.querySelector("#chargeBtn").addEventListener("click", function(e){
 		let chargePoint = prompt("얼마를 충전하시겠습니까?","");
