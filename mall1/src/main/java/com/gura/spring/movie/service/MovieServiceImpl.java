@@ -89,7 +89,7 @@ public class MovieServiceImpl implements MovieService {
 		if(category==null){ 
 			category="";
 		}
-		
+	
 		//특수기호를 인코딩한 키워드를 미리 준비한다. 
 		String encodedK=URLEncoder.encode(keyword);
 	
@@ -137,6 +137,7 @@ public class MovieServiceImpl implements MovieService {
 			UsersDto userdto = userdao.getData(id);
 			request.setAttribute("adminNum", userdto.getAdminNum());
 		}
+		
 	}
 	
 	//이미지 추가 - 이미지 업로드 & db 저장

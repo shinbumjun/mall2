@@ -18,7 +18,7 @@
 		FROM	
 			(SELECT result1.*, ROWNUM as rnum
 			FROM
-				(SELECT num, title,score, price, imagePath, regdate
+				(SELECT num, title,score, price, imagePath, regdate, category
 				FROM board_movie
 				<include refid="searchCondition"/>
 				ORDER BY num DESC) result1)

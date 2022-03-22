@@ -48,32 +48,26 @@
 <jsp:include page="/include/navbar.jsp">
 	<jsp:param value="movie" name="thisPage"/>
 </jsp:include>
+</br>
 <div class="container">
-	<c:if test="${adminNum eq '1' }">
-   		<a href="${pageContext.request.contextPath}/movie/upload_form.do">영화 업로드 form</a><br/>
-   		<a href="${pageContext.request.contextPath}/movie/ajax_form.do">영화 업로드 ajax</a>
-   	</c:if>
-   	
-   	<h1>영화 목록</h1>
    	
    	<div style="clear:both;"></div>
-	
-	<form action="list.do" method="get"> 
-		<input type="text" id="keyword" name="keyword" placeholder="영화 제목 검색 .." value="${keyword }"/>
-		<button type="submit">검색</button>
-	</form>	
+
 	<form action="list.do" method="get">
-		<button name="category" value="">전체</button>
-		<button name="category" value="액션">액션</button>
-		<button name="category" value="코미디">코미디</button>
-		<button name="category" value="멜로">멜로</button>
-		<button name="category" value="공포/스릴러">공포/스릴러</button>
-		<button name="category" value="애니메이션">애니메이션</button>
-		<button name="category" value="SF/판타지">SF/판타지</button>
-		<button name="category" value="다큐멘터리">다큐멘터리</button>
+		<button class="btn btn-secondary" name="category" value="" >전체</button>
+		<button class="btn btn-secondary" name="category" value="액션" >액션</button>
+		<button class="btn btn-secondary" name="category" value="코미디">코미디</button>
+		<button class="btn btn-secondary" name="category" value="멜로">멜로</button>
+		<button class="btn btn-secondary" name="category" value="공포/스릴러">공포/스릴러</button>
+		<button class="btn btn-secondary" name="category" value="애니메이션">애니메이션</button>
+		<button class="btn btn-secondary" name="category" value="SF/판타지">SF/판타지</button>
+		<button class="btn btn-secondary" name="category" value="다큐멘터리">다큐멘터리</button>
+		<c:if test="${adminNum eq '1' }">
+   			<a href="${pageContext.request.contextPath}/movie/upload_form.do"><input class="btn btn-primary" type="button" value="영화 업로드"></a><br/>
+   		</c:if>
 	</form>
 
-	
+	</br>
    	<div class="row">
 		<c:forEach var="tmp" items="${list }">
 			<div class="col-6 col-md-4 col-lg-3">
