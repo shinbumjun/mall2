@@ -16,43 +16,43 @@ public class QnaDao implements QnaService {
 
 	@Override
 	public void qna_insert(QnaVO vo) {
-		sql.insert("qna.mapper.insert", vo);
+		sql.insert("qna.insert", vo);
 	}
 
 	@Override
 	public List<QnaVO> qna_list() {
-		return sql.selectList("qna.mapper.list");
+		return sql.selectList("qna.list");
 	}
 
 	@Override
 	public QnaVO qna_detail(int id) {
-		return sql.selectOne("qna.mapper.detail", id);
+		return sql.selectOne("qna.detail", id);
 	}
 
 	@Override
 	public void qna_update(QnaVO vo) {
-		sql.update("qna.mapper.update", vo);
+		sql.update("qna.update", vo);
 	}
 
 	@Override
 	public void qna_delete(int id) {
-		sql.delete("qna.mapper.delete", id);
+		sql.delete("qna.delete", id);
 	}
 
 	@Override
 	public void qna_read(int id) {
-		sql.update("qna.mapper.read", id);
+		sql.update("qna.read", id);
 	}
 
 	@Override
 	public void qna_reply_insert(QnaVO vo) {
-		sql.insert("qna.mapper.reply_insert", vo);
+		sql.insert("qna.reply_insert", vo);
 	}
 
 	@Override
 	public QnaPage qna_list(QnaPage page) {
-		page.setTotalList((Integer) sql.selectOne("qna.mapper.totalList", page));
-		page.setList(sql.selectList("qna.mapper.list", page));
+		page.setTotalList((Integer) sql.selectOne("qna.totalList", page));
+		page.setList(sql.selectList("qna.list", page));
 		
 		return page;
 	}

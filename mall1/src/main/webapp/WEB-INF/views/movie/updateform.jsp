@@ -7,10 +7,26 @@
 <title>/views/movie/updateform.jsp</title>
 <%-- bootstrap 읽어오기 --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<style>
+h2{
+  padding: 10px;
+  /*  상자내무 간격 사방 10  */
+  border:5px double #848484;
+  /*  라인 색상,굵기,선종류 설정가능  */
+  border-radius:10px;
+  /*  테두리 둥근처리 숫자로 조정가능  */
+  text-align: center;
+}
+</style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
 <div class="container">
-	<h1>영화 수정</h1>
+	<h2>영화 정보 수정</h2>
 	<form action="update.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }" />
 		<input type="hidden" name="imagePath" id="imagePath" value="${dto.imagePath }"/>
@@ -48,8 +64,8 @@
 			<textarea class="form-control" name="content" id="content" rows="10">${dto.content }</textarea>
 		</div>
 		
-		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정확인</button>
-		<button class="btn btn-primary" type="reset">취소</button>
+		<button class="btn btn-secondary" type="submit" onclick="submitContents(this);">수정</button>
+		<button class="btn btn-secondary" type="reset">취소</button>
 	</form>
 </div>
 <!-- SmartEditor 에서 필요한 javascript 로딩  -->

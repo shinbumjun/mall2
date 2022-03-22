@@ -20,7 +20,7 @@
           <a class="nav-link ${param.thisPage eq 'movie' ? 'active' : '' }" href="${pageContext.request.contextPath}/movie/list.do" tabindex="-1" aria-disabled="true">영화 목록</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">문의사항</a>
+          <a class="nav-link" ${param.thisPage eq 'movie' ? 'active' : '' }" href="${pageContext.request.contextPath}/qna/list.do" tabindex="-1" aria-disabled="true">문의사항</a>
         </li>
       </ul>
 

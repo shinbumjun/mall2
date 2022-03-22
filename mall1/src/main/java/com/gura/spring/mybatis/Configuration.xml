@@ -11,6 +11,7 @@
 		<typeAlias type="com.gura.spring.buy.dto.BuyDto" alias="buyDto"/>	
 		<typeAlias type="com.gura.spring.review.dto.ReviewDto" alias="reviewDto"/>
 		<typeAlias type="com.gura.spring.review.dto.ReviewCommentDto" alias="reviewCommentDto"/>
+		<typeAlias type="com.gura.spring.qna.service.QnaVO" alias="QnaVO"/>
 	</typeAliases>
 	<!-- 필요한 Mapper xml 등록하기  -->
 	<mappers>
@@ -20,5 +21,6 @@
 		<mapper resource="com/gura/spring/mybatis/BuyMapper.xml"/>	
 		<mapper resource="com/gura/spring/mybatis/ReviewMapper.xml"/>
 		<mapper resource="com/gura/spring/mybatis/ReviewCommentMapper.xml"/>
+		<mapper resource="com/gura/spring/mybatis/QnaMapper.xml"/>
 	</mappers>
 </configuration>

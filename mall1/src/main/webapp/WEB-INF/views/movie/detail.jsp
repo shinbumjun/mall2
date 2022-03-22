@@ -11,18 +11,12 @@
 
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
 <div class="container">
-   <nav>
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item">
-            <a href="${pageContext.request.contextPath }/movie/list.do">영화 목록</a>
-         </li>
-         <li class="breadcrumb-item active">상세보기</li>
-      </ul>
-   </nav>
    <div class="row">
    		<img class="col-sm-6" src="${pageContext.request.contextPath}${dto.imagePath}"/>
  		<div class="col-sm-6">
@@ -54,6 +48,12 @@
 			<th>가격</th>
 			<td>${dto.price } 캐시</td>
 		</tr>
+		<c:if test="${userdto.adminNum eq '1' }">
+		<tr>
+			<th>구매수</th>
+			<td>${dto.buyNum }</td>
+		</tr>
+		</c:if>
 		<tr>
 			<td colspan="2">
 				<div class="content">${dto.content }</div>
@@ -61,15 +61,17 @@
 		</tr>
 	</table>
    	<ul>
+
    		<li><a href="${pageContext.request.contextPath}/review/detail.do?num=${dto.num }">리뷰 보러가기</a></li>
+
    		<c:if test="${userdto.adminNum eq '0' }">
-   			<li><a href="buy.do?num=${dto.num }">구매</a></li>
+   			<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>
    		</c:if>
    		<c:if test="${userdto.adminNum eq '1' }">
-   			<li>영화 구매 횟수 : ${dto.buyNum }</li>
-			<li><a href="updateform.do?num=${dto.num }">수정</a></li>
-			<li><a href="delete.do?num=${dto.num}" onclick="return confirm('삭제하시겠습니까?');">삭제</a></li>
+			<a href="updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button"  value="수정"></a>
+			<a href="delete.do?num=${dto.num}" onclick="return confirm('삭제하시겠습니까?');"><input class="btn btn-secondary" type="button" value="삭제"></a>
 		</c:if>
+		<a href="list.do"><input class="btn btn-secondary" type="button" value="목록"></a>
    	</ul>
       
    </div>
