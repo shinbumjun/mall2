@@ -7,7 +7,7 @@
 	</insert>
 	
 	<select id="detail" resultType="QnaVO">
-		SELECT q.*, (SELECT name FROM member m WHERE m.id = q.writer) name
+		SELECT q.*, (SELECT id FROM users m WHERE m.id = q.writer) id
 		FROM qna q
 		WHERE id=#{id }
 	</select>
@@ -27,10 +27,14 @@
 	
 	<select id="list" resultType="QnaVO">
 		SELECT *
-		FROM (SELECT ROWNUM no, q.*, (SELECT name FROM member m WHERE m.id = writer) name
-			FROM (SELECT * FROM qna <include refid="search_where" /> ORDER BY root, step DESC) q
-			ORDER BY no DESC) q
-		WHERE no BETWEEN #{beginList } and #{endList }
+		FROM 
+			(SELECT q.*, ROWNUM rnum, (SELECT id FROM users m WHERE m.id = q.writer) id
+				FROM
+				(SELECT * FROM qna
+				<include refid="search_where" /> 
+				ORDER BY root, step DESC) q
+				ORDER BY rnum DESC)
+		WHERE rnum BETWEEN #{beginList } and #{endList }
 	</select>
 	
 	<select id="totalList" resultType="integer">
@@ -65,6 +69,6 @@
 	</sql>
 	
 	<sql id="search_writer">
-		writer IN (SELECT id FROM member WHERE name LIKE '%' || #{keyword } || '%')
+		writer IN (SELECT id FROM users WHERE id LIKE '%' || #{keyword } || '%')
 	</sql>
 </mapper>
