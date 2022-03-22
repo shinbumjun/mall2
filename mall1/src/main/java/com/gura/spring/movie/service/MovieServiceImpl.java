@@ -37,7 +37,6 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
-
 		dao.delete(num);
 	}
 	
@@ -175,7 +174,7 @@ public class MovieServiceImpl implements MovieService {
 		dao.insert(dto);
 	}
 	
-	
+
 	@Override
 	public void insert(MovieDto dto, HttpServletRequest request) {
 		//dto : caption, imagePath 가지고 있다.
@@ -199,9 +198,7 @@ public class MovieServiceImpl implements MovieService {
 		UsersDto userdto=userdao.getData(id);
 		mView.addObject("userdto",userdto);
 	}
-
 	
-
 	@Override
 	public void getData(HttpServletRequest request) {
 		//수정할 글번호

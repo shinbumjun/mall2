@@ -51,6 +51,7 @@ public class MovieController {
 		return new ModelAndView("movie/update");
 	}
 	
+	
 	//movie list 페이지로 이동
 	@RequestMapping(value = "/movie/list")
 	public String getList(HttpServletRequest request,HttpSession session) {
@@ -79,7 +80,6 @@ public class MovieController {
 		return new ModelAndView("movie/upload");
 	}
 	
-
 	
 	//imagePath 구성 X -> dto 로 imagePath 를 받아서 DB 에 저장하기
 	@RequestMapping(value = "/movie/insert")
