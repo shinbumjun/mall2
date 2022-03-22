@@ -18,8 +18,8 @@
 </br>
 <div class="container">
    <div class="row">
-   		<img class="col-sm-6" src="${pageContext.request.contextPath}${dto.imagePath}"/>
- 		<div class="col-sm-6">
+   		<img class="col-sm-5" src="${pageContext.request.contextPath}${dto.imagePath}"/>
+ 		<div class="col-sm-7">
  		<table class="table">
 		<tr>
 			<th>제목</th>
