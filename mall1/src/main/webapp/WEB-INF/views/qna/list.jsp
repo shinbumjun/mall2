@@ -46,7 +46,7 @@
 <body>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/include/navbar.jsp">
-	<jsp:param value="notice" name="thisPage"/>
+	<jsp:param value="qna" name="thisPage"/>
 </jsp:include>
 <div class="container">
 	<h1>문의사항 게시판입니다</h1>
