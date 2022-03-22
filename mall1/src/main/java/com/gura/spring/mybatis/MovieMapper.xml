@@ -26,7 +26,7 @@
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
 	</select>
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="movieDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_movie
 		<include refid="searchCondition"/>

@@ -29,5 +29,10 @@
 		<a href="${pageContext.request.contextPath}/users/loginform.do">로그인 하러가기</a>
 	</div>
 </div>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>
