@@ -60,6 +60,19 @@
 		</div>
 		</c:otherwise>
 	</c:choose>
+<<<<<<< HEAD
+
+	<h1>변경</h1>
+	<br />
+	<a href="${pageContext.request.contextPath}/movie/list.do">영화 목록</a>
+	<br />
+	<a href="${pageContext.request.contextPath}/qna/list.do">문의사항</a>
+	<br />
+	<a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
+	<br />
+	<a href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
+
+=======
 	<!-- carousel -->
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	  <div class="carousel-indicators">
@@ -133,6 +146,7 @@
 			<img src="${pageContext.request.contextPath}/include/images/c.jpg" alt="" class="w-100" />
 		</div>
 	</div>
+>>>>>>> branch 'master' of https://github.com/shmoon37/mall2.git
 </div>
 <script>
 	document.querySelector("#chargeBtn").addEventListener("click", function(e){
