@@ -109,33 +109,7 @@
 		</c:choose>
       </ul>
    </nav> 
-<%-- 	<div class="page-ui clearfix">
-		<ul>
-			<c:if test="${startPageNum ne 1 }">
-				<li>
-					<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
-				</li>
-			</c:if>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<li>
-					<c:choose>
-						<c:when test="${pageNum eq i }">
-							<a  class="active" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-						</c:when>
-						<c:otherwise>
-							<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-			</c:forEach>
-			<c:if test="${endPageNum lt totalPageCount }">
-				<li>
-					<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a>
-				</li>
-			</c:if>
-		</ul>
-	 --%>
-	
+   
 	<div style="clear:both;"></div>
 	
 	<form action="list.do" method="get"> 
