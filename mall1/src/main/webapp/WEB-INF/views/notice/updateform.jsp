@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
 <body>
+<jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
 	<h1>공지사항 수정 폼 입니다.</h1>
 	<form action="update.do" method="post">
