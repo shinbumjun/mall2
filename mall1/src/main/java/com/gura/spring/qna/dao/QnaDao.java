@@ -1,60 +1,24 @@
 package com.gura.spring.qna.dao;
 
 import java.util.List;
+import com.gura.spring.qna.dto.QnaDto;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+public interface QnaDao {
 
-import com.gura.spring.qna.service.QnaPage;
-import com.gura.spring.qna.service.QnaService;
-import com.gura.spring.qna.service.QnaVO;
-
-@Repository
-public class QnaDao implements QnaService {
-	@Autowired private SqlSession sql;
-
-	@Override
-	public void qna_insert(QnaVO vo) {
-		sql.insert("qna.insert", vo);
-	}
-
-	@Override
-	public List<QnaVO> qna_list() {
-		return sql.selectList("qna.list");
-	}
-
-	@Override
-	public QnaVO qna_detail(int id) {
-		return sql.selectOne("qna.detail", id);
-	}
-
-	@Override
-	public void qna_update(QnaVO vo) {
-		sql.update("qna.update", vo);
-	}
-
-	@Override
-	public void qna_delete(int id) {
-		sql.delete("qna.delete", id);
-	}
-
-	@Override
-	public void qna_read(int id) {
-		sql.update("qna.read", id);
-	}
-
-	@Override
-	public void qna_reply_insert(QnaVO vo) {
-		sql.insert("qna.reply_insert", vo);
-	}
-
-	@Override
-	public QnaPage qna_list(QnaPage page) {
-		page.setTotalList((Integer) sql.selectOne("qna.totalList", page));
-		page.setList(sql.selectList("qna.list", page));
-		
-		return page;
-	}
-
+	//글목록
+	public List<QnaDto>getList(QnaDto dto);
+	//글의 갯수
+	public int getCount(QnaDto dto);
+	//글 추가
+	public int insert(QnaDto dto);
+	//글정보 얻어오기
+	public QnaDto getData(int num);
+	//키워드를 활용한 글정보 얻어오기
+	public QnaDto getData(QnaDto dto);
+	//조회수 증가 시키기
+	public void addViewCount(int num);
+	//글 삭제
+	public void delete(int num);
+	//글 수정
+	public void update(QnaDto dto);
 }
