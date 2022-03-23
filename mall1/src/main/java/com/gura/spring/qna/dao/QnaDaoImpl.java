@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gura.spring.qna.dto.QnaDto;
+import com.gura.spring.qna.service.QnaVO;
 
 
 @Repository
@@ -64,5 +65,5 @@ public class QnaDaoImpl implements QnaDao{
 		session.update("qna.update", dto);
 		
 	}
-	
+
 }
