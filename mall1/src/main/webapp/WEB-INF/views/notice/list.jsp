@@ -23,6 +23,7 @@
 	text-decoration:none;
 	color:black;
 	 } 
+	 
 </style> 
 </head>
 <body>
@@ -32,10 +33,14 @@
 </jsp:include>
 <div class="container">
 	<br/>	
-	<c:if test="${adminNum eq 1 }">
-		<a href="/notice/insertform.do"><input class="btn btn-secondary" type="button" value="new공지사항"></a>
-	</c:if>
+	<div style="float:left">
 	<h1>공지사항</h1>
+	</div>
+	<div style="float:right">
+	<c:if test="${adminNum eq 1 }">
+		<a href="/notice/insertform.do"><input class="btn btn-secondary" type="button" value="공지사항 작성"></a>
+	</c:if>
+	</div>
 	<br/>
 	<table class="table table-hover">
 		<thead>
