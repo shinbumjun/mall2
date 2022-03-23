@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/review/updateform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+
 </head>
 <body>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
