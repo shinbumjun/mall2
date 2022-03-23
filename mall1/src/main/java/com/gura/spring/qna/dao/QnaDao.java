@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.jdbc.SQL;
 
 import com.gura.spring.qna.dto.QnaDto;
-import com.gura.spring.qna.service.QnaVO;
 
 public interface QnaDao {
 
@@ -26,9 +25,5 @@ public interface QnaDao {
 	//�� ����
 	public void update(QnaDto dto);
 	
-	static void qna_reply_insert(QnaVO vo) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-}

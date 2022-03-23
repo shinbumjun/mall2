@@ -39,7 +39,7 @@
 <div class="container">
 	<br/>	
 	<div style="float:left">
-	<h1>문의사항</h1>
+	<p style="border-left: 10px solid #153d73; padding: 0.5em; border-bottom: 2px solid #153d73; font-size: 35px; font-weight: bolder" >문의사항 게시판</p>
 	</div>
 	<div style="float:right">
 	<a href="${pageContext.request.contextPath }/qna/insertform.do"><input class="btn btn-secondary" type="button" value="문의 작성"></a>
@@ -76,7 +76,6 @@
 		</tbody>
 	</table>
 
-
 	<div style="clear:both;"></div>
 	<form class="row g-3 align-items-center" action="list.do" method="get"> 
 	 	<div class="col-auto">
@@ -103,7 +102,7 @@
 		</p>
 	</c:if>
 	</div>
-	</br>
+	<br>
 	<nav>
 	<ul class="pagination justify-content-center">
 		<c:choose>

@@ -29,10 +29,8 @@ import com.gura.spring.users.UsersServiceImpl;
 import com.gura.spring.users.UsersDto;
 import com.gura.spring.qna.dto.QnaCommentDto;
 import com.gura.spring.qna.dto.QnaDto;
-import com.gura.spring.qna.service.QnaPage;
 import com.gura.spring.qna.service.QnaService;
 import com.gura.spring.qna.service.QnaServiceImpl;
-import com.gura.spring.qna.service.QnaVO;
 
 @Controller
 public class QnaController {
@@ -95,23 +93,6 @@ public class QnaController {
 		return "qna/detail";
 	}
 	
-	@RequestMapping("/qna/reply")
-	public String reply(HttpServletRequest request) {
-
-		service.getData(request);
-		
-		return "qna/reply";
-	} //reply()
-	
-	//신규 답글 저장 처리 요청==============================================================
-		@RequestMapping("/qna/reply_insert")
-		public String reply_insert(QnaDto dto, HttpSession session) {
-			dto.setWriter("id");
-			
-			//화면에서 입력한 정보를 DB에 저장한 후 목록 화면으로 연결
-			service.qna_reply_insert(dto);
-			return "redirect:/qna/list.do";
-		} //reply_insert()
 
 //새로운 댓글 저장 요청 처리
 	@RequestMapping("/qna/private/comment_insert")

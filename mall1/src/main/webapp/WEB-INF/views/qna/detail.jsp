@@ -9,7 +9,32 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
+	table {
+	  border-collapse: collapse;
+	  text-align: left;
+	  line-height: 1.5;
+	  border-top: 1px solid #ccc;
+	  border-left: 3px solid #369;
+	  margin : 20px 10px;
+	}
+	table th {
+	  width: 100px;
+	  padding: 10px;
+	  font-weight: bold;
+	  vertical-align: top;
+	  color: #153d73;
+	  border-right: 1px solid #ccc;
+	  border-bottom: 1px solid #ccc;
+	  text-align: center;
 	
+	}
+	table td {
+	  width: 800px;
+	  padding: 10px;
+	  vertical-align: top;
+	  border-right: 1px solid #ccc;
+	  border-bottom: 1px solid #ccc;
+	}
 	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
 	.profile-image{
 		width: 50px;
@@ -39,7 +64,7 @@
 		border-top: 1px solid #888;
 	}
 	.comment-form textarea{
-		width: 84%;
+		width: 60%;
 		height: 100px;
 	}
 	.comment-form button{
@@ -104,15 +129,19 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
-<h3>문의 내용</h3>
+	<br><br>
+	<div style="float:left">
+	<p style="font-size: 35px; font-weight: bolder" >문의 내용</p>
+</div>
+	<br><br><br>
 	<c:if test="${dto.prevNum ne 0 }">
 		<a href="/qna/detail.do?num=${dto.prevNum }&keyword=${encodedK }&condition=${condition }">
-		<span class="badge bg-info text-dark">이전글</span>
+		<span class="badge" style="background-color: #153d73;">이전글</span>
 		</a>
 	</c:if>
 	<c:if test="${dto.nextNum ne 0 }">
 		<a href="/qna/detail.do?num=${dto.nextNum }&keyword=${encodedK }&condition=${condition }">
-		<span class="badge bg-info text-dark">다음글</span>
+		<span class="badge" style="background-color: #153d73;">다음글</span>
 		</a>
 	</c:if>
 	<c:if test="${ not empty keyword }">
@@ -121,7 +150,7 @@
 			<strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기 
 		</p>
 	</c:if>
-	<table class="table table-bordered" style='width:800px;table-layout;auto'>
+	<table>
 		<tr>
 			<th>번호</th>
 			<td>${dto.num }</td>
@@ -148,8 +177,26 @@
 			<th>등록일</th>
 			<td>${dto.regdate }</td>
 		</tr>
+	</table>
 
-</table>
+	<ul class="pagination justify-content-center">
+		<a href="list.do"><input class="btn btn-secondary" type="button" value="목록으로"></a>
+		<c:if test="${adminNum eq 1 }">
+			<div class="btn-group" role="group" aria-label="Basic outlined example">	
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/qna/updateform.do?num=${dto.num }'">수정</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/qna/delete.do?num=${dto.num }'">삭제</button>
+			</div>
+		</c:if>	
+		<c:if test="${adminNum ne 1 }">
+			<div class="btn-group" role="group" aria-label="Basic outlined example">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/qna/insertform.do?num=${dto.num }'">글쓰기</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/qna/updateform.do?num=${dto.num }'">수정</button>
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='/qna/delete.do?num=${dto.num }'">삭제</button>
+			</div>
+		</c:if> 
+	</ul>
+
+
 <!-- 댓글 목록 -->
 	<div class="comments">
 		<ul>
@@ -436,17 +483,5 @@
 		}
 	}
 </script>
-<ul class="pagination justify-content-center">
-	<a href="list.do"><input class="btn btn-secondary" type="button" value="목록으로"></a>
-	<c:if test="${adminNum eq 1 }">
-		<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
-		</c:if>	
-	<c:if test="${adminNum ne 1 }">
-			<a href="/qna/insertform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="글쓰기"></a>
-			<a href="/qna/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
-			<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
-	</c:if> 
-</ul>
-</div>
 </body>
 </html>

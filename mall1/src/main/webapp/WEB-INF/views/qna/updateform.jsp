@@ -10,13 +10,19 @@
 <body>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>문의사항 수정</h1>
+	<br><br>
+	<div style="float:left">
+		<p style="font-size: 35px; font-weight: bolder" >문의사항 수정</p>
+		<form action="insert.do" method="post" id="insertForm"></form>
+	</div>
 	<form action="update.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }" />
+		<br><br><br>
 		<div>
 			<label for="writer">작성자</label>
 			<input type="text" id="writer" value="${dto.writer }" disabled/>
 		</div>
+		<br>
 		<div>
 			<label for="title">제목</label>
 			<input type="text" name="title" id="title" value="${dto.title }"/>
@@ -25,8 +31,8 @@
 			<label for="content">내용</label>
 			<textarea name="content" id="content">${dto.content }</textarea>
 		</div>
-		<button type="submit" onclick="submitContents(this);">수정하기</button>
-		<button type="reset">취소</button>
+		<button class="btn btn-primary" type="submit" onclick="submitContents(this);">수정하기</button>
+		<button class="btn btn-outline-primary" type="reset" onclick="location.href='${pageContext.request.contextPath}/qna/detail.do?num=${param.num}'">취소</button>
 	</form>
 </div>
 
