@@ -11,21 +11,13 @@
 </head>
 <body>
 <div class="container">
-	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
-         </li>
-         <li class="breadcrumb-item active">
-			<a class="nav-link disabled" href="">유저관리</a>
-		</li>
-      </ul>
-   </nav>
-	<h1>회원목록입니다.</h1>
-	<table>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
+	<h1 class="text-center text-black-50">회원목록입니다.</h1>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>아이디</th>
@@ -43,16 +35,23 @@
 					<td>${tmp.id }</td>
 					<td>${tmp.email }</td>
 					<td>${tmp.regdate }</td>
-					<td>${tmp.adminNum }</td>
-					<td>${tmp.point }</td>
 					<td>
+						<c:if test="${tmp.adminNum eq 0}">
+							회원
+						</c:if>
+						<c:if test="${tmp.adminNum eq 1}">
+							관리자
+						</c:if>
+					</td>					
+					<td>${tmp.point }</td>
+					<td class="text-center">
 					<c:if test="${tmp.id ne 'manager' }">
-						<a href="javascript:deleteConfirm('${tmp.id }')">탈퇴</a>
+						<a class="text-decoration-none badge bg-dark text-white text-wrap" href="javascript:deleteConfirm('${tmp.id }')">탈퇴</a>
 					</c:if>
 					</td>
-					<td>
+					<td class="text-center">
 						<c:if test="${tmp.adminNum eq 0 }">
-							<a href="javascript:upgrade('${tmp.id }')">등업</a>
+							<a class="text-decoration-none badge bg-dark text-white text-wrap" href="javascript:upgrade('${tmp.id }')">등업</a>
 						</c:if>
 						
 					</td>
@@ -61,26 +60,26 @@
 		</tbody>
 	</table>
 		<div class="page-ui clearfix">
-		<ul>
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum ne 1 }">
-				<li>
+				<li class="page-item">
 					<a href="management.do?pageNum=${startPageNum-1 }&idWord=${encodedK }">Prev</a>
 				</li>
 			</c:if>
 			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<li>
+				<li class="page-item">
 					<c:choose>
 						<c:when test="${pageNum eq i }">
-							<a class="active" href="management.do?pageNum=${i }&idWord=${encodedK}">${i }</a>
+							<a class="page-link active text-dark active" href="management.do?pageNum=${i }&idWord=${encodedK}">${i }</a>
 						</c:when>
 						<c:otherwise>
-							<a href="management.do?pageNum=${i }&idWord=${encodedK}">${i }</a>
+							<a class="page-link active text-dark" href="management.do?pageNum=${i }&idWord=${encodedK}">${i }</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 			</c:forEach>
 			<c:if test="${endPageNum lt totalPageCount}">
-				<li>
+				<li class="page-item">
 					<a href="management.do?pageNum=${endPageNum+1 }&idWord=${encodedK }">Next</a>
 				</li>
 			</c:if>
@@ -115,6 +114,9 @@
 		}
 	}
 </script>
-
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>
