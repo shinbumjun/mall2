@@ -2,7 +2,7 @@ package com.gura.spring.qna.service;
 
 import java.sql.Date;
 
-public class QnaVO {
+public class QnaVO{
 	private int id, readcnt, no, root, step, indent;
 	private String title, content, writer, filename, filepath, name;
 	private Date writedate;

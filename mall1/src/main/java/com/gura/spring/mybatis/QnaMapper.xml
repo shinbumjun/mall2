@@ -68,6 +68,19 @@
 		WHERE num=#{num}	
 	</select>
 	
+	<insert id="reply_insert">
+		<!-- 원글의 step보다 더 큰 step을 가진 글이 있다면 그 글들의 step을 먼저 +1 한다. -->
+		<![CDATA[
+			{CALL DECLARE BEGIN
+				UPDATE qna SET step = step + 1
+				WHERE root = #{root } AND step > #{step };
+				
+				INSERT INTO qna (num, root, title, content, writer, step, indent)
+				VALUES (qna_seq.NEXTVAL, #{root }, #{title }, #{content }, #{writer }, #{step } + 1, #{indent } + 1);
+			END}
+		]]>
+		
+	</insert>
 	<update id="addViewCount" parameterType="int">
 		UPDATE qna
 		SET viewCount=viewCount+1
