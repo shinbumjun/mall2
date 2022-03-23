@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gura.spring.qna.dao.QnaCommentDao;
 import com.gura.spring.qna.dao.QnaDao;
+import com.gura.spring.qna.dto.QnaCommentDto;
 import com.gura.spring.qna.dto.QnaDto;
 
 import java.net.URLEncoder;
@@ -30,13 +32,16 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDao qnadao;
 	
+	@Autowired 
+	private QnaCommentDao qnaCommentDao;
+	
 	@Autowired
 	private UsersDao userDao;
 
 	@Override
 	public void getList(HttpServletRequest request, HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=10;
+		final int PAGE_ROW_COUNT=5;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 				
@@ -173,8 +178,46 @@ public class QnaServiceImpl implements QnaService{
 		request.setAttribute("adminNum", 0);
 	}
 		
-	}
 
+
+	/*
+		[ 댓글 페이징 처리에 관련된 로직 ]
+	*/
+		//한 페이지에 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=10;
+		
+		//detail.jsp 페이지에서는 항상 1페이지의 댓글 내용만 출력한다. 
+		int pageNum=1;
+		
+		//보여줄 페이지의 시작 ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지의 끝 ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+		
+		//원글의 글번호를 이용해서 해당글에 달린 댓글 목록을 얻어온다.
+		QnaCommentDto commentDto=new QnaCommentDto();
+		commentDto.setRef_group(num);
+		//1페이지에 해당하는 startRowNum 과 endRowNum 을 dto 에 담아서  
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		
+		//1페이지에 해당하는 댓글 목록만 select 되도록 한다. 
+		List<QnaCommentDto> commentList=qnaCommentDao.getList(commentDto);
+		
+		//원글의 글번호를 이용해서 댓글 전체의 갯수를 얻어낸다.
+		int totalRow=qnaCommentDao.getCount(num);
+		//댓글 전체 페이지의 갯수
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
+		//view page 에서 필요한 값 request 에 담아주기
+		request.setAttribute("dto", dto);
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("encodedK", encodedK);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("totalPageCount", totalPageCount);
+	}
 	//새글 저장
 	@Override
 	public int saveContent(QnaDto dto) {
@@ -204,7 +247,94 @@ public class QnaServiceImpl implements QnaService{
 		qnadao.delete(num);
 		
 	}
+	@Override
+	public void saveComment(HttpServletRequest request) {
+		//폼 전송되는 파라미터 추출 
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+		String target_id=request.getParameter("target_id");
+		String content=request.getParameter("content");
+		/*
+		 *  원글의 댓글은 comment_group 번호가 전송이 안되고
+		 *  댓글의 댓글은 comment_group 번호가 전송이 된다.
+		 *  따라서 null 여부를 조사하면 원글의 댓글인지 댓글의 댓글인지 판단할수 있다. 
+		 */
+		String comment_group=request.getParameter("comment_group");
 
+		//댓글 작성자는 session 영역에서 얻어내기
+		String writer=(String)request.getSession().getAttribute("id");
+		//댓글의 시퀀스 번호 미리 얻어내기
+		int seq=qnaCommentDao.getSequence();
+		//저장할 댓글의 정보를 dto 에 담기
+		QnaCommentDto dto=new QnaCommentDto();
+		dto.setNum(seq);
+		dto.setWriter(writer);
+		dto.setTarget_id(target_id);
+		dto.setContent(content);
+		dto.setRef_group(ref_group);
+		//원글의 댓글인경우
+		if(comment_group == null){
+			//댓글의 글번호를 comment_group 번호로 사용한다.
+			dto.setComment_group(seq);
+		}else{
+			//전송된 comment_group 번호를 숫자로 바꾸서 dto 에 넣어준다. 
+			dto.setComment_group(Integer.parseInt(comment_group));
+		}
+		//댓글 정보를 DB 에 저장하기
+		qnaCommentDao.insert(dto);
+
+	}
+
+	@Override
+	public void deleteComment(HttpServletRequest request) {
+		int num=Integer.parseInt(request.getParameter("num"));
+		qnaCommentDao.delete(num);
+
+	}
+
+	@Override
+	public void updateComment(QnaCommentDto dto) {
+		qnaCommentDao.update(dto);
+
+	}
+
+	@Override
+	public void moreCommentList(HttpServletRequest request) {
+		//로그인된 아이디
+		String id=(String)request.getSession().getAttribute("id");
+		//ajax 요청 파라미터로 넘어오는 댓글의 페이지 번호를 읽어낸다
+		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		//ajax 요청 파라미터로 넘어오는 원글의 글 번호를 읽어낸다
+		int num=Integer.parseInt(request.getParameter("num"));
+		/*
+			[ 댓글 페이징 처리에 관련된 로직 ]
+		*/
+		//한 페이지에 몇개씩 표시할 것인지
+		final int PAGE_ROW_COUNT=10;
+
+		//보여줄 페이지의 시작 ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//보여줄 페이지의 끝 ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//원글의 글번호를 이용해서 해당글에 달린 댓글 목록을 얻어온다.
+		QnaCommentDto commentDto=new QnaCommentDto();
+		commentDto.setRef_group(num);
+		//1페이지에 해당하는 startRowNum 과 endRowNum 을 dto 에 담아서  
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+
+		//pageNum에 해당하는 댓글 목록만 select 되도록 한다. 
+		List<QnaCommentDto> commentList=qnaCommentDao.getList(commentDto);
+		//원글의 글번호를 이용해서 댓글 전체의 갯수를 얻어낸다.
+		int totalRow=qnaCommentDao.getCount(num);
+		//댓글 전체 페이지의 갯수
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		//view page 에 필요한 값 request 에 담아주기
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("num", num); //원글의 글번호
+		request.setAttribute("pageNum", pageNum); //댓글의 페이지 번호
+	}
 	@Override
 	public void getData(HttpServletRequest request) {
 		//수정할 글번호
@@ -218,5 +348,11 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public void qna_reply_insert(QnaVO vo) {
 		QnaDao.qna_reply_insert(vo);
+	}
+
+	@Override
+	public void qna_reply_insert(QnaDto dto) {
+		// TODO Auto-generated method stub
+		
 	}
 }
