@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.gura.spring.buy.dto.BuyDto;
 import com.gura.spring.movie.dto.MovieDto;
+import com.gura.spring.users.UsersDto;
 
 @Repository
 public class BuyDaoImpl implements BuyDao{
@@ -45,6 +46,38 @@ public class BuyDaoImpl implements BuyDao{
 		return session.selectOne("buy.getBuyCount",dto);
 	}
 	
+	@Override
+	public BuyDto getData2(int num) {
+		return session.selectOne("buy.getData2", num);
+	}
+	@Override
+	public void refund(BuyDto dto) {
+		session.selectOne("buy.refund", dto);
+	}
+
+	@Override
+	public List<BuyDto> refundList(BuyDto dto) {
+		return session.selectList("buy.refundList", dto);
+	}
+
+	@Override
+	public void rfDelete(int num) {
+		session.delete("buy.rfdelete", num);
+	}
+
+	@Override
+	public void rePoint(UsersDto dto) {
+		session.update("buy.returnPoint", dto);
+	}
 	
+	@Override
+	public int getrfCount(BuyDto dto) {
+		return session.selectOne("buy.getrfCount",dto);
+	}
+
+	@Override
+	public BuyDto rfData(int num) {
+		return session.selectOne("buy.rfData",num);
+	}
 
 }
