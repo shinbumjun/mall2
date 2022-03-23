@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.buy.dao.BuyDao;
+import com.gura.spring.buy.dto.BuyDto;
 import com.gura.spring.exception.NotDeleteException;
 import com.gura.spring.movie.dao.MovieDao;
 import com.gura.spring.movie.dto.MovieDto;
@@ -28,6 +30,9 @@ public class MovieServiceImpl implements MovieService {
 	@Autowired
 	private UsersDao userdao;
 	
+	@Autowired
+	private BuyDao buydao;
+	
 	//업데이트
 	@Override
 	public void updateContent(MovieDto dto) {
@@ -37,16 +42,6 @@ public class MovieServiceImpl implements MovieService {
 	
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
-		//세션에서 로그인된 아이디를 읽어와서
-		String id=(String)request.getSession().getAttribute("id");
-		//삭제할 글의 작성자
-		String writer=dao.getData(num).getWriter();
-		//만일 글의 작성자가 로그인된 아이디와 다르다면 
-		if(!writer.equals(id)) {
-			//예외를 발생시켜서 응답을 예외 Controller 에서 하도록 한다.
-			throw new NotDeleteException("남의 파일 지우기 없기!");
-		}
-		//본인이 작성한 글이 아니면 아래의 코드가 실행이 안되야 된다. 
 		dao.delete(num);
 	}
 	
@@ -89,7 +84,7 @@ public class MovieServiceImpl implements MovieService {
 		if(category==null){ 
 			category="";
 		}
-		
+	
 		//특수기호를 인코딩한 키워드를 미리 준비한다. 
 		String encodedK=URLEncoder.encode(keyword);
 	
@@ -117,7 +112,7 @@ public class MovieServiceImpl implements MovieService {
 		int endPageNum = startPageNum + PAGE_DISPLAY_COUNT - 1;
 	   
 		//전체 row 의 갯수
-		int totalRow = dao.getCount();
+		int totalRow = dao.getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount = (int)Math.ceil(totalRow / (double)PAGE_ROW_COUNT);
 		//끝 페이지 번호가 이미 전체 페이지 갯수보다 크게 계산되었다면 잘못된 값이다.
@@ -137,6 +132,7 @@ public class MovieServiceImpl implements MovieService {
 			UsersDto userdto = userdao.getData(id);
 			request.setAttribute("adminNum", userdto.getAdminNum());
 		}
+		
 	}
 	
 	//이미지 추가 - 이미지 업로드 & db 저장
@@ -183,45 +179,7 @@ public class MovieServiceImpl implements MovieService {
 		dao.insert(dto);
 	}
 	
-	//이미지 ajax upload
-	public Map<String, Object> uploadAjaxImage(MovieDto dto, HttpServletRequest request){
-		//업로드된 파일의 정보를 가지고 있는 MultipartFile 객체의 참조값을 얻어오기
-		MultipartFile image = dto.getImage();
-		//원본 파일명 -> 저장할 파일 이름 만들기위해서 사용됨
-		String orgFileName = image.getOriginalFilename();
-		//파일 크기
-		long fileSize = image.getSize();
-		
-		// webapp/upload 폴더 까지의 실제 경로(서버의 파일 시스템 상에서의 경로)
-		String realPath = request.getServletContext().getRealPath("/upload");
-		//db 에 저장할 저장할 파일의 상세 경로
-		String filePath = realPath + File.separator;
-		//디렉토리를 만들 파일 객체 생성
-		File upload = new File(filePath);
-		if(!upload.exists()) {
-			//만약 디렉토리가 존재하지X
-			upload.mkdir();//폴더 생성
-		}
-		//저장할 파일의 이름을 구성한다. -> 우리가 직접 구성해줘야한다.
-		String saveFileName = System.currentTimeMillis() + orgFileName;
-		
-		try {
-			//upload 폴더에 파일을 저장한다.
-			image.transferTo(new File(filePath + saveFileName));
-			System.out.println();	//임시 출력
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 
-		String imagePath = "/upload/" + saveFileName;
-		
-		//ajax upload 를 위한 imagePath return
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("imagePath", imagePath);
-		
-		return map;
-	}
-	
 	@Override
 	public void insert(MovieDto dto, HttpServletRequest request) {
 		//dto : caption, imagePath 가지고 있다.
@@ -235,51 +193,28 @@ public class MovieServiceImpl implements MovieService {
 	
 	//영화 목록 detail 페이지에 필요한 data를 ModelAndView 에 저장
 	@Override
-	public void getDetail(ModelAndView mView,HttpSession session, int num) {
+	public void getDetail(HttpServletRequest request,ModelAndView mView,HttpSession session, int num) {
 		//dao 로 해당 게시글 num 에 해당하는 데이터(dto)를 가져온다.
 		MovieDto dto = dao.getData(num);
 		//ModelAndView 에 가져온 MovieDto 를 담는다.
 		mView.addObject("dto", dto);
 		
-		String id=(String)session.getAttribute("id");
-		UsersDto userdto=userdao.getData(id);
-		mView.addObject("userdto",userdto);
-	}
-
-	@Override
-	public List<MovieDto> getList2(HttpServletRequest request,HttpSession session) {
-		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=8;
-		//하단 페이지를 몇개씩 표시할 것인지
-		final int PAGE_DISPLAY_COUNT=5;
-	   
-		//보여줄 페이지의 번호를 일단 1이라고 초기값 지정
-		int pageNum=1;
-		//페이지 번호가 파라미터로 전달되는지 읽어와 본다.
-		String strPageNum = request.getParameter("pageNum");
-		//만일 페이지 번호가 파라미터로 넘어 온다면
-		if(strPageNum != null){
-			//숫자로 바꿔서 보여줄 페이지 번호로 지정한다.
-			pageNum=Integer.parseInt(strPageNum);
-		}
-	   
-		//보여줄 페이지의 시작 ROWNUM
-		int startRowNum = 1 + (pageNum-1) * PAGE_ROW_COUNT;
-		//보여줄 페이지의 끝 ROWNUM
-		int endRowNum = pageNum * PAGE_ROW_COUNT;
-	   
-		//startRowNum 과 endRowNum  을 MovieDto 객체에 담고
-		MovieDto dto = new MovieDto();
-		dto.setStartRowNum(startRowNum);
-		dto.setEndRowNum(endRowNum);
-	   
-		//MovieDao 객체를 이용해서 목록을 얻어온다.
-		List<MovieDto> list = dao.getList(dto);
-		
-		return list;
 	
+		if(session.getAttribute("id") !=null) {
+			String id=(String)session.getAttribute("id");
+			UsersDto userdto=userdao.getData(id);
+			mView.addObject("userdto",userdto);
+			String title=request.getParameter("title");
+			
+			BuyDto buydto = new BuyDto();
+			buydto.setId(id);
+			buydto.setTitle(dto.getTitle());
+			int buyCount = buydao.getBuyCount(buydto);
+			request.setAttribute("buyCount", buyCount);
+		}
+		
 	}
-
+	
 	@Override
 	public void getData(HttpServletRequest request) {
 		//수정할 글번호
@@ -291,8 +226,5 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 
-	@Override
-	public void buyNumCount(MovieDto dto) {
-		dao.buyNumCount(dto);
-	}
+
 }

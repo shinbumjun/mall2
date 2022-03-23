@@ -4,6 +4,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+	#title{
+      width:auto;
+      height:150px;
+	}
+</style>
 <meta charset="UTF-8">
 <title>XXX 로그인</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -13,7 +19,9 @@
 	<div class="container">
 		<%--사이트 이름 넣기 --%>
 		<div class="text-center mt-5 mb-4">
-		<h1>에이콘 영화</h1>
+		<a href="${pageContext.request.contextPath}/">
+		<img src="${pageContext.request.contextPath}/include/images/title.png" alt="" id="title"/>
+		</a>
 		</div>
 		<form action="${pageContext.request.contextPath }/users/login.do" method="post">
 			<c:choose>
@@ -35,11 +43,19 @@
 			<p class="text-danger"> 아이디 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.</p>
 			</c:if>
 			<div class="d-grid gap-2">
-				<button type="submit" class="btn btn-success">로그인</button>
+				<button type="submit" class="btn btn-dark">로그인</button>
 			</div>
 		</form>
 		<%--아이디 저장하기 넣을지  --%>
 	</div>
 	<%-- footer? 넣을지 --%>
+<<<<<<< HEAD
+<!-- footer -->
+=======
+>>>>>>> e96264e6372fa2bcd070da912eb739785681625e
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>

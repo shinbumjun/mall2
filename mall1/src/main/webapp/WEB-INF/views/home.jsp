@@ -60,6 +60,7 @@
 		</div>
 		</c:otherwise>
 	</c:choose>
+
 	<!-- carousel -->
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	  <div class="carousel-indicators">
@@ -133,6 +134,16 @@
 			<img src="${pageContext.request.contextPath}/include/images/c.jpg" alt="" class="w-100" />
 		</div>
 	</div>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
+</div>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
 </div>
 <script>
 	document.querySelector("#chargeBtn").addEventListener("click", function(e){

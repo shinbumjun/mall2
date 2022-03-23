@@ -20,4 +20,5 @@ public interface BuyDao {
 	public void rePoint(UsersDto dto);
 	public int getrfCount(BuyDto dto);
 	public BuyDto rfData(int num);
+	public int getBuyCount(BuyDto buydto);
 }

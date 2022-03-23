@@ -1,70 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="qna.mapper" >
-	<insert id="insert">
-		INSERT INTO qna (id, root, title, content, writer, filename, filepath)
-		VALUES (seq_qna.NEXTVAL, seq_qna.CURRVAL, #{title }, #{content }, #{writer }, #{filename, jdbcType=VARCHAR }, #{filepath, jdbcType=VARCHAR })
-	</insert>
-	
-	<select id="detail" resultType="qna.QnaVO">
-		SELECT q.*, (SELECT name FROM member m WHERE m.id = q.writer) name
-		FROM qna q
-		WHERE id=#{id }
+<mapper namespace="qna">
+	<sql id="searchCondition">
+		<choose>
+			<when test="title != null and content != null">
+				WHERE title LIKE '%'||#{title}||'%' 
+				OR content LIKE '%'||#{content}||'%'
+			</when>
+			<when test="title != null">
+				WHERE title LIKE '%'||#{title}||'%'
+			</when>
+			<when test="writer != null">
+				WHERE writer LIKE '%'||#{writer}||'%'
+			</when>
+		</choose>
+	</sql>
+
+	<select id="getList" parameterType="QnaDto" resultType="QnaDto">
+		SELECT *
+		FROM
+			(SELECT result1.*, ROWNUM AS rnum
+			FROM
+				(SELECT num,title,writer,content,viewCount,regdate
+				FROM qna
+				<include refid="searchCondition"/>
+				ORDER BY num DESC) result1)
+		<![CDATA[ 
+		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
+		]]>
 	</select>
 	
-	<update id="read">
-		UPDATE qna SET readcnt = readcnt + 1 WHERE id=#{id }	
+	<select id="getCount" parameterType="QnaDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM qna
+		<include refid="searchCondition"/>
+	</select>	
+	
+	<insert id="insert" parameterType="QnaDto">
+		INSERT INTO qna
+		(num,title,writer,content,viewCount,regdate)
+		VALUES(qna_seq.NEXTVAL, #{title}, #{writer}, 
+			#{content}, #{viewCount}, SYSDATE)
+	</insert>
+	
+	<select id="getData" parameterType="int" resultType="QnaDto">
+		SELECT result1.*
+		FROM
+			(SELECT num,title,writer,content,viewCount,
+				TO_CHAR(regdate,'YY.MM.DD HH24:MI') AS regdate,
+				LAG(num,1,0) OVER (ORDER BY num DESC) AS nextNum,
+				LEAD(num,1,0) OVER (ORDER BY num DESC) AS prevNum
+			FROM qna) result1
+		WHERE num=#{num}
+			
+	</select>
+	
+	<select id="getData2" parameterType="QnaDto" resultType="QnaDto">
+		SELECT result1.*
+		FROM
+			(SELECT num,title,writer,content,viewCount,
+				TO_CHAR(regdate,'YY.MM.DD HH24:MI') AS regdate,
+				LAG(num,1,0) OVER (ORDER BY num DESC) AS prevNum,
+				LEAD(num,1,0) OVER (ORDER BY num DESC) AS nextNum
+			FROM qna
+			<include refid="searchCondition"/>
+			) result1
+		WHERE num=#{num}	
+	</select>
+	
+	<update id="addViewCount" parameterType="int">
+		UPDATE qna
+		SET viewCount=viewCount+1
+		WHERE num=#{num}
 	</update>
 	
-	<delete id="delete">
-		DELETE FROM qna WHERE id=#{id }
+	<delete id="delete" parameterType="int">
+		DELETE FROM qna
+		WHERE num=#{num}
 	</delete>
 	
-	<update id="update">
-		UPDATE qna SET title = #{title }, content = #{content }, filename = #{filename, jdbcType=VARCHAR }, filepath = #{filepath, jdbcType=VARCHAR }
-		WHERE id = #{id }
+	<update id="update" parameterType="QnaDto">
+		UPDATE qna
+		SET title=#{title}, content=#{content}
+		WHERE num=#{num}
 	</update>
 	
-	<select id="list" resultType="qna.QnaVO">
-		SELECT *
-		FROM (SELECT ROWNUM no, q.*, (SELECT name FROM member m WHERE m.id = writer) name
-			FROM (SELECT * FROM qna <include refid="search_where" /> ORDER BY root, step DESC) q
-			ORDER BY no DESC) q
-		WHERE no BETWEEN #{beginList } and #{endList }
-	</select>
-	
-	<select id="totalList" resultType="integer">
-		SELECT COUNT(*) FROM qna <include refid="search_where"/>
-	</select>
-	
-	<insert id="reply_insert">
-		<!-- 원글의 step보다 더 큰 step을 가진 글이 있다면 그 글들의 step을 먼저 +1 한다. -->
-		<![CDATA[
-			{CALL DECLARE BEGIN
-				UPDATE qna SET step = step + 1
-				WHERE root = #{root } AND step > #{step };
-				
-				INSERT INTO qna (id, root, title, content, writer, step, indent, filename, filepath)
-				VALUES (seq_qna.NEXTVAL, #{root }, #{title }, #{content }, #{writer }, #{step } + 1, #{indent } + 1, #{filename, jdbcType=VARCHAR }, #{filepath, jdbcType=VARCHAR });
-			END}
-		]]>
-	</insert>
-	
-	<sql id="search_where">
-		<if test="search == 'title' or search == 'content'">
-			WHERE ${search } LIKE '%' || #{keyword } || '%'
-		</if>
-		<if test="search == 'writer'">
-			WHERE <include refid="search_writer" />
-		</if>
-		<if test="search == 'all'">
-			WHERE title LIKE '%' || #{keyword } || '%'
-			OR content LIKE '%' || #{keyword } || '%'
-			OR <include refid="search_writer" />
-		</if>
-	</sql>
-	
-	<sql id="search_writer">
-		writer IN (SELECT id FROM member WHERE name LIKE '%' || #{keyword } || '%')
-	</sql>
 </mapper>
+
+
+
+

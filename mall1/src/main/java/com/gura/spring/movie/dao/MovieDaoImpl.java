@@ -34,8 +34,8 @@ public class MovieDaoImpl implements MovieDao {
 	 */
 	//row 의 총 개수 구하기
 	@Override
-	public int getCount() {
-		return session.selectOne("movie.getCount");
+	public int getCount(MovieDto dto) {
+		return session.selectOne("movie.getCount", dto);
 	}
 	
 	/*

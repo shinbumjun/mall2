@@ -73,6 +73,7 @@
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/mypage.do">내 정보 관리</a></li>
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/management.do">유저관리</a></li>
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/users_product.do">환불관리</a></li>
+					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/notice/list.do">공지사항관리</a></li>
 				</c:if>
 			</ul>
 		</div>
@@ -90,5 +91,10 @@
 		}
 	}
 </script>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>

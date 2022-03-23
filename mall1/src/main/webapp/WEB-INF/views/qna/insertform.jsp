@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/notice/insertform.jsp</title>
+<title>/qna/insertform.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
 <body>
@@ -13,7 +13,7 @@
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <div class="container">
-	<h1>공지사항 추가</h1>
+	<h1>문의사항 등록</h1>
 	<form action="insert.do" method="post" id="insertForm">
 		<div class="mb-3">
 			<label class="form-label" for="title">제목</label>
@@ -24,28 +24,8 @@
 			<textarea class="form-control"  name="content" id="content"></textarea>
 		</div>
 		<button class="btn btn-primary" type="submit">저장</button>
-		<button class="btn btn-primary" type="reset">취소</button>
+		<button class="btn btn-primary" type="reset" onclick="location.href='/qna/list.do';">취소</button>
 	</form>
-	<script>
-	/* 	$("#saveBtn").click(function() {
-			console.log($('#title').val() + " / " + $('#content').val());
-			
-		
-			$.ajax({
-				url: 'insert.do',
-				type: 'post',
-				data: { 'title': $('#title').val(), 'content' : $('#content').val() },
-				success: function(data) {
-					if(data == 1) {
-						alert('공지사항 등록완료');
-						location.href="${pageContext.request.contextPath}/notice/list.do";
-					} else {
-						alert('공지사항 등록이 실패!!!');
-					}
-				}
-			});
-		}); */
-	</script>
 </div>
 <%--
 	[ SmartEditor 를 사용하기 위한 설정 ]

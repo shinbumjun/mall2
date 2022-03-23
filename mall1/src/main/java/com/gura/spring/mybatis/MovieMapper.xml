@@ -18,7 +18,7 @@
 		FROM	
 			(SELECT result1.*, ROWNUM as rnum
 			FROM
-				(SELECT num, title,score, price, imagePath, regdate
+				(SELECT num, title,score, price, imagePath, regdate, category
 				FROM board_movie
 				<include refid="searchCondition"/>
 				ORDER BY num DESC) result1)
@@ -26,7 +26,7 @@
 		WHERE rnum >= #{startRowNum} AND rnum <= #{endRowNum}
 		]]>
 	</select>
-	<select id="getCount" resultType="int">
+	<select id="getCount" parameterType="movieDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_movie
 		<include refid="searchCondition"/>

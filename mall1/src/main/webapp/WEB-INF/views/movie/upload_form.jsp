@@ -7,10 +7,26 @@
 <title>/movie/upload_form.jsp</title>
 <%-- bootstrap 읽어오기 --%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
+<style>
+h2{
+  padding: 10px;
+  /*  상자내무 간격 사방 10  */
+  border:5px double #848484;
+  /*  라인 색상,굵기,선종류 설정가능  */
+  border-radius:10px;
+  /*  테두리 둥근처리 숫자로 조정가능  */
+  text-align: center;
+}
+</style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
 	<div class="container">
-	   	<h1>영화 업로드 폼</h1>
+	   	<h2>영화 업로드</h2>
 	   	<form action="${pageContext.request.contextPath}/movie/upload.do" method="post" enctype="multipart/form-data">
 	      	<input type="hidden" name="imagePath" id="imagePath"/>
 	      	<div>
@@ -47,7 +63,7 @@
 	         	<input type="file" name="image" id="image"
 	            	accept=".jpg, .jpeg, .png, .JPG, .JPEG"/>
 	      	</div>
-	      	<button class="btn btn-primary" type="submit" onclick="submitContents(this);">업로드</button>
+	      	<button class="btn btn-secondary" type="submit" onclick="submitContents(this);">업로드</button>
 	   	</form>
 	</div>
 

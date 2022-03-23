@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/notice/delete.jsp</title>
+<title>/qna/delete.jsp</title>
 </head>
 <body>
 <div class="container">
 	<h1>알림</h1>
 	<p>
-		<%-- <strong>${requestScope.id }</strong> 글 삭제 됬습니다. --%>
+		<%-- <strong>${requestScope.id }</strong> 글이 삭제 되었습니다. --%>
 		<a href="${pageContext.request.contextPath}/home.do">인덱스로 가기</a>
 	</p>
 </div>

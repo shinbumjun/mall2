@@ -6,9 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>/notice/detail.jsp</title>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
 <h3>공지사항 상세페이지</h3>
 	<c:if test="${dto.prevNum ne 0 }">
@@ -23,7 +25,7 @@
 			<strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기 
 		</p>
 	</c:if>
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<th>번호</th>
 			<td>${dto.num }</td>
@@ -57,7 +59,6 @@
 		<c:if test="${adminNum eq 1 }">
 			<li><a href="/notice/updateform.do?num=${dto.num }">수정</a></li>
 			<li><a href="/notice/delete.do?num=${dto.num }">삭제</a></li>
-			<li><a href="${pageContext.request.contextPath }/">Home</a></li>
 		</c:if> 
 	</ul>
 

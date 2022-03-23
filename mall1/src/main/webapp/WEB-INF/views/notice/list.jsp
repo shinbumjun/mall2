@@ -43,8 +43,7 @@
 		<a href="/notice/insertform.do">new 공지사항</a>
 	</c:if>
 	<h1>공지사항 목록 입니다.</h1>
-	<a href="${pageContext.request.contextPath }/">Home</a>
-	<table>
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>글번호</th>
@@ -68,34 +67,49 @@
 		</c:forEach>
 		</tbody>
 	</table>
-	</div>
-	<div class="page-ui clearfix">
-		<ul>
-			<c:if test="${startPageNum ne 1 }">
-				<li>
-					<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition }&keyword=${encodedK }">Prev</a>
-				</li>
-			</c:if>
-			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<li>
-					<c:choose>
-						<c:when test="${pageNum eq i }">
-							<a  class="active" href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-						</c:when>
-						<c:otherwise>
-							<a href="list.do?pageNum=${i }&condition=${condition }&keyword=${encodedK }">${i }</a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-			</c:forEach>
-			<c:if test="${endPageNum lt totalPageCount }">
-				<li>
-					<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition }&keyword=${encodedK }">Next</a>
-				</li>
-			</c:if>
-		</ul>
-	
-	
+	<nav>
+	<ul class="pagination justify-content-center">
+		<c:choose>
+			<c:when test="${startPageNum ne 1 }">
+				<li class="page-item">
+               		<a class="page-link" href="${pageContext.request.contextPath}/notice/list.do?pageNum=${startPageNum - 1}">Prev</a>
+            	</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+               		<a class="page-link" href="javascript:">Prev</a>
+            	</li>
+			</c:otherwise>
+		</c:choose>
+		<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
+			<c:choose>
+				<c:when test="${i eq pageNum }">
+					<li class="page-item active">
+                  		<a class="page-link" href="${pageContext.request.contextPath}/notice/list.do?pageNum=${i}">${i }</a>
+               		</li>
+				</c:when>
+				<c:otherwise>
+					<li class="page-item">
+                  		<a class="page-link" href="${pageContext.request.contextPath}/notice/list.do?pageNum=${i}">${i}</a>
+               		</li>
+				</c:otherwise>
+			</c:choose>
+		</c:forEach>
+		<c:choose>
+			<c:when test="${endPageNum lt totalPageCount }">
+				<li class="page-item">
+               		<a class="page-link" href="${pageContext.request.contextPath}/notice/list.do?pageNum=${endPageNum + 1}">Next</a>
+            	</li>
+			</c:when>
+			<c:otherwise>
+				<li class="page-item disabled">
+               		<a class="page-link" href="javascript:">Next</a>
+            	</li>
+			</c:otherwise>
+		</c:choose>
+      </ul>
+   </nav> 
+   
 	<div style="clear:both;"></div>
 	
 	<form action="list.do" method="get"> 
@@ -113,6 +127,11 @@
 			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
 		</p>
 	</c:if>
+</div>
+<!-- footer -->
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
 </div>
 </body>
 </html>

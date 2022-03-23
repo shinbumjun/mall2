@@ -100,6 +100,7 @@
 </head>
 <body>
 <div class="container">
+<!--  
 	<c:if test="${dto.prevNum ne 0 }">
 		<a href="detail.do?num=${dto.prevNum }&keyword=${encodedK }&condition=${condition }">이전글</a>
 	</c:if>
@@ -112,19 +113,25 @@
 			<strong>${keyword }</strong> 검색어로 검색된 내용 자세히 보기 
 		</p>
 	</c:if>
+-->
+	
 	<table class="table table-hover">
-
 		<tr>
 			<th class="table-light">글번호</th>
 			<td class="table-light">${dto.num }</td>
 		</tr>
 		<tr >
-			<th>작성자</th>
-			<td>${dto.writer }</td>
+			<th>작성자</th>			
+			<td>
+				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.writer }</a>
+			</td>
+			<!--<td>${dto.writer }</td>-->
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td>${dto.title }</td>
+			<td>
+				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.title }</a>
+			</td>
 		</tr>
 		<tr>
 			<th>조회수</th>
