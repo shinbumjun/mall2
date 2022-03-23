@@ -49,10 +49,9 @@
 		<%--아이디 저장하기 넣을지  --%>
 	</div>
 	<%-- footer? 넣을지 --%>
-<<<<<<< HEAD
+
 <!-- footer -->
-=======
->>>>>>> e96264e6372fa2bcd070da912eb739785681625e
+
 <div class="text-center">
 	<hr />
 	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
