@@ -33,33 +33,7 @@
  --%>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
-	<c:choose>
-		<c:when test="${ empty sessionScope.id}">
-			<a href="${pageContext.request.contextPath}/users/loginform.do">로그인</a>
-			<a href="${pageContext.request.contextPath}/users/signupform.do">회원가입</a>
-		</c:when>
-		<c:otherwise>
-		<div class="row">
-			<div class="col-8">
-				<a href="${pageContext.request.contextPath}/users/private/info.do">${sessionScope.id }</a> 로그인중... 
-				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
-			</div>
-			<div class="col-2">
-				<c:if test="${dto.adminNum eq 0 }">
-					<p>현재 포인트 : ${dto.point }<p>
-				</c:if>
-			</div>
-			<div class="col-2 " >
-				<c:if test="${dto.adminNum eq 0 }">
-					<form action="${pageContext.request.contextPath}/chargePoint.do" method="post" id="myForm">
-						<input type="hidden" name="point" id="point"/>
-						<button type="submit" id="chargeBtn" class="btn btn-outline-primary btn-sm">충전</button>
-					</form>
-				</c:if>
-			</div>
-		</div>
-		</c:otherwise>
-	</c:choose>
+
 
 	<!-- carousel -->
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
