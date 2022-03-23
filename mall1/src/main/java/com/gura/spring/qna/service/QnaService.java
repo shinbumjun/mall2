@@ -16,5 +16,5 @@ public interface QnaService {
 	public void deleteContent(int num, HttpServletRequest request);
 	public void getData(HttpServletRequest request);
 	public void qna_reply_insert(QnaDto dto);
-	void qna_reply_insert(QnaVO dto);
+	void qna_reply_insert(QnaVO vo);
 }

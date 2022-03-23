@@ -55,14 +55,10 @@ public class QnaController {
 	
 	@RequestMapping(value = "/qna/insert", method = { RequestMethod.POST })
 	public String insert(QnaDto dto, HttpSession session) {
-		
-		
 		//글 작성자는 세션에서 얻어낸다. 
 		String id=(String)session.getAttribute("id");
 		//객체에 글 작성자도 담기
-		dto.setWriter("id");
-		dto.setViewCount(0);
-		
+		dto.setWriter(id);
 		service.saveContent(dto);
 
 		return "qna/insert";
