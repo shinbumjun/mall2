@@ -64,7 +64,12 @@
 
    		<a href="${pageContext.request.contextPath}/review/detail.do?num=${dto.num }"><input class="btn btn-secondary" type="button"  value="이 영화 리뷰 보기"></a>
    		<c:if test="${userdto.adminNum eq '0' }">
-   			<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>
+			<c:if test="${ buyCount eq '0' }">
+				<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>	
+			</c:if>
+			<c:if test="${ buyCount ne '0' }">
+				<a href="/users/private/purchasehistory.do"><input class="btn btn-primary" type="button" value="보유중"></a>
+			</c:if>
    		</c:if>
    		<c:if test="${userdto.adminNum eq '1' }">
 			<a href="updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button"  value="수정"></a>
@@ -105,6 +110,9 @@
    </nav>      
 </div>
 
+<script>
+	console.log(${buyCount})
+</script>
 </body>
 </html>
 

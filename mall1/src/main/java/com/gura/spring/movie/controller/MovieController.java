@@ -106,9 +106,9 @@ public class MovieController {
 	//movie 게시글의 num 이 parameter get 방식으로 넘어온다.
 	//detail 페이지
 	@RequestMapping(value = "/movie/detail", method = RequestMethod.GET)
-	public ModelAndView detail(ModelAndView mView,HttpSession session, @RequestParam int num) {
+	public ModelAndView detail(HttpServletRequest request,ModelAndView mView,HttpSession session, @RequestParam int num) {
 		//갤러리 detail 페이지에 필요한 data를 num 으로 가져와, ModelAndView 에 저장
-		service.getDetail(mView,session, num);
+		service.getDetail(request,mView,session, num);
 		mView.setViewName("movie/detail");
 		
 		return mView;

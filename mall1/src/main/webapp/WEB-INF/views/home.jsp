@@ -61,18 +61,6 @@
 		</c:otherwise>
 	</c:choose>
 
-
-	<h1>변경</h1>
-	<br />
-	<a href="${pageContext.request.contextPath}/movie/list.do">영화 목록</a>
-	<br />
-	<a href="${pageContext.request.contextPath}/qna/list.do">문의사항</a>
-	<br />
-	<a href="${pageContext.request.contextPath}/notice/list.do">공지사항</a>
-	<br />
-	<a href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
-
-
 	<!-- carousel -->
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
 	  <div class="carousel-indicators">
