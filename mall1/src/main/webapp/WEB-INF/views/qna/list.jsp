@@ -8,20 +8,7 @@
 <title>/qna/list.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 <style>
-	.page-ui a{
-		text-decoration: none;
-		color: #000;
-	}
-	
-	.page-ui a:hover{
-		text-decoration: underline;
-	}
-	
-	.page-ui a.active{
-		color: red;
-		font-weight: bold;
-		text-decoration: underline;
-	}
+
 	.page-ui ul{
 		list-style-type: none;
 		padding: 0;
@@ -32,15 +19,16 @@
 		padding: 5px;
 	}
 	
-	.btn{
-		width:100px;
-		margin:auto;
-		display:block;
-	}
 	.outer{
 	  display: flex;
 	  justify-content: center;
 	}
+	
+	a { 
+	text-decoration:none;
+	color:black;
+	 } 
+	 
 </style> 
 </head>
 <body>
@@ -49,13 +37,20 @@
 	<jsp:param value="qna" name="thisPage"/>
 </jsp:include>
 <div class="container">
-	<h1>문의사항 게시판입니다</h1>
-	<a href="${pageContext.request.contextPath }/home.do">
-	<span class="badge bg-info text-dark">메인화면 가기</span>
-	</a>
+	<br/>	
+	<div style="float:left">
+	<h1>문의사항</h1>
+	</div>
+	<div style="float:right">
+	<a href="${pageContext.request.contextPath }/qna/insertform.do"><input class="btn btn-secondary" type="button" value="문의 작성"></a>
+	</div>
+	<br/>
+	
 	<form method="post" action="list.do" id="list">
 		<input type="hidden" name="curPage" value="1" />
 	</form>
+	
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -80,7 +75,35 @@
 		</c:forEach>
 		</tbody>
 	</table>
-</div>
+
+
+	<div style="clear:both;"></div>
+	<form class="row g-3 align-items-center" action="list.do" method="get"> 
+	 	<div class="col-auto">
+			<label class="col-form-label" for="condition">검색조건</label>
+		</div>
+		<div class="col-auto">
+		<select class="form-select" name="condition" id="condition">
+			<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
+			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
+			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
+		</select>
+		</div>
+		<div class="col-auto">
+			<input class="form-control" type="text" id="keyword" name="keyword" placeholder="검색어..." value="${keyword }"/>
+		</div>
+		<div class="col-auto">
+			<button class="btn btn-secondary" type="submit">검색</button>
+		</div>
+
+	</form>	
+	<c:if test="${ not empty condition }">
+		<p>
+			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
+		</p>
+	</c:if>
+	</div>
+	</br>
 	<nav>
 	<ul class="pagination justify-content-center">
 		<c:choose>
@@ -123,25 +146,7 @@
 		</c:choose>
       </ul>
    </nav> 
-	<a href="${pageContext.request.contextPath }/qna/insertform.do">
-	<button class="btn btn-primary" type="button">글쓰기</button>
-	</a>
-	<div class="outer">	
-	<form action="list.do" method="get">
-		<select name="condition" id="condition">
-			<option value="title_content" ${condition eq 'title_content' ? 'selected' : '' }>제목+내용</option>
-			<option value="title" ${condition eq 'title' ? 'selected' : '' }>제목</option>
-			<option value="writer" ${condition eq 'writer' ? 'selected' : '' }>작성자</option>
-		</select>
-		<input type="text" id="keyword" name="keyword" placeholder="검색어 입력..." value="${keyword }"/>
-		<button type="submit">Search</button>
-	</form>	
-	</div>
-	<c:if test="${ not empty condition }">
-		<p>
-			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
-		</p>
-	</c:if>
+
  
 <!-- footer -->
 
