@@ -12,6 +12,10 @@
 </style>
 <meta charset="UTF-8">
 <title>XXX 회원가입</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
@@ -21,7 +25,7 @@
 		<img src="${pageContext.request.contextPath}/include/images/title.png" alt="" id="title"/>
 	</a> 
    </div>
-   <form action="${pageContext.request.contextPath}/users/signup.do" method="post">
+   <form action="${pageContext.request.contextPath}/users/signup.do" method="post" id="signform">
    <%--부트스트랩 추가하기 --%>
       <div class="">
          <label for="id" class="form-label">아이디</label>
@@ -57,7 +61,7 @@
       </div>
       <%-- 그 외 이름, 닉네임, 성별, 생년월일 추가? --%>
       <div class="d-grid gap-2">
-         <button type="submit" class="btn btn-dark">가입하기</button>
+         <button type="submit" class="btn btn-dark animate__animated" id="btn1">가입하기</button>
       </div>
    </form>
    <%-- 유효성 검사 추가 --%>
@@ -160,7 +164,7 @@
    
    
    //폼에 submit 이벤트가 발생했을때 실행할 함수 등록
-   document.querySelector("#myForm").addEventListener("submit", function(e){
+   document.querySelector("#signform").addEventListener("submit", function(e){
       //console.log(e);
       /*
          입력한 아이디, 비밀번호, 이메일의 유효성 여부를 확인해서 하나라도 유효 하지 않으면
@@ -172,8 +176,12 @@
       if(!isFormValid){//폼이 유효하지 않으면
          //폼 전송 막기 
          e.preventDefault();
+      document.querySelector("#btn1").classList.add("animate__shakeX");
       }   
    });
+	document.querySelector("#btn1").addEventListener("animationend", function(){
+		this.classList.remove("animate__shakeX");
+	});
 </script>
 <!-- footer -->
 <div class="text-center">
