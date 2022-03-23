@@ -32,7 +32,7 @@
 </jsp:include>
  --%>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
-<div class="container">
+<div class="container mt-4">
 
 
 	<!-- carousel -->
@@ -78,7 +78,7 @@
 	<div class="row my-5">
 		<div class="col-7">
 			<h2>Acorn MOVIE는 앱 서비스를 지원합니다.</h2>
-			<p>Acorn MOVIE는 고객의 편의성과 이동 중에도 영화 감상을 할 수 있도록 휴대폰과 태블릿의 앱 서비스를 지원합니다. IOS의 App Store와 Android의 Google Play에서 Acorn MOVIE를 검색하시고 실치를 받어 Acorn MOVIE를 이용하실 수 있습니다.</p>
+			<p>Acorn MOVIE는 고객의 편의성과 이동 중에도 영화 감상을 할 수 있도록 휴대폰과 태블릿의 앱 서비스를 지원합니다. IOS의 App Store와 Android의 Google Play에서 Acorn MOVIE를 검색하시고 설치를 받어 Acorn MOVIE를 이용하실 수 있습니다.</p>
 		</div>
 		<div class="col-5">
 			<img src="${pageContext.request.contextPath}/include/images/a.jpg" alt="" class="w-100"/>
