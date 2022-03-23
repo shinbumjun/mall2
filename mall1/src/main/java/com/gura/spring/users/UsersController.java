@@ -147,7 +147,7 @@ public class UsersController {
 	@RequestMapping(value="/users/mypageupdate", method = RequestMethod.POST)
 	public ModelAndView update(UsersDto dto, HttpSession session, ModelAndView mView, HttpServletRequest request) {
 		service.updateUser(dto, session);
-		mView.setViewName("redirect:/users/private/info.do");
+		mView.setViewName("users/mypageup");
 		return mView;
 	}
 	

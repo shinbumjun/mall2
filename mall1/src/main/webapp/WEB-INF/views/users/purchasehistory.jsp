@@ -10,29 +10,21 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item ">
-			<a class="nav-link" href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
-		</li>
-		<li class="breadcrumb-item active">
-			<a class="nav-link disabled" href="">환불페이지</a>
-		</li>
-      </ul>
-   </nav>
-		<h1>구매내역입니다.</h1>
-	<table>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
+	<h1 class="text-center text-black-50">구매내역입니다.</h1>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>제목</th>
 				<th>가격</th>
 				<th>리뷰점수</th>
 				<th>개봉일</th>
-				<th>구매내역 삭제</th>
-				<th>환불요청</th>
+				<th class="text-center">구매내역 삭제</th>
+				<th class="text-center">환불요청</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -40,35 +32,35 @@
 				<tr>
 					<td>${tmp.title }</td>
 					<td>${tmp.price }</td>
-					<td>${tmp.score }</td>
+					<td class="text-end">${tmp.score }</td>
 					<td>${tmp.releaseDate }</td>
-					<td><a href="javascript:deleteConfirm('${tmp.num }')">삭제</a></td>
-					<td><a href="javascript:refund(${tmp.num })">환불요청</a></td>
+					<td class="text-center"><a class="text-decoration-none badge bg-dark text-white text-wrap" href="javascript:deleteConfirm('${tmp.num }')">삭제</a></td>
+					<td class="text-center"><a class="text-decoration-none badge bg-dark text-white text-wrap" href="javascript:refund(${tmp.num })">환불요청</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
 		<div class="page-ui clearfix">
-		<ul>
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum ne 1 }">
-				<li>
+				<li class="page-item">
 					<a href="purchasehistory.do?pageNum=${startPageNum-1 }">Prev</a>
 				</li>
 			</c:if>
 			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<li>
+				<li class="page-item ">
 					<c:choose>
 						<c:when test="${pageNum eq i }">
-							<a class="active" href="purchasehistory.do?pageNum=${i }">${i }</a>
+							<a class="page-link active text-dark" href="purchasehistory.do?pageNum=${i }">${i }</a>
 						</c:when>
 						<c:otherwise>
-							<a href="purchasehistory.do?pageNum=${i }">${i }</a>
+							<a class="page-link text-dark" href="purchasehistory.do?pageNum=${i }">${i }</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 			</c:forEach>
 			<c:if test="${endPageNum lt totalPageCount}">
-				<li>
+				<li class="page-item">
 					<a href="purchasehistory.do?pageNum=${endPageNum+1 }">Next</a>
 				</li>
 			</c:if>
@@ -92,5 +84,9 @@
 		}
 	}
 </script>
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>

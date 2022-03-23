@@ -18,17 +18,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" >
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
 <div class="container">
-	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item active">
-			<a class="nav-link disabled" href="">마이페이지</a>
-		</li>
-      </ul>
-   </nav>
 	<h1 class="text-center text-black-50">회원 정보입니다.</h1>
 	<div class="row">
 	<div class="col-5 shadow p-3 mb-5 bg-body rounded">
@@ -66,7 +61,6 @@
 				<c:if test="${dto.adminNum eq 0 }">
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/mypage.do">내 정보 관리</a></li>
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/purchasehistory.do">구매내역</a></li>
-					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="${pageContext.request.contextPath}/users/private/mywirte.do">내가 쓴 글 확인</a></li>
 					<li class="list-group-item"><a class="list-group-item list-group-item-action" href="javascript:deleteConfirm()">회원탈퇴</a></li>
 				</c:if>
 				<c:if test="${dto.adminNum eq 1 }">
