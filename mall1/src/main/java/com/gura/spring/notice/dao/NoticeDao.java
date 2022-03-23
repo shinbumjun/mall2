@@ -5,21 +5,21 @@ import com.gura.spring.notice.dto.NoticeDto;
 
 public interface NoticeDao {
 
-	//ê¸€ëª©ë¡
+	//±Û¸ñ·Ï
 	public List<NoticeDto>getList(NoticeDto dto);
-	//ê¸€ì˜ ê°¯ìˆ˜
+	//±ÛÀÇ °¹¼ö
 	public int getCount(NoticeDto dto);
-	//ê¸€ ì¶”ê°€
+	//±Û Ãß°¡
 	public int insert(NoticeDto dto);
-	//ê¸€ì •ë³´ ì–»ì–´ì˜¤ê¸°
+	//±ÛÁ¤º¸ ¾ò¾î¿À±â
 	public NoticeDto getData(int num);
-	//í‚¤ì›Œë“œë¥¼ í™œìš©í•œ ê¸€ì •ë³´ ì–»ì–´ì˜¤ê¸°
+	//Å°¿öµå¸¦ È°¿ëÇÑ ±ÛÁ¤º¸ ¾ò¾î¿À±â
 	public NoticeDto getData(NoticeDto dto);
-	//ì¡°íšŒìˆ˜ ì¦ê°€ ì‹œí‚¤ê¸°
+	//Á¶È¸¼ö Áõ°¡ ½ÃÅ°±â
 	public void addViewCount(int num);
-	//ê¸€ ì‚­ì œ
+	//±Û »èÁ¦
 	public void delete(int num);
-	//ê¸€ ìˆ˜ì •
+	//±Û ¼öÁ¤
 	public void update(NoticeDto dto);
 }
 

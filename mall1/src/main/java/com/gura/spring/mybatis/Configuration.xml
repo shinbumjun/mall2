@@ -11,7 +11,7 @@
 		<typeAlias type="com.gura.spring.buy.dto.BuyDto" alias="buyDto"/>	
 		<typeAlias type="com.gura.spring.review.dto.ReviewDto" alias="reviewDto"/>
 		<typeAlias type="com.gura.spring.review.dto.ReviewCommentDto" alias="reviewCommentDto"/>
-		<typeAlias type="com.gura.spring.qna.service.QnaVO" alias="QnaVO"/>
+		<typeAlias type="com.gura.spring.qna.dto.QnaDto" alias="QnaDto"/>
 	</typeAliases>
 	<!-- 필요한 Mapper xml 등록하기  -->
 	<mappers>
