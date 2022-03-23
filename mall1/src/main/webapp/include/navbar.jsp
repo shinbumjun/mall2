@@ -43,10 +43,10 @@
       		<li class="nav-item"> 
       			<a class="nav-link" href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a> 
       		</li>
-			
-			<c:if test="${dto.adminNum eq 0 }">
+
+			<c:if test="${adminNum eq 0 }">
 				<li class="nav-item"> 
-      				<a class="nav-link" href="#">내 포인트 : ${dto.point }</a>
+      				<a class="nav-link" href="#">내 포인트 : ${point }</a>
       			</li>
 				<form class="d-flex" action="${pageContext.request.contextPath}/chargePoint.do" method="post" id="myForm">
 					<input class="form-control me-2" type="hidden" name="point" id="point"/>

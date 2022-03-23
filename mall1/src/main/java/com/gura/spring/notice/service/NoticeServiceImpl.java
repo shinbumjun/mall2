@@ -111,6 +111,7 @@ public class NoticeServiceImpl implements NoticeService{
 		if(!StringUtils.isEmpty(id)) {
 			UsersDto user = userDao.getData(id);
 			request.setAttribute("adminNum", user.getAdminNum());
+			request.setAttribute("point", user.getPoint());
 		} else {
 			request.setAttribute("adminNum", 0);
 		}
