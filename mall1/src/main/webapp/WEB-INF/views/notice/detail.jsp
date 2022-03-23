@@ -12,8 +12,9 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
+<br/>
 <h3>공지사항 상세페이지</h3>
-
+<br/>
 	<c:if test="${ not empty keyword }">
 		<p>	
 			<strong>${condition }</strong> 조건, 
