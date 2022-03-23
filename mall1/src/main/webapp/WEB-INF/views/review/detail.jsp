@@ -134,20 +134,23 @@
 				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.writer }</a>
 			</td>
 			
-			<th>조회수</th>
-			<td>${dto.viewCount }</td>
+			<th class="table-light">조회수</th>
+			<td class="table-light">${dto.viewCount }</td>
 			
+		</tr>
+		<tr>
 			<th>등록일</th>
 			<td>${dto.regdate }</td>
 		</tr>
 		<tr>
 			<th>제목</th>
-			<td colspan="7">
+			<td colspan="6">
 				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.title }</a>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="8">
+			<th class="table-default">내용</th>
+			<td colspan="6">
 				<div class="content" style="min-height: 200px; ">${dto.content }</div>
 			</td>
 		</tr>

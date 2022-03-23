@@ -36,7 +36,7 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public void getList(HttpServletRequest request, HttpSession session) {
 		//한 페이지에 몇개씩 표시할 것인지
-		final int PAGE_ROW_COUNT=5;
+		final int PAGE_ROW_COUNT=10;
 		//하단 페이지를 몇개씩 표시할 것인지
 		final int PAGE_DISPLAY_COUNT=5;
 				
