@@ -9,9 +9,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
-	.content{
-		border: 1px dotted gray;
-	}
 	
 	/* 댓글 프로필 이미지를 작은 원형으로 만든다. */
 	.profile-image{
@@ -96,9 +93,18 @@
 			transform: rotate(360deg);
 		}
 	}
+	
+	a { 
+	text-decoration:none;
+	color:black;
+	 } 
 </style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="review" name="thisPage"/>
+</jsp:include>
 <div class="container">
 <!--  
 	<c:if test="${dto.prevNum ne 0 }">
@@ -114,47 +120,54 @@
 		</p>
 	</c:if>
 -->
-	
-	<table class="table table-hover">
+	<br/>
+<h3>상세 글 보기</h3>
+	<br/>
+
+	<table class="table table-striped table-border">
 		<tr>
 			<th class="table-light">글번호</th>
 			<td class="table-light">${dto.num }</td>
-		</tr>
-		<tr >
+			
 			<th>작성자</th>			
 			<td>
 				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.writer }</a>
 			</td>
-			<!--<td>${dto.writer }</td>-->
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td>
-				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.title }</a>
-			</td>
-		</tr>
-		<tr>
+			
 			<th>조회수</th>
 			<td>${dto.viewCount }</td>
-		</tr>
-		<tr>
+			
 			<th>등록일</th>
 			<td>${dto.regdate }</td>
 		</tr>
 		<tr>
-			<td colspan="2">
-				<div class="content" >${dto.content }</div>
+			<th>제목</th>
+			<td colspan="7">
+				<a href="${pageContext.request.contextPath}/movie/detail.do?num=${dto.num }">${dto.title }</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="8">
+				<div class="content" style="min-height: 200px; ">${dto.content }</div>
 			</td>
 		</tr>
 
 	</table>
+	<div style="float:left">
+	<h4>댓글 목록</h4>
+	</div>
+	<div style="float:right">
+	
 	<ul>
-		<li><a href="list.do">목록보기</a></li>
+		<a href="list.do"><input class="btn btn-secondary" type="button" value="목록"></a>
 		<c:if test="${dto.writer eq id }">
-			<li><a href="private/updateform.do?num=${dto.num }">수정</a></li>
-			<li><a href="private/delete.do?num=${dto.num }">삭제</a></li>
-		</c:if>
+			<a href="private/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
+			<a href="private/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
+		</c:if> 
 	</ul>
+	</div>
+	</br>
+	</br>
 	<!-- 댓글 목록 -->
 	<div class="comments">
 		<ul>
@@ -189,10 +202,10 @@
 											@<i>${tmp.target_id }</i>
 										</c:if>
 										<span>${tmp.regdate }</span>
-										<a data-num="${tmp.num }" href="javascript:" class="reply-link">답글</a>
+										<a data-num="${tmp.num }" href="javascript:" class="reply-link"><input class="btn btn-secondary" type="button" value="답글"></a>
 										<c:if test="${ (id ne null) and (tmp.writer eq id) }">
-											<a data-num="${tmp.num }" class="update-link" href="javascript:">수정</a>
-											<a data-num="${tmp.num }" class="delete-link" href="javascript:">삭제</a>
+											<a data-num="${tmp.num }" class="update-link" href="javascript:"><input class="btn btn-secondary" type="button" value="수정"></a>
+											<a data-num="${tmp.num }" class="delete-link" href="javascript:"><input class="btn btn-secondary" type="button" value="삭제"></a>
 										</c:if>
 									</dt>
 									<dd>

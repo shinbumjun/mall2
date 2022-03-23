@@ -5,8 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>/views/review/updateform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
+
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="review" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<h1>글 수정 폼 입니다.</h1>
 	<form action="update.do" method="post">
