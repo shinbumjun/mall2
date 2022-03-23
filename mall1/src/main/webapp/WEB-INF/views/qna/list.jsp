@@ -50,7 +50,9 @@
 </jsp:include>
 <div class="container">
 	<h1>문의사항 게시판입니다</h1>
-	<a href="${pageContext.request.contextPath }/">Home</a>
+	<a href="${pageContext.request.contextPath }/home.do">
+	<span class="badge bg-info text-dark">메인화면 가기</span>
+	</a>
 	<form method="post" action="list.do" id="list">
 		<input type="hidden" name="curPage" value="1" />
 	</form>
@@ -140,20 +142,7 @@
 			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
 		</p>
 	</c:if>
-  
-	<!-- footer -->
-
-	<ul>
-		<c:if test="${adminNum eq 0 }">
-			<li><a href="${pageContext.request.contextPath }/qna/new.do">글쓰기</a></li>
-			<li><a href="${pageContext.request.contextPath }/qna/modify.do">수정</a></li>
-			<li><a href="${pageContext.request.contextPath }/qna/delete.do">삭제</a></li>
-		</c:if> 
-		<c:if test="${adminNum eq 1 }">
-			<li><a href="${pageContext.request.contextPath }/qna/reply.do">답변 달기</a></li>
-		</c:if>	
-	</ul>		
-  
+ 
 <!-- footer -->
 
 <div class="text-center">

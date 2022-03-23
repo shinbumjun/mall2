@@ -24,17 +24,6 @@
 			<th>내용</th>
 			<td><textarea class="need" name="content">${vo.content }</textarea></td>
 		</tr>
-		<tr>
-			<th>첨부 파일</th>
-			<td class="left">
-				<label>
-					<input id="attach-file" type="file" name="file" />
-					<img src="img/select.png" class="file-img" />
-				</label>
-				<span id="file-name">${vo.filename }</span>
-				<span id="delete-file" style="display:${empty vo.filename ? 'none' : 'inline'}; color:red; margin-left:20px;"><i class="fas fa-times font-img"></i></span>
-			</td>
-		</tr>
 	</table>
 </form>
 <div class="btnSet">

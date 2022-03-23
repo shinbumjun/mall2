@@ -12,12 +12,16 @@
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
-<h3>공지사항 상세페이지</h3>
+<h3>문의 내용</h3>
 	<c:if test="${dto.prevNum ne 0 }">
-		<a href="/qna/detail.do?num=${dto.prevNum }&keyword=${encodedK }&condition=${condition }">이전글</a>
+		<a href="/qna/detail.do?num=${dto.prevNum }&keyword=${encodedK }&condition=${condition }">
+		<span class="badge bg-info text-dark">이전글</span>
+		</a>
 	</c:if>
 	<c:if test="${dto.nextNum ne 0 }">
-		<a href="/qna/detail.do?num=${dto.nextNum }&keyword=${encodedK }&condition=${condition }">다음글</a>
+		<a href="/qna/detail.do?num=${dto.nextNum }&keyword=${encodedK }&condition=${condition }">
+		<span class="badge bg-info text-dark">다음글</span>
+		</a>
 	</c:if>
 	<c:if test="${ not empty keyword }">
 		<p>	
@@ -52,27 +56,20 @@
 			<th>등록일</th>
 			<td>${dto.regdate }</td>
 		</tr>
-		<th>첨부 파일</th>
-		<td colspan="5" class="left">
-			${vo.filename }
-			<c:if test="${!empty vo.filename }">
-				<a href="download.do?id=${vo.id }" style="margin-left: 15px"><i class="fas fa-download font-img"></i></a>
-			</c:if>
-		</td>
-	</tr>
+
 </table>
-</div>
-<div class="btnSet">
-	<a class="btn-fill" href="list.do">목록으로</a>
+<ul class="pagination justify-content-center">
+	<a href="list.do"><input class="btn btn-secondary" type="button" value="목록으로"></a>
 	<c:if test="${adminNum eq 1 }">
-		<a class="btn-fill" onclick="if(confirm('정말 삭제하시겠습니까?')) { href='delete.do?id=${vo.id }' }">삭제</a>
-		<a class="btn-fill" href="reply.do?id=${vo.id }">답글 쓰기</a>
-	</c:if>
+		<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
+		<a href="/qna/reply.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="답글 달기"></a>
+		</c:if>	
 	<c:if test="${adminNum ne 1 }">
-			<li><a href="${pageContext.request.contextPath }/qna/insertform.do">글쓰기</a></li>
-			<li><a href="${pageContext.request.contextPath }/qna/updateform.do">수정</a></li>
-			<li><a href="${pageContext.request.contextPath }/qna/delete.do">삭제</a></li>
+			<a href="/qna/insertform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="글쓰기"></a>
+			<a href="/qna/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
+			<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
 	</c:if> 
+</ul>
 </div>
 </body>
 </html>
