@@ -131,6 +131,7 @@ public class MovieServiceImpl implements MovieService {
 			String id= (String) session.getAttribute("id");
 			UsersDto userdto = userdao.getData(id);
 			request.setAttribute("adminNum", userdto.getAdminNum());
+			request.setAttribute("point", userdto.getPoint());
 		}
 		
 	}
@@ -211,6 +212,8 @@ public class MovieServiceImpl implements MovieService {
 			buydto.setTitle(dto.getTitle());
 			int buyCount = buydao.getBuyCount(buydto);
 			request.setAttribute("buyCount", buyCount);
+			request.setAttribute("adminNum", userdto.getAdminNum());
+			request.setAttribute("point", userdto.getPoint());
 		}
 		
 	}
