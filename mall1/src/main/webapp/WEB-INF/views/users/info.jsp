@@ -20,7 +20,7 @@
 <body>
 <script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
 <jsp:include page="/include/navbar.jsp">
-	<jsp:param value="movie" name="thisPage"/>
+	<jsp:param value="info" name="thisPage"/>
 </jsp:include>
 </br>
 <div class="container">

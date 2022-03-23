@@ -108,11 +108,6 @@
 			<img src="${pageContext.request.contextPath}/include/images/c.jpg" alt="" class="w-100" />
 		</div>
 	</div>
-<!-- footer -->
-<div class="text-center">
-	<hr />
-	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
-</div>
 </div>
 <!-- footer -->
 <div class="text-center">
