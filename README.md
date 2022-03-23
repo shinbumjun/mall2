@@ -6,20 +6,20 @@
   4. 그리고 push
 
 최서빈
->상품 게시판 : https://github.com/shinbumjun/mall2/issues/9#issue-1173167920
+>영화목록 : https://github.com/shinbumjun/mall2/issues/64#issue-1178612715
 
 신범준
->리뷰 : https://github.com/shinbumjun/mall2/issues/25#issue-1174870435
+>커뮤니티 : https://github.com/shinbumjun/mall2/issues/65#issue-1178613356
 
 문세현
->문의사항 :
+>문의사항 : https://github.com/shinbumjun/mall2/issues/66#issue-1178614214
 
 송형민
->회원가입 : https://github.com/shinbumjun/mall2/issues/10#issue-1173177695
+>회원가입 : https://github.com/shinbumjun/mall2/issues/67#issue-1178614702
 
 이은정
->공지사항 : https://github.com/shinbumjun/mall2/issues/29#issue-1175007989
+>공지사항 : https://github.com/shinbumjun/mall2/issues/68#issue-1178615246
 
 임진형
->마이페이지 : https://github.com/shinbumjun/mall2/issues/31#issue-1175075602
+>마이페이지 : https://github.com/shinbumjun/mall2/issues/69#issue-1178617333
 
