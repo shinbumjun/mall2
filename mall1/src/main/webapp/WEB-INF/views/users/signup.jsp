@@ -14,7 +14,7 @@
 <title>xxx 회원가입 완료</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
-<body>
+<body style="background-color:#f2f4f6">
 <div class="container">
 	<div class="text-center mt-5 mb-4">
 		<a href="${pageContext.request.contextPath}/">
