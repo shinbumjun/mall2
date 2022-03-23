@@ -22,19 +22,11 @@
 </head>
 <body>
 <div class="container">
-	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a class="nav-link active" href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/users/private/info.do">마이페이지</a>
-         </li>
-         <li class="breadcrumb-item active">
-			<a class="nav-link disabled" href="">내정보 관리</a>
-		</li>
-      </ul>
-   </nav>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
 	<h1 class="text-center text-black-50">내정보보기 페이지입니다.</h1>
 		<div class="row">
 			<div class="col-5 shadow p-3 mb-5 bg-body rounde">
@@ -72,12 +64,12 @@
 			<input type="text" name="email" id="email" value="${dto.email }" class="form-control"/>
 		</div>
 		<div class="d-grid gap-2 mb-3" >
-			<button type="submit" class="btn btn-success" data-bs-toggle="button" autocomplete="off">수정</button>
+			<button type="submit" class="btn btn-dark">수정</button>
 		</div>
 	</div>
 		<p class="fw-bolder">비밀번호 수정하기</p>
 		<div class="d-grid gap-2 mb-3">
-		<a class="btn btn-success" data-bs-toggle="button" autocomplete="off"
+		<a class="btn btn-dark"
 		href="${pageContext.request.contextPath}/users/private/pwd_updateform.do">수정하기</a>
 		</div>
 	</form>
@@ -122,5 +114,9 @@
 	});
 	
 </script>
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>

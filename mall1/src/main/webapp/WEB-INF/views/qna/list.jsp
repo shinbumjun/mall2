@@ -140,7 +140,7 @@
 			<strong>${totalRow }</strong> 개의 글이 검색 되었습니다.
 		</p>
 	</c:if>
-
+  
 	<!-- footer -->
 
 	<ul>
@@ -153,6 +153,7 @@
 			<li><a href="${pageContext.request.contextPath }/qna/reply.do">답변 달기</a></li>
 		</c:if>	
 	</ul>		
+  
 <!-- footer -->
 
 <div class="text-center">

@@ -12,24 +12,16 @@
 </head>
 <body>
 <div class="container">
-	<nav class="nav justify-content-end" style="--bs-breadcrumb-divider: ''; background-color: #e3f2fd;">
-      <ul class="breadcrumb">
-         <li class="breadcrumb-item">
-            <a class="nav-link" href="${pageContext.request.contextPath }/">Home</a>
-         </li>
-         <li class="breadcrumb-item ">
-			<a class="nav-link" href="${pageContext.request.contextPath}/users/private/info.do">마이페이지</a>
-		</li>
-		<li class="breadcrumb-item active">
-			<a class="nav-link disabled" href="">구매내역</a>
-		</li>
-      </ul>
-   </nav>
-	<h1>환불 요청 관리</h1>
-		<table>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="movie" name="thisPage"/>
+</jsp:include>
+</br>
+	<h1 class="text-center text-black-50">환불 요청 관리</h1>
+		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>글번호</th>
+					<th>번호</th>
 					<th>제목</th>
 					<th>아이디</th>
 					<th>가격</th>
@@ -45,27 +37,27 @@
 						<td>${tmp.id }</td>
 						<td>${tmp.price }</td>
 						<td>${tmp.regdate }</td>
-						<td><a href="javascript:refund(${tmp.num })">환불해주기</a></td>
+						<td><a class="text-decoration-none badge bg-dark text-white text-wrap" href="javascript:refund(${tmp.num })">환불해주기</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 
 		<div class="page-ui clearfix">
-		<ul>
+		<ul class="pagination justify-content-center">
 			<c:if test="${startPageNum ne 1 }">
 				<li>
 					<a href="users_product.do?pageNum=${startPageNum-1 }">Prev</a>
 				</li>
 			</c:if>
 			<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
-				<li>
+				<li class="page-item ">
 					<c:choose>
 						<c:when test="${pageNum eq i }">
-							<a class="active" href="users_product.do?pageNum=${i }">${i }</a>
+							<a class="page-link active text-dark active" href="users_product.do?pageNum=${i }">${i }</a>
 						</c:when>
 						<c:otherwise>
-							<a href="users_product.do?pageNum=${i }">${i }</a>
+							<a class="page-link active text-dark" href="users_product.do?pageNum=${i }">${i }</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -88,5 +80,9 @@
 		}
 	}
 </script>
+<div class="text-center">
+	<hr />
+	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
+</div>
 </body>
 </html>
