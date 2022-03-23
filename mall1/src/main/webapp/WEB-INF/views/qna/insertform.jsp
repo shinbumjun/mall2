@@ -13,20 +13,27 @@
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
 <div class="container">
-	<h1>문의사항 등록</h1>
+	<br><br>
+	<div style="float:left">
+		<p style="font-size: 35px; font-weight: bolder" >문의사항 등록</p>
+	</div>
 	<form action="insert.do" method="post" id="insertForm">
-		<div class="mb-3">
+	<div class="container" style="width:1000px">
+		<br><br><br>
+		<div class="mb-3" style="box-sizing: border-box; width:100%; height:100%">
 			<label class="form-label" for="title">제목</label>
 			<input class="form-control" type="text" name="title" id="title"/>
 		</div>
 		<div class="mb-3">
-			<label class="form-label" for="content">내용</label> 
+			<label class="form-label" for="content">내용 입력</label> 
 			<textarea class="form-control"  name="content" id="content"></textarea>
 		</div>
 		<button class="btn btn-primary" type="submit">저장</button>
 		<button class="btn btn-primary" type="reset" onclick="location.href='/qna/list.do';">취소</button>
+	</div>
 	</form>
 </div>
+
 <%--
 	[ SmartEditor 를 사용하기 위한 설정 ]
 	

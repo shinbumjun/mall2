@@ -345,11 +345,5 @@ public class QnaServiceImpl implements QnaService{
 		//request 에 담아준다.
 		request.setAttribute("dto", dto);
 	}
-
-	@Override
-	public void qna_reply_insert(QnaDto dto) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

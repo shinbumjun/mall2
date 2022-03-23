@@ -93,14 +93,6 @@ public class QnaController {
 		return "qna/detail";
 	}
 	
-	@RequestMapping("/qna/reply")
-	public String reply(HttpServletRequest request) {
-
-		service.getData(request);
-		
-		return "qna/reply";
-	} //reply()
-	
 
 //새로운 댓글 저장 요청 처리
 	@RequestMapping("/qna/private/comment_insert")
