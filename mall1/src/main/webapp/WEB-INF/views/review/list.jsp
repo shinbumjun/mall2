@@ -31,6 +31,10 @@
 		float: left;
 		padding: 5px;
 	}
+		a { 
+	text-decoration:none;
+	color:black;
+	 } 
 </style>
 </head>
 <body>
