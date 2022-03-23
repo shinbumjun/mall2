@@ -13,12 +13,7 @@
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
 <h3>공지사항 상세페이지</h3>
-	<c:if test="${dto.prevNum ne 0 }">
-		<a href="/notice/detail.do?num=${dto.prevNum }&keyword=${encodedK }&condition=${condition }">이전글</a>
-	</c:if>
-	<c:if test="${dto.nextNum ne 0 }">
-		<a href="/notice/detail.do?num=${dto.nextNum }&keyword=${encodedK }&condition=${condition }">다음글</a>
-	</c:if>
+
 	<c:if test="${ not empty keyword }">
 		<p>	
 			<strong>${condition }</strong> 조건, 
@@ -54,11 +49,41 @@
 		</tr>
 		
 	</table>
+	
+	<nav>
+      <ul class="pagination justify-content-center">
+         <c:choose>
+         	<c:when test="${dto.prevNum ne 0 }">
+         		<li class="page-item mr-3">
+               		<a class="page-link" href="${pageContext.request.contextPath}/notice/detail.do?num=${dto.prevNum}">&larr; Prev</a>
+            	</li>
+         	</c:when>
+         	<c:otherwise>
+         		<li class="page-item disabled mr-3">
+               		<a class="page-link" href="javascript:">Prev</a>
+            	</li>
+         	</c:otherwise>
+         </c:choose>
+         <c:choose>
+         	<c:when test="${dto.nextNum ne 0 }">
+         		<li class="page-item">
+               		<a class="page-link" href="${pageContext.request.contextPath}/notice/detail.do?num=${dto.nextNum}">Next &rarr;</a>
+            	</li>
+         	</c:when>
+         	<c:otherwise>
+         		<li class="page-item disabled">
+               		<a class="page-link" href="javascript:">Next</a>
+            	</li>
+         	</c:otherwise>
+         </c:choose>         
+      </ul>
+   </nav> 
+        
 	<ul>
-		<li><a href="list.do">목록보기</a></li>
+		<a href="list.do"><input class="btn btn-secondary" type="button" value="목록"></a>
 		<c:if test="${adminNum eq 1 }">
-			<li><a href="/notice/updateform.do?num=${dto.num }">수정</a></li>
-			<li><a href="/notice/delete.do?num=${dto.num }">삭제</a></li>
+			<a href="/notice/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
+			<a href="/notice/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
 		</c:if> 
 	</ul>
 

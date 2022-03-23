@@ -18,12 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.gura.spring.users.UsersDao;
 import com.gura.spring.users.UsersDto;
 import com.gura.spring.users.UsersService;
 
 @Controller
 public class HomeController {
 
+	
+	@Autowired
+	private UsersDao userDao;
+	
 	@Autowired
 	private UsersService service;
 
@@ -41,6 +46,10 @@ public class HomeController {
 			String id = (String) session.getAttribute("id");
 			// 아이디 정보 받아옴
 			service.getInfo(session, mView);
+			
+			UsersDto user = userDao.getData(id);
+			request.setAttribute("adminNum", user.getAdminNum());
+			request.setAttribute("point", user.getPoint());
 		}
 		mView.setViewName("home");
 		return mView;

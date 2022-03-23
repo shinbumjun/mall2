@@ -77,10 +77,11 @@
 		SET point= point + #{price } 
 		WHERE id=#{id }
 	</update>
-	
+
 	<select id="getBuyCount" parameterType="buyDto" resultType="int">
 		select NVL(MAX(ROWNUM),0)
 		FROM buyList
 		WHERE id LIKE '%${id}%' and title LIKE '%${title}%'
 	</select>
+
 </mapper>
