@@ -148,8 +148,21 @@
 			<th>등록일</th>
 			<td>${dto.regdate }</td>
 		</tr>
+		</table>
 
-</table>
+	<ul class="pagination justify-content-center">
+		<a href="list.do"><input class="btn btn-secondary" type="button" value="목록으로"></a>
+		<c:if test="${adminNum eq 1 }">
+			<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
+			</c:if>	
+		<c:if test="${adminNum ne 1 }">
+				<a href="/qna/insertform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="글쓰기"></a>
+				<a href="/qna/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
+				<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
+		</c:if> 
+	</ul>
+
+
 <!-- 댓글 목록 -->
 	<div class="comments">
 		<ul>
@@ -436,17 +449,5 @@
 		}
 	}
 </script>
-<ul class="pagination justify-content-center">
-	<a href="list.do"><input class="btn btn-secondary" type="button" value="목록으로"></a>
-	<c:if test="${adminNum eq 1 }">
-		<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
-		</c:if>	
-	<c:if test="${adminNum ne 1 }">
-			<a href="/qna/insertform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="글쓰기"></a>
-			<a href="/qna/updateform.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="수정"></a>
-			<a href="/qna/delete.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="삭제"></a>
-	</c:if> 
-</ul>
-</div>
 </body>
 </html>

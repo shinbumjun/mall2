@@ -130,6 +130,7 @@ public class QnaServiceImpl implements QnaService{
 	@Override
 	public void getDetail(HttpServletRequest request, HttpSession session) {
 	//자세히 보여줄 글번호를 읽어온다.
+		
 	int num=Integer.parseInt(request.getParameter("num"));
 	//조회수 올리기
 	qnadao.addViewCount(num);
@@ -344,15 +345,11 @@ public class QnaServiceImpl implements QnaService{
 		//request 에 담아준다.
 		request.setAttribute("dto", dto);
 	}
-	
-	@Override
-	public void qna_reply_insert(QnaVO vo) {
-		QnaDao.qna_reply_insert(vo);
-	}
 
 	@Override
 	public void qna_reply_insert(QnaDto dto) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
