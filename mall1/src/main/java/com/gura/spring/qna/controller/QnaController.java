@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,12 +26,78 @@ import org.springframework.web.multipart.MultipartFile;
 import com.gura.spring.users.UsersServiceImpl;
 
 import com.gura.spring.users.UsersDto;
+import com.gura.spring.qna.dto.QnaDto;
 import com.gura.spring.qna.service.QnaPage;
+import com.gura.spring.qna.service.QnaService;
 import com.gura.spring.qna.service.QnaServiceImpl;
 import com.gura.spring.qna.service.QnaVO;
 
 @Controller
 public class QnaController {
+	
+	@Autowired
+	private QnaService service;
+	
+	@RequestMapping("/qna/list")
+	public String getList(HttpServletRequest request, HttpSession session) {
+		
+		service.getList(request, session);
+		
+		return "qna/list";
+	}
+
+	@RequestMapping("/qna/insertform")
+	public String insertForm() {
+		
+		return "qna/insertform";
+	}
+	
+	
+	@RequestMapping(value = "/qna/insert", method = { RequestMethod.POST })
+	public String insert(QnaDto dto, HttpSession session) {
+		
+		
+		//글 작성자는 세션에서 얻어낸다. 
+		//String id=(String)session.getAttribute("id");
+		//객체에 글 작성자도 담기
+		dto.setWriter("admin");
+		dto.setViewCount(0);
+		
+		service.saveContent(dto);
+
+		return "qna/insert";
+	}
+
+	@RequestMapping("/qna/delete")
+	public String delete(@RequestParam int num, HttpServletRequest request) {
+
+		service.deleteContent(num, request);
+
+		return "redirect:/qna/list.do";
+	}
+	
+	@RequestMapping("/qna/updateform")
+	public String updateForm(HttpServletRequest request) {
+
+		service.getData(request);
+
+		return "qna/updateform";
+	}
+	
+	@RequestMapping(value = "/qna/update", method = RequestMethod.POST)
+	public String update(QnaDto dto) {
+		service.updateContent(dto);
+		return "qna/update";
+	}	
+	
+	@RequestMapping("/qna/detail")
+	public String detail(HttpServletRequest request, HttpSession session) {
+		
+		service.getDetail(request ,session);
+		return "qna/detail";
+	}
+}
+	/*
 	@Autowired private com.gura.spring.qna.service.QnaServiceImpl service;
 	@Autowired private UsersServiceImpl users;
 	@Autowired private com.gura.spring.qna.service.QnaPage page;
@@ -37,13 +105,7 @@ public class QnaController {
 	//글 목록
 	@RequestMapping("/qna/list")
 	public String list(Model model, HttpSession session, @RequestParam(defaultValue = "1") int curPage, String search, String keyword) {
-		//QNA 클릭 하면 관리자로 자동 로그인
-		HashMap<String, String> map = new HashMap<String, String>();
-		//HashMap : 데이터를 담을 자료 구조
-		map.put("id", "admin");
-		map.put("pw", "1234");
-		session.setAttribute("login_info", users.member_login(map));
-		session.setAttribute("category", "qna");
+
 		
 		//DB에서 글 목록 조회해와 화면에 출력
 		page.setCurPage(curPage);
@@ -61,7 +123,7 @@ public class QnaController {
 	}
 	
 	//신규 글 저장 처리 요청
-	@RequestMapping("/qna/insert")
+	@RequestMapping(value="/qna/insert", method = { RequestMethod.POST })
 	public String insert(MultipartFile file, com.gura.spring.qna.service.QnaVO vo, HttpSession session) {
 		//첨부한 파일을 서버 시스템에 업로드하는 처리
 		if(!file.isEmpty()) {
@@ -234,4 +296,4 @@ public class QnaController {
 		return file;
 	} //download()
 }	
-
+*/
