@@ -49,7 +49,7 @@
 		<%--아이디 저장하기 넣을지  --%>
 	</div>
 	<%-- footer? 넣을지 --%>
-<<<<<<< HEAD
+
 <!-- footer -->
 
 <div class="text-center">
