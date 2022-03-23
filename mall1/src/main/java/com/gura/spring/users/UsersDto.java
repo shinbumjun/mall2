@@ -13,11 +13,12 @@ public class UsersDto {
 	private int startRowNum;
 	private int	endRowNum;
 	private String idWord;
+	private int price;
 	
 	public UsersDto () {}
 
 	public UsersDto(String id, String pwd, String email, String profile, String regdate, String newPwd, String adminNum,
-			int point, int startRowNum, int endRowNum, String idWord) {
+			int point, int startRowNum, int endRowNum, String idWord, int price) {
 		super();
 		this.id = id;
 		this.pwd = pwd;
@@ -30,6 +31,15 @@ public class UsersDto {
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
 		this.idWord = idWord;
+		this.price = price;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getIdWord() {

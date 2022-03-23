@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>/notice/updateform.jsp</title>
+<title>/qna/updateform.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css" />
 </head>
 <body>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
 <div class="container">
-	<h1>공지사항 수정 폼 입니다.</h1>
+	<h1>문의사항 수정</h1>
 	<form action="update.do" method="post">
 		<input type="hidden" name="num" value="${dto.num }" />
 		<div>
@@ -25,8 +25,8 @@
 			<label for="content">내용</label>
 			<textarea name="content" id="content">${dto.content }</textarea>
 		</div>
-		<button class="btn btn-secondary" type="submit" onclick="submitContents(this);">확인</button>
-		<button class="btn btn-secondary" type="reset">취소</button>
+		<button type="submit" onclick="submitContents(this);">수정하기</button>
+		<button type="reset">취소</button>
 	</form>
 </div>
 

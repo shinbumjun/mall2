@@ -11,13 +11,14 @@ public class BuyDto {
 	private String releaseDate;
 	private int startRowNum;
 	private int	endRowNum;
+	private String regdate;
 	
 	public BuyDto() {}
 
-	public BuyDto(int num,String title, String id, int price, int buyNum, int score, String releaseDate, int startRowNum,
-			int endRowNum) {
+	public BuyDto(int num, String title, String id, int price, int buyNum, int score, String releaseDate,
+			int startRowNum, int endRowNum, String regdate) {
 		super();
-		this.num= num;
+		this.num = num;
 		this.title = title;
 		this.id = id;
 		this.price = price;
@@ -26,10 +27,17 @@ public class BuyDto {
 		this.releaseDate = releaseDate;
 		this.startRowNum = startRowNum;
 		this.endRowNum = endRowNum;
+		this.regdate = regdate;
 	}
 
-	
-	
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+
 	public int getNum() {
 		return num;
 	}

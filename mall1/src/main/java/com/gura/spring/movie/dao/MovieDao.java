@@ -8,7 +8,7 @@ public interface MovieDao {
 	//gallery 리스트 가져오기
 	public List<MovieDto> getList(MovieDto dto);
 	//모든 ROW 의 개수
-	public int getCount();
+	public int getCount(MovieDto dto);
 	//영화목록에 사진 저장하기
 	public void insert(MovieDto dto);
 	//pk num 에 해당하는 DB 에서 영화목록 게시글 하나의 data 가져오기
