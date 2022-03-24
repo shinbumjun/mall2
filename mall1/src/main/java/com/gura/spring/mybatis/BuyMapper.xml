@@ -1,86 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="buy">
-	<select id="buyList" parameterType="buyDto" resultType="buyDto">
-		SELECT *
-		FROM
-			(SELECT result1.*, ROWNUM AS rnum
-			FROM
-				(SELECT title,id,price,buyNum,score,releaseDate,num
-				FROM buyList
-				WHERE id=#{id}
-				ORDER BY id DESC) result1)
-		WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
-	</select>
-	
-	<select id="getCount" parameterType="buyDto" resultType="int">
-		select NVL(MAX(ROWNUM),0)
-		FROM buyList
-		WHERE id LIKE '%${id}%'  
-	</select>
-	
-	<insert id="insert" parameterType="buyDto">
-		INSERT INTO buyList(title, id, price, buyNum, score, releaseDate,num,regdate)
-		VALUES 	(#{title},#{id},#{price},#{buyNum},#{score},#{releaseDate},buylist_seq.NEXTVAL, sysdate)
-	</insert>
-	
-	<delete id="delete" parameterType="buyDto">
-		DELETE FROM buyList
-		WHERE num=#{num}
-	</delete>
-	
-	<select id="getData" parameterType="String" resultType="buyDto">
-		Select title,id,price,buyNum,score,releaseDate,num,regdate
-		FROM buyList
-		WHERE num=#{num}
-	</select>
-	
-	<insert id="refund" parameterType="buyDto">
-		insert into refund_list(num, title, id, price, regdate)
-		values(#{num},#{title},#{id},#{price},sysdate)
-	</insert>
-	
-	<select id="getData2" parameterType="int" resultType="buyDto">
-		Select title,id,price,buyNum,score,releaseDate,num,regdate
-		FROM buyList
-		WHERE num=#{num}
-	</select>
-	
-	<select id="rfData" parameterType="int" resultType="buyDto">
-		SELECT NVL(MAX(num), 0) AS num
-  		FROM refund_list
-		WHERE num=#{num}
-	</select>
-	
-	<select id="refundList" parameterType="buyDto" resultType="buyDto">
-		SELECT *
-		FROM
-			(SELECT result1.*, ROWNUM AS rnum
-			FROM
-				(SELECT num, title, id, price, regdate
-				FROM refund_list
-				ORDER BY regdate asc) result1)
-		WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
-	</select>
-	<select id="getrfCount" parameterType="buyDto" resultType="int">
-		select NVL(MAX(ROWNUM),0)
-		FROM refund_list  
-	</select>
-	
-	<delete id="rfdelete" parameterType="buyDto">
-		DELETE FROM refund_list
-		WHERE num=#{num}
-	</delete>
-	
-	<update id="returnPoint" parameterType="usersDto">
-		UPDATE users
-		SET point= point + #{price } 
-		WHERE id=#{id }
-	</update>
-	
-	<select id="getBuyCount" parameterType="buyDto" resultType="int">
-		select NVL(MAX(ROWNUM),0)
-		FROM buyList
-		WHERE id LIKE '%${id}%' and title LIKE '%${title}%'
-	</select>
+
+   <select id="buyList" parameterType="buyDto" resultType="buyDto">
+      SELECT *
+      FROM
+         (SELECT result1.*, ROWNUM AS rnum
+         FROM
+            (SELECT title,id,price,buyNum,score,releaseDate,num
+            FROM buyList
+            WHERE id=#{id}
+            ORDER BY id DESC) result1)
+      WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
+   </select>
+   
+   <select id="getCount" parameterType="buyDto" resultType="int">
+      select NVL(MAX(ROWNUM),0)
+      FROM buyList
+      WHERE id LIKE '%${id}%'  
+   </select>
+   
+   <insert id="insert" parameterType="buyDto">
+      INSERT INTO buyList(title, id, price, buyNum, score, releaseDate,num,regdate)
+      VALUES    (#{title},#{id},#{price},#{buyNum},#{score},#{releaseDate},buylist_seq.NEXTVAL, sysdate)
+   </insert>
+   
+   <delete id="delete" parameterType="buyDto">
+      DELETE FROM buyList
+      WHERE num=#{num}
+   </delete>
+   
+   <select id="getData" parameterType="String" resultType="buyDto">
+      Select title,id,price,buyNum,score,releaseDate,num,regdate
+      FROM buyList
+      WHERE num=#{num}
+   </select>
+   
+   <insert id="refund" parameterType="buyDto">
+      insert into refund_list(num, title, id, price, regdate)
+      values(#{num},#{title},#{id},#{price},sysdate)
+   </insert>
+   
+   <select id="getData2" parameterType="int" resultType="buyDto">
+      Select title,id,price,buyNum,score,releaseDate,num,regdate
+      FROM buyList
+      WHERE num=#{num}
+   </select>
+   
+   <select id="rfData" parameterType="int" resultType="buyDto">
+      SELECT NVL(MAX(num), 0) AS num
+        FROM refund_list
+      WHERE num=#{num}
+   </select>
+   
+   <select id="refundList" parameterType="buyDto" resultType="buyDto">
+      SELECT *
+      FROM
+         (SELECT result1.*, ROWNUM AS rnum
+         FROM
+            (SELECT num, title, id, price, regdate
+            FROM refund_list
+            ORDER BY regdate asc) result1)
+      WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
+   </select>
+   <select id="getrfCount" parameterType="buyDto" resultType="int">
+      select NVL(MAX(ROWNUM),0)
+      FROM refund_list  
+   </select>
+   
+   <delete id="rfdelete" parameterType="buyDto">
+      DELETE FROM refund_list
+      WHERE num=#{num}
+   </delete>
+   
+   <update id="returnPoint" parameterType="usersDto">
+      UPDATE users
+      SET point= point + #{price } 
+      WHERE id=#{id }
+   </update>
+
+   <select id="getBuyCount" parameterType="buyDto" resultType="int">
+      select NVL(MAX(ROWNUM),0)
+      FROM buyList
+      WHERE id LIKE '%${id}%' and title LIKE '%${title}%'
+   </select>
+
 </mapper>

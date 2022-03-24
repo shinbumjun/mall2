@@ -68,9 +68,12 @@
 		<button class="btn btn-secondary" name="category" value="애니메이션">애니메이션</button>
 		<button class="btn btn-secondary" name="category" value="SF/판타지">SF/판타지</button>
 		<button class="btn btn-secondary" name="category" value="다큐멘터리">다큐멘터리</button>
+		
+		<div style="float:right">
 		<c:if test="${adminNum eq '1' }">
    			<a href="${pageContext.request.contextPath}/movie/upload_form.do"><input class="btn btn-primary" type="button" value="영화 업로드"></a><br/>
    		</c:if>
+   		</div>
 	</form>
 
 	</br>
@@ -159,6 +162,12 @@
 	<hr />
 	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
 </div>
+<script>
+	document.querySelector("#chargeBtn").addEventListener("click", function(e){
+		let chargePoint = prompt("얼마를 충전하시겠습니까?","");
+		document.querySelector("#point").value = chargePoint;
+	});
+</script>
 </body>
 </html>
 

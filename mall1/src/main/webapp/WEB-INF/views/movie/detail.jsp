@@ -61,8 +61,7 @@
 		</tr>
 	</table>
    	<ul>
-
-   		<a href="${pageContext.request.contextPath}/review/detail.do?num=${dto.num }"><input class="btn btn-secondary" type="button"  value="이 영화 리뷰 보기"></a>
+   		<button class="btn btn-secondary" type="button" onclick="location.href='/review/list.do?condition=title_content&keyword=${dto.title }' ">이 영화 리뷰 보기</button>
    		<c:if test="${userdto.adminNum eq '0' }">
 			<c:if test="${ buyCount eq '0' }">
 				<a href="buy.do?num=${dto.num }"><input class="btn btn-secondary" type="button" value="구매"></a>	
@@ -111,7 +110,10 @@
 </div>
 
 <script>
-	console.log(${buyCount})
+	document.querySelector("#chargeBtn").addEventListener("click", function(e){
+		let chargePoint = prompt("얼마를 충전하시겠습니까?","");
+		document.querySelector("#point").value = chargePoint;
+	});
 </script>
 </body>
 </html>

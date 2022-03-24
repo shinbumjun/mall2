@@ -64,5 +64,5 @@ public class QnaDaoImpl implements QnaDao{
 		session.update("qna.update", dto);
 		
 	}
-	
+
 }

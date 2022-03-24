@@ -32,34 +32,8 @@
 </jsp:include>
  --%>
 <jsp:include page="/include/navbar.jsp"></jsp:include>
-<div class="container">
-	<c:choose>
-		<c:when test="${ empty sessionScope.id}">
-			<a href="${pageContext.request.contextPath}/users/loginform.do">로그인</a>
-			<a href="${pageContext.request.contextPath}/users/signupform.do">회원가입</a>
-		</c:when>
-		<c:otherwise>
-		<div class="row">
-			<div class="col-8">
-				<a href="${pageContext.request.contextPath}/users/private/info.do">${sessionScope.id }</a> 로그인중... 
-				<a href="${pageContext.request.contextPath}/users/logout.do">로그아웃</a>
-			</div>
-			<div class="col-2">
-				<c:if test="${dto.adminNum eq 0 }">
-					<p>현재 포인트 : ${dto.point }<p>
-				</c:if>
-			</div>
-			<div class="col-2 " >
-				<c:if test="${dto.adminNum eq 0 }">
-					<form action="${pageContext.request.contextPath}/chargePoint.do" method="post" id="myForm">
-						<input type="hidden" name="point" id="point"/>
-						<button type="submit" id="chargeBtn" class="btn btn-outline-primary btn-sm">충전</button>
-					</form>
-				</c:if>
-			</div>
-		</div>
-		</c:otherwise>
-	</c:choose>
+<div class="container mt-4">
+
 
 	<!-- carousel -->
 	<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -104,7 +78,7 @@
 	<div class="row my-5">
 		<div class="col-7">
 			<h2>Acorn MOVIE는 앱 서비스를 지원합니다.</h2>
-			<p>Acorn MOVIE는 고객의 편의성과 이동 중에도 영화 감상을 할 수 있도록 휴대폰과 태블릿의 앱 서비스를 지원합니다. IOS의 App Store와 Android의 Google Play에서 Acorn MOVIE를 검색하시고 실치를 받어 Acorn MOVIE를 이용하실 수 있습니다.</p>
+			<p>Acorn MOVIE는 고객의 편의성과 이동 중에도 영화 감상을 할 수 있도록 휴대폰과 태블릿의 앱 서비스를 지원합니다. IOS의 App Store와 Android의 Google Play에서 Acorn MOVIE를 검색하시고 설치를 받어 Acorn MOVIE를 이용하실 수 있습니다.</p>
 		</div>
 		<div class="col-5">
 			<img src="${pageContext.request.contextPath}/include/images/a.jpg" alt="" class="w-100"/>
@@ -134,11 +108,6 @@
 			<img src="${pageContext.request.contextPath}/include/images/c.jpg" alt="" class="w-100" />
 		</div>
 	</div>
-<!-- footer -->
-<div class="text-center">
-	<hr />
-	<p>© 2019-2021 Company, Inc. · Privacy · Terms</p>
-</div>
 </div>
 <!-- footer -->
 <div class="text-center">

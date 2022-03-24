@@ -1,24 +1,29 @@
 package com.gura.spring.qna.dao;
 
 import java.util.List;
+
+import org.apache.ibatis.jdbc.SQL;
+
 import com.gura.spring.qna.dto.QnaDto;
 
 public interface QnaDao {
 
-	//±Û¸ñ·Ï
+	//ï¿½Û¸ï¿½ï¿½
 	public List<QnaDto>getList(QnaDto dto);
-	//±ÛÀÇ °¹¼ö
+	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int getCount(QnaDto dto);
-	//±Û Ãß°¡
+	//ï¿½ï¿½ ï¿½ß°ï¿½
 	public int insert(QnaDto dto);
-	//±ÛÁ¤º¸ ¾ò¾î¿À±â
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public QnaDto getData(int num);
-	//Å°¿öµå¸¦ È°¿ëÇÑ ±ÛÁ¤º¸ ¾ò¾î¿À±â
+	//Å°ï¿½ï¿½ï¿½å¸¦ È°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public QnaDto getData(QnaDto dto);
-	//Á¶È¸¼ö Áõ°¡ ½ÃÅ°±â
+	//ï¿½ï¿½È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å°ï¿½ï¿½
 	public void addViewCount(int num);
-	//±Û »èÁ¦
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void delete(int num);
-	//±Û ¼öÁ¤
+	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public void update(QnaDto dto);
-}
+	
+	}
+	

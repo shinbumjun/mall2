@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gura.spring.qna.dao.QnaCommentDao;
 import com.gura.spring.qna.dao.QnaDao;
+import com.gura.spring.qna.dto.QnaCommentDto;
 import com.gura.spring.qna.dto.QnaDto;
 
 import java.net.URLEncoder;
@@ -30,77 +32,80 @@ public class QnaServiceImpl implements QnaService{
 	@Autowired
 	private QnaDao qnadao;
 	
+	@Autowired 
+	private QnaCommentDao qnaCommentDao;
+	
 	@Autowired
 	private UsersDao userDao;
 
 	@Override
 	public void getList(HttpServletRequest request, HttpSession session) {
-		//ÇÑ ÆäÀÌÁö¿¡ ¸î°³¾¿ Ç¥½ÃÇÒ °ÍÀÎÁö
+		//í•œ í˜ì´ì§€ì— ëª‡ê°œì”© í‘œì‹œí•  ê²ƒì¸ì§€
 		final int PAGE_ROW_COUNT=5;
-		//ÇÏ´Ü ÆäÀÌÁö¸¦ ¸î°³¾¿ Ç¥½ÃÇÒ °ÍÀÎÁö
+		//í•˜ë‹¨ í˜ì´ì§€ë¥¼ ëª‡ê°œì”© í‘œì‹œí•  ê²ƒì¸ì§€
 		final int PAGE_DISPLAY_COUNT=5;
 				
-		//º¸¿©ÁÙ ÆäÀÌÁöÀÇ ¹øÈ£¸¦ ÀÏ´Ü 1ÀÌ¶ó°í ÃÊ±â°ª ÁöÁ¤
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ë²ˆí˜¸ë¥¼ ì¼ë‹¨ 1ì´ë¼ê³  ì´ˆê¸°ê°’ ì§€ì •
 		int pageNum=1;
-		//ÆäÀÌÁö ¹øÈ£°¡ ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÇ´ÂÁö ÀĞ¾î¿Í º»´Ù.
+		//í˜ì´ì§€ ë²ˆí˜¸ê°€ íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ë˜ëŠ”ì§€ ì½ì–´ì™€ ë³¸ë‹¤.
 		String strPageNum=request.getParameter("pageNum");
-		//¸¸ÀÏ ÆäÀÌÁö ¹øÈ£°¡ ÆÄ¶ó¹ÌÅÍ·Î ³Ñ¾î ¿Â´Ù¸é
+		//ë§Œì¼ í˜ì´ì§€ ë²ˆí˜¸ê°€ íŒŒë¼ë¯¸í„°ë¡œ ë„˜ì–´ ì˜¨ë‹¤ë©´
 		if(strPageNum != null){
-		//¼ıÀÚ·Î ¹Ù²ã¼­ º¸¿©ÁÙ ÆäÀÌÁö ¹øÈ£·Î ÁöÁ¤ÇÑ´Ù.
+		//ìˆ«ìë¡œ ë°”ê¿”ì„œ ë³´ì—¬ì¤„ í˜ì´ì§€ ë²ˆí˜¸ë¡œ ì§€ì •í•œë‹¤.
 		pageNum=Integer.parseInt(strPageNum);
 		}
 				
-		//º¸¿©ÁÙ ÆäÀÌÁöÀÇ ½ÃÀÛ ROWNUM
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ì‹œì‘ ROWNUM
 		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
-		//º¸¿©ÁÙ ÆäÀÌÁöÀÇ ³¡ ROWNUM
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ë ROWNUM
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		String keyword=request.getParameter("keyword");
 		String condition=request.getParameter("condition");
-		//¸¸ÀÏ Å°¿öµå°¡ ³Ñ¾î¿ÀÁö ¾Ê´Â´Ù¸é 
+		//ë§Œì¼ í‚¤ì›Œë“œê°€ ë„˜ì–´ì˜¤ì§€ ì•ŠëŠ”ë‹¤ë©´ 
 		if(keyword==null){
-		//Å°¿öµå¿Í °Ë»ö Á¶°Ç¿¡ ºó ¹®ÀÚ¿­À» ³Ö¾îÁØ´Ù. 
-		//Å¬¶óÀÌ¾ğÆ® À¥ºê¶ó¿ìÀú¿¡ Ãâ·ÂÇÒ¶§ "null" À» Ãâ·ÂµÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­  
+		//í‚¤ì›Œë“œì™€ ê²€ìƒ‰ ì¡°ê±´ì— ë¹ˆ ë¬¸ìì—´ì„ ë„£ì–´ì¤€ë‹¤. 
+		//í´ë¼ì´ì–¸íŠ¸ ì›¹ë¸Œë¼ìš°ì €ì— ì¶œë ¥í• ë•Œ "null" ì„ ì¶œë ¥ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ  
 		keyword="";
 		condition=""; 
 			}
 
-		//Æ¯¼ö±âÈ£¸¦ ÀÎÄÚµùÇÑ Å°¿öµå¸¦ ¹Ì¸® ÁØºñÇÑ´Ù. 
+		//íŠ¹ìˆ˜ê¸°í˜¸ë¥¼ ì¸ì½”ë”©í•œ í‚¤ì›Œë“œë¥¼ ë¯¸ë¦¬ ì¤€ë¹„í•œë‹¤.
 		String encodedK=URLEncoder.encode(keyword);
 					
-		//QnaDto °´Ã¼¿¡ startRowNum °ú endRowNum À» ´ã´Â´Ù.
+		//QnaDto ê°ì²´ì— startRowNum ê³¼ endRowNum ì„ ë‹´ëŠ”ë‹¤.
 		QnaDto dto=new QnaDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 
-		//¸¸ÀÏ °Ë»ö Å°¿öµå°¡ ³Ñ¾î¿Â´Ù¸é 
+		//ë§Œì¼ ê²€ìƒ‰ í‚¤ì›Œë“œê°€ ë„˜ì–´ì˜¨ë‹¤ë©´  
 		if(!keyword.equals("")){
-		//°Ë»ö Á¶°ÇÀÌ ¹«¾ùÀÌ³Ä¿¡ µû¶ó ºĞ±â ÇÏ±â
-		if(condition.equals("title_content")){//Á¦¸ñ + ³»¿ë °Ë»öÀÎ °æ¿ì
-		//°Ë»ö Å°¿öµå¸¦ CafeDto ¿¡ ´ã¾Æ¼­ Àü´ŞÇÑ´Ù.
+		//ê²€ìƒ‰ ì¡°ê±´ì´ ë¬´ì—‡ì´ëƒì— ë”°ë¼ ë¶„ê¸° í•˜ê¸°
+		if(condition.equals("title_content")){//ì œëª© + ë‚´ìš© ê²€ìƒ‰ì¸ ê²½ìš°
+		//ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ CafeDto ì— ë‹´ì•„ì„œ ì „ë‹¬í•œë‹¤.
 		dto.setTitle(keyword);
 		dto.setContent(keyword);
-		}else if(condition.equals("title")){ //Á¦¸ñ °Ë»öÀÎ °æ¿ì
+		}else if(condition.equals("title")){ //ì œëª© ê²€ìƒ‰ì¸ ê²½ìš°
 		dto.setTitle(keyword);
-		}else if(condition.equals("writer")){ //ÀÛ¼ºÀÚ °Ë»öÀÎ °æ¿ì
+		}else if(condition.equals("writer")){ //ì‘ì„±ì ê²€ìƒ‰ì¸ ê²½ìš°
 		dto.setWriter(keyword);
-			} // ´Ù¸¥ °Ë»ö Á¶°ÇÀ» Ãß°¡ ÇÏ°í ½Í´Ù¸é ¾Æ·¡¿¡ else if() ¸¦ °è¼Ó Ãß°¡ ÇÏ¸é µÈ´Ù.
+			} // ë‹¤ë¥¸ ê²€ìƒ‰ ì¡°ê±´ì„ ì¶”ê°€ í•˜ê³  ì‹¶ë‹¤ë©´ ì•„ë˜ì— else if() ë¥¼ ê³„ì† ì¶”ê°€ í•˜ë©´ ëœë‹¤..
 		}
-		//±Û ¸ñ·Ï ¾ò¾î¿À±â 
+		//ê¸€ ëª©ë¡ ì–»ì–´ì˜¤ê¸° 
 		List<QnaDto> list= qnadao.getList(dto);
-		//ÀüÃ¼±ÛÀÇ °¹¼ö
+		//ì „ì²´ê¸€ì˜ ê°¯ìˆ˜
 		int totalRow = qnadao.getCount(dto);		
-		//ÇÏ´Ü ½ÃÀÛ ÆäÀÌÁö ¹øÈ£ 
+		//í•˜ë‹¨ ì‹œì‘ í˜ì´ì§€ ë²ˆí˜¸
 		int startPageNum = 1 + ((pageNum-1)/PAGE_DISPLAY_COUNT)*PAGE_DISPLAY_COUNT;
-		//ÇÏ´Ü ³¡ ÆäÀÌÁö ¹øÈ£
+		//í•˜ë‹¨ ë í˜ì´ì§€ ë²ˆí˜¸
 		int endPageNum=startPageNum+PAGE_DISPLAY_COUNT-1;
 				
-		//ÀüÃ¼ ÆäÀÌÁöÀÇ °¹¼ö
+		//ì „ì²´ í˜ì´ì§€ì˜ ê°¯ìˆ˜
 		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
-		//³¡ ÆäÀÌÁö ¹øÈ£°¡ ÀüÃ¼ ÆäÀÌÁö °¹¼öº¸´Ù Å©´Ù¸é Àß¸øµÈ °ªÀÌ´Ù.
+		//ë í˜ì´ì§€ ë²ˆí˜¸ê°€ ì „ì²´ í˜ì´ì§€ ê°¯ìˆ˜ë³´ë‹¤ í¬ë‹¤ë©´ ì˜ëª»ëœ ê°’ì´ë‹¤.
 		if(endPageNum > totalPageCount){
-		endPageNum=totalPageCount; //º¸Á¤ÇØ ÁØ´Ù.
+		endPageNum=totalPageCount; //ë³´ì •í•´ ì¤€ë‹¤.
 		}
-		//view page ¿¡¼­ ÇÊ¿äÇÑ °ªÀ» request ¿¡ ´ã¾ÆÁØ´Ù.
+		//view page ì—ì„œ í•„ìš”í•œ ê°’ì„ request ì— ë‹´ì•„ì¤€ë‹¤..
 		request.setAttribute("pageNum", pageNum);
 		request.setAttribute("startPageNum", startPageNum);
 		request.setAttribute("endPageNum", endPageNum);
@@ -124,39 +129,40 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public void getDetail(HttpServletRequest request, HttpSession session) {
-	//ÀÚ¼¼È÷ º¸¿©ÁÙ ±Û¹øÈ£¸¦ ÀĞ¾î¿Â´Ù. 
+	//ìì„¸íˆ ë³´ì—¬ì¤„ ê¸€ë²ˆí˜¸ë¥¼ ì½ì–´ì˜¨ë‹¤.
+		
 	int num=Integer.parseInt(request.getParameter("num"));
-	//Á¶È¸¼ö ¿Ã¸®±â
+	//ì¡°íšŒìˆ˜ ì˜¬ë¦¬ê¸°
 	qnadao.addViewCount(num);
 	String keyword=request.getParameter("keyword");
 	String condition=request.getParameter("condition");
-	//¸¸ÀÏ Å°¿öµå°¡ ³Ñ¾î¿ÀÁö ¾Ê´Â´Ù¸é 
+	//ë§Œì¼ í‚¤ì›Œë“œê°€ ë„˜ì–´ì˜¤ì§€ ì•ŠëŠ”ë‹¤ë©´ 
 	if(keyword==null){
-	//Å°¿öµå¿Í °Ë»ö Á¶°Ç¿¡ ºó ¹®ÀÚ¿­À» ³Ö¾îÁØ´Ù. 
-	//Å¬¶óÀÌ¾ğÆ® À¥ºê¶ó¿ìÀú¿¡ Ãâ·ÂÇÒ¶§ "null" À» Ãâ·ÂµÇÁö ¾Ê°Ô ÇÏ±â À§ÇØ¼­  
+	//í‚¤ì›Œë“œì™€ ê²€ìƒ‰ ì¡°ê±´ì— ë¹ˆ ë¬¸ìì—´ì„ ë„£ì–´ì¤€ë‹¤.. 
+	//í´ë¼ì´ì–¸íŠ¸ ì›¹ë¸Œë¼ìš°ì €ì— ì¶œë ¥í• ë•Œ "null" ì„ ì¶œë ¥ë˜ì§€ ì•Šê²Œ í•˜ê¸° ìœ„í•´ì„œ 
 	keyword="";
 	condition=""; 
 	}
 	
 	QnaDto dto=new QnaDto();
-	//ÀÚ¼¼È÷ º¸¿©ÁÙ ±Û¹øÈ£¸¦ ³Ö¾îÁØ´Ù. 
+	//ìì„¸íˆ ë³´ì—¬ì¤„ ê¸€ë²ˆí˜¸ë¥¼ ë„£ì–´ì¤€ë‹¤. 
 	dto.setNum(num);
-	//¸¸ÀÏ °Ë»ö Å°¿öµå°¡ ³Ñ¾î¿Â´Ù¸é 
+	//ë§Œì¼ ê²€ìƒ‰ í‚¤ì›Œë“œê°€ ë„˜ì–´ì˜¨ë‹¤ë©´ 
 	if(!keyword.equals("")){
-	//°Ë»ö Á¶°ÇÀÌ ¹«¾ùÀÌ³Ä¿¡ µû¶ó ºĞ±â ÇÏ±â
-	if(condition.equals("title_content")){//Á¦¸ñ + ³»¿ë °Ë»öÀÎ °æ¿ì
-	//°Ë»ö Å°¿öµå¸¦ QnaDto ¿¡ ´ã¾Æ¼­ Àü´ŞÇÑ´Ù.
+	//ê²€ìƒ‰ ì¡°ê±´ì´ ë¬´ì—‡ì´ëƒì— ë”°ë¼ ë¶„ê¸° í•˜ê¸°
+	if(condition.equals("title_content")){//ì œëª© + ë‚´ìš© ê²€ìƒ‰ì¸ ê²½ìš°
+	//ê²€ìƒ‰ í‚¤ì›Œë“œë¥¼ NoticeDto ì— ë‹´ì•„ì„œ ì „ë‹¬í•œë‹¤.
 	dto.setTitle(keyword);
 	dto.setContent(keyword);			
-	}else if(condition.equals("title")){ //Á¦¸ñ °Ë»öÀÎ °æ¿ì
+	}else if(condition.equals("title")){ //ì œëª© ê²€ìƒ‰ì¸ ê²½ìš°
 	dto.setTitle(keyword);	
-	}else if(condition.equals("writer")){ //ÀÛ¼ºÀÚ °Ë»öÀÎ °æ¿ì
+	}else if(condition.equals("writer")){ //ì‘ì„±ì ê²€ìƒ‰ì¸ ê²½ìš°
 	dto.setWriter(keyword);	
-		} // ´Ù¸¥ °Ë»ö Á¶°ÇÀ» Ãß°¡ ÇÏ°í ½Í´Ù¸é ¾Æ·¡¿¡ else if() ¸¦ °è¼Ó Ãß°¡ ÇÏ¸é µÈ´Ù.
+		} // ë‹¤ë¥¸ ê²€ìƒ‰ ì¡°ê±´ì„ ì¶”ê°€ í•˜ê³  ì‹¶ë‹¤ë©´ ì•„ë˜ì— else if() ë¥¼ ê³„ì† ì¶”ê°€ í•˜ë©´ ëœë‹¤.
 	}	
 	dto=qnadao.getData(dto.getNum());
 
-	//Æ¯¼ö±âÈ£¸¦ ÀÎÄÚµùÇÑ Å°¿öµå¸¦ ¹Ì¸® ÁØºñÇÑ´Ù. 
+	//íŠ¹ìˆ˜ê¸°í˜¸ë¥¼ ì¸ì½”ë”©í•œ í‚¤ì›Œë“œë¥¼ ë¯¸ë¦¬ ì¤€ë¹„í•œë‹¤. 
 	String encodedK=URLEncoder.encode(keyword);
 	
 	request.setAttribute("dto", dto);
@@ -173,9 +179,47 @@ public class QnaServiceImpl implements QnaService{
 		request.setAttribute("adminNum", 0);
 	}
 		
-	}
 
-	//»õ±Û ÀúÀå
+
+	/*
+		[ ëŒ“ê¸€ í˜ì´ì§• ì²˜ë¦¬ì— ê´€ë ¨ëœ ë¡œì§ ]
+	*/
+		//í•œ í˜ì´ì§€ì— ëª‡ê°œì”© í‘œì‹œí•  ê²ƒì¸ì§€
+		final int PAGE_ROW_COUNT=10;
+		
+		//detail.jsp í˜ì´ì§€ì—ì„œëŠ” í•­ìƒ 1í˜ì´ì§€ì˜ ëŒ“ê¸€ ë‚´ìš©ë§Œ ì¶œë ¥í•œë‹¤. 
+		int pageNum=1;
+		
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ì‹œì‘ ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ë ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+		
+		//ì›ê¸€ì˜ ê¸€ë²ˆí˜¸ë¥¼ ì´ìš©í•´ì„œ í•´ë‹¹ê¸€ì— ë‹¬ë¦° ëŒ“ê¸€ ëª©ë¡ì„ ì–»ì–´ì˜¨ë‹¤.
+		QnaCommentDto commentDto=new QnaCommentDto();
+		commentDto.setRef_group(num);
+		//1í˜ì´ì§€ì— í•´ë‹¹í•˜ëŠ” startRowNum ê³¼ endRowNum ì„ dto ì— ë‹´ì•„ì„œ  
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+		
+		//1í˜ì´ì§€ì— í•´ë‹¹í•˜ëŠ” ëŒ“ê¸€ ëª©ë¡ë§Œ select ë˜ë„ë¡ í•œë‹¤. 
+		List<QnaCommentDto> commentList=qnaCommentDao.getList(commentDto);
+		
+		//ì›ê¸€ì˜ ê¸€ë²ˆí˜¸ë¥¼ ì´ìš©í•´ì„œ ëŒ“ê¸€ ì „ì²´ì˜ ê°¯ìˆ˜ë¥¼ ì–»ì–´ë‚¸ë‹¤.
+		int totalRow=qnaCommentDao.getCount(num);
+		//ëŒ“ê¸€ ì „ì²´ í˜ì´ì§€ì˜ ê°¯ìˆ˜
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+		
+		//view page ì—ì„œ í•„ìš”í•œ ê°’ request ì— ë‹´ì•„ì£¼ê¸°
+		request.setAttribute("dto", dto);
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("condition", condition);
+		request.setAttribute("keyword", keyword);
+		request.setAttribute("encodedK", encodedK);
+		request.setAttribute("totalRow", totalRow);
+		request.setAttribute("totalPageCount", totalPageCount);
+	}
+	//ìƒˆê¸€ ì €ì¥
 	@Override
 	public int saveContent(QnaDto dto) {
 		
@@ -193,78 +237,113 @@ public class QnaServiceImpl implements QnaService{
 
 	@Override
 	public void deleteContent(int num, HttpServletRequest request) {
-		//¼¼¼Ç¿¡¼­ ·Î±×ÀÎµÈ ¾ÆÀÌµğ¸¦ ÀĞ¾î¿Í¼­
+		//ì„¸ì…˜ì—ì„œ ë¡œê·¸ì¸ëœ ì•„ì´ë””ë¥¼ ì½ì–´ì™€ì„œ
 		String id=(String)request.getSession().getAttribute("id");
-		//»èÁ¦ÇÒ ±ÛÀÇ ÀÛ¼ºÀÚ
+		//ì‚­ì œí•  ê¸€ì˜ ì‘ì„±ì
 		String writer=qnadao.getData(num).getWriter();
-		//¸¸ÀÏ ±ÛÀÇ ÀÛ¼ºÀÚ°¡ ·Î±×ÀÎµÈ ¾ÆÀÌµğ¿Í ´Ù¸£´Ù¸é 
-		/*
-		 * if(!writer.equals(id)) { //¿¹¿Ü¸¦ ¹ß»ı½ÃÄÑ¼­ ÀÀ´äÀ» ¿¹¿Ü Controller ¿¡¼­ ÇÏµµ·Ï ÇÑ´Ù. throw new
-		 * NotDeleteException("³²ÀÇ ÆÄÀÏ Áö¿ì±â ¾ø±â!"); }
-		 */
-		//º»ÀÎÀÌ ÀÛ¼ºÇÑ ±ÛÀÌ ¾Æ´Ï¸é ¾Æ·¡ÀÇ ÄÚµå°¡ ½ÇÇàÀÌ ¾ÈµÇ¾ß µÈ´Ù. 
+		//ë§Œì¼ ê¸€ì˜ ì‘ì„±ìê°€ ë¡œê·¸ì¸ëœ ì•„ì´ë””ì™€ ë‹¤ë¥´ë‹¤ë©´ 
+		if(!writer.equals(id)) { //ì˜ˆì™¸ë¥¼ ë°œìƒì‹œì¼œì„œ ì‘ë‹µì„ ì˜ˆì™¸ Controller ì—ì„œ í•˜ë„ë¡ í•œë‹¤.
+		throw new NotDeleteException("ë³¸ì¸ ì™¸ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤."); }
+		//ë³¸ì¸ì´ ì‘ì„±í•œ ê¸€ì´ ì•„ë‹ˆë©´ ì•„ë˜ì˜ ì½”ë“œê°€ ì‹¤í–‰ì´ ì•ˆë˜ì•¼ ëœë‹¤.
 		qnadao.delete(num);
 		
 	}
+	@Override
+	public void saveComment(HttpServletRequest request) {
+		//í¼ ì „ì†¡ë˜ëŠ” íŒŒë¼ë¯¸í„° ì¶”ì¶œ 
+		int ref_group=Integer.parseInt(request.getParameter("ref_group"));
+		String target_id=request.getParameter("target_id");
+		String content=request.getParameter("content");
+		/*
+		 *  ì›ê¸€ì˜ ëŒ“ê¸€ì€ comment_group ë²ˆí˜¸ê°€ ì „ì†¡ì´ ì•ˆë˜ê³ 
+		 *  ëŒ“ê¸€ì˜ ëŒ“ê¸€ì€ comment_group ë²ˆí˜¸ê°€ ì „ì†¡ì´ ëœë‹¤.
+		 *  ë”°ë¼ì„œ null ì—¬ë¶€ë¥¼ ì¡°ì‚¬í•˜ë©´ ì›ê¸€ì˜ ëŒ“ê¸€ì¸ì§€ ëŒ“ê¸€ì˜ ëŒ“ê¸€ì¸ì§€ íŒë‹¨í• ìˆ˜ ìˆë‹¤. 
+		 */
+		String comment_group=request.getParameter("comment_group");
 
+		//ëŒ“ê¸€ ì‘ì„±ìëŠ” session ì˜ì—­ì—ì„œ ì–»ì–´ë‚´ê¸°
+		String writer=(String)request.getSession().getAttribute("id");
+		//ëŒ“ê¸€ì˜ ì‹œí€€ìŠ¤ ë²ˆí˜¸ ë¯¸ë¦¬ ì–»ì–´ë‚´ê¸°
+		int seq=qnaCommentDao.getSequence();
+		//ì €ì¥í•  ëŒ“ê¸€ì˜ ì •ë³´ë¥¼ dto ì— ë‹´ê¸°
+		QnaCommentDto dto=new QnaCommentDto();
+		dto.setNum(seq);
+		dto.setWriter(writer);
+		dto.setTarget_id(target_id);
+		dto.setContent(content);
+		dto.setRef_group(ref_group);
+		//ì›ê¸€ì˜ ëŒ“ê¸€ì¸ê²½ìš°
+		if(comment_group == null){
+			//ëŒ“ê¸€ì˜ ê¸€ë²ˆí˜¸ë¥¼ comment_group ë²ˆí˜¸ë¡œ ì‚¬ìš©í•œë‹¤.
+			dto.setComment_group(seq);
+		}else{
+			//ì „ì†¡ëœ comment_group ë²ˆí˜¸ë¥¼ ìˆ«ìë¡œ ë°”ê¾¸ì„œ dto ì— ë„£ì–´ì¤€ë‹¤. 
+			dto.setComment_group(Integer.parseInt(comment_group));
+		}
+		//ëŒ“ê¸€ ì •ë³´ë¥¼ DB ì— ì €ì¥í•˜ê¸°
+		qnaCommentDao.insert(dto);
+
+	}
+
+	@Override
+	public void deleteComment(HttpServletRequest request) {
+		int num=Integer.parseInt(request.getParameter("num"));
+		qnaCommentDao.delete(num);
+
+	}
+
+	@Override
+	public void updateComment(QnaCommentDto dto) {
+		qnaCommentDao.update(dto);
+
+	}
+
+	@Override
+	public void moreCommentList(HttpServletRequest request) {
+		//ë¡œê·¸ì¸ëœ ì•„ì´ë””
+		String id=(String)request.getSession().getAttribute("id");
+		//ajax ìš”ì²­ íŒŒë¼ë¯¸í„°ë¡œ ë„˜ì–´ì˜¤ëŠ” ëŒ“ê¸€ì˜ í˜ì´ì§€ ë²ˆí˜¸ë¥¼ ì½ì–´ë‚¸ë‹¤
+		int pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		//ajax ìš”ì²­ íŒŒë¼ë¯¸í„°ë¡œ ë„˜ì–´ì˜¤ëŠ” ì›ê¸€ì˜ ê¸€ ë²ˆí˜¸ë¥¼ ì½ì–´ë‚¸ë‹¤
+		int num=Integer.parseInt(request.getParameter("num"));
+		/*
+			[ ëŒ“ê¸€ í˜ì´ì§• ì²˜ë¦¬ì— ê´€ë ¨ëœ ë¡œì§ ]
+		*/
+		//í•œ í˜ì´ì§€ì— ëª‡ê°œì”© í‘œì‹œí•  ê²ƒì¸ì§€
+		final int PAGE_ROW_COUNT=10;
+
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ì‹œì‘ ROWNUM
+		int startRowNum=1+(pageNum-1)*PAGE_ROW_COUNT;
+		//ë³´ì—¬ì¤„ í˜ì´ì§€ì˜ ë ROWNUM
+		int endRowNum=pageNum*PAGE_ROW_COUNT;
+
+		//ì›ê¸€ì˜ ê¸€ë²ˆí˜¸ë¥¼ ì´ìš©í•´ì„œ í•´ë‹¹ê¸€ì— ë‹¬ë¦° ëŒ“ê¸€ ëª©ë¡ì„ ì–»ì–´ì˜¨ë‹¤.
+		QnaCommentDto commentDto=new QnaCommentDto();
+		commentDto.setRef_group(num);
+		//1í˜ì´ì§€ì— í•´ë‹¹í•˜ëŠ” startRowNum ê³¼ endRowNum ì„ dto ì— ë‹´ì•„ì„œ  
+		commentDto.setStartRowNum(startRowNum);
+		commentDto.setEndRowNum(endRowNum);
+
+		//pageNumì— í•´ë‹¹í•˜ëŠ” ëŒ“ê¸€ ëª©ë¡ë§Œ select ë˜ë„ë¡ í•œë‹¤. 
+		List<QnaCommentDto> commentList=qnaCommentDao.getList(commentDto);
+		//ì›ê¸€ì˜ ê¸€ë²ˆí˜¸ë¥¼ ì´ìš©í•´ì„œ ëŒ“ê¸€ ì „ì²´ì˜ ê°¯ìˆ˜ë¥¼ ì–»ì–´ë‚¸ë‹¤.
+		int totalRow=qnaCommentDao.getCount(num);
+		//ëŒ“ê¸€ ì „ì²´ í˜ì´ì§€ì˜ ê°¯ìˆ˜
+		int totalPageCount=(int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
+
+		//view page ì— í•„ìš”í•œ ê°’ request ì— ë‹´ì•„ì£¼ê¸°
+		request.setAttribute("commentList", commentList);
+		request.setAttribute("num", num); //ì›ê¸€ì˜ ê¸€ë²ˆí˜¸
+		request.setAttribute("pageNum", pageNum); //ëŒ“ê¸€ì˜ í˜ì´ì§€ ë²ˆí˜¸
+	}
 	@Override
 	public void getData(HttpServletRequest request) {
-		//¼öÁ¤ÇÒ ±Û¹øÈ£
+		//ìˆ˜ì •í•  ê¸€ë²ˆí˜¸
 		int num=Integer.parseInt(request.getParameter("num"));
-		//¼öÁ¤ÇÒ ±ÛÀÇ Á¤º¸ ¾ò¾î¿Í¼­ 
+		//ìˆ˜ì •í•  ê¸€ì˜ ì •ë³´ ì–»ì–´ì™€ì„œ
 		QnaDto dto=qnadao.getData(num);
-		//request ¿¡ ´ã¾ÆÁØ´Ù.
+		//request ì— ë‹´ì•„ì¤€ë‹¤.
 		request.setAttribute("dto", dto);
 	}
-
-
-}
-
-
-/*
-@Service
-public class QnaServiceImpl implements QnaService {
-	@Autowired private QnaDao dao;
 	
-	@Override
-	public void qna_insert(QnaVO vo) {
-		dao.qna_insert(vo);
-	}
-
-	@Override
-	public List<QnaVO> qna_list() {
-		return dao.qna_list();
-	}
-
-	@Override
-	public QnaVO qna_detail(int id) {
-		return dao.qna_detail(id);
-	}
-
-	@Override
-	public void qna_update(QnaVO vo) {
-		dao.qna_update(vo);
-	}
-
-	@Override
-	public void qna_delete(int id) {
-		dao.qna_delete(id);
-	}
-
-	@Override
-	public void qna_read(int id) {
-		dao.qna_read(id);
-	}
-
-	@Override
-	public void qna_reply_insert(QnaVO vo) {
-		dao.qna_reply_insert(vo);
-	}
-
-	@Override
-	public QnaPage qna_list(QnaPage page) {
-		return dao.qna_list(page);
-	}
-
 }
-*/

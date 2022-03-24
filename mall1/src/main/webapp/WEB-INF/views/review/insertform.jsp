@@ -14,6 +14,10 @@
 </style>
 </head>
 <body>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.bundle.min.js"></script>
+<jsp:include page="/include/navbar.jsp">
+	<jsp:param value="review" name="thisPage"/>
+</jsp:include>
 <div class="container">
 	<h1>새글 작성 폼</h1>
 	<form action="insert.do" method="post" id="insertForm">
