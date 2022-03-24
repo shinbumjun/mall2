@@ -263,15 +263,6 @@ public class UsersServiceImpl implements UsersService{
 				String releaseDate=moviedto1.getReleaseDate();
 				int price=moviedto1.getPrice();
 				
-				BuyDto buyDto=new BuyDto();
-				buyDto.setTitle(title);
-				buyDto.setId(id);
-				buyDto.setPrice(price);
-				buyDto.setBuyNum(buyNum);
-				buyDto.setScore(score);
-				buyDto.setReleaseDate(releaseDate);
-		
-				buydao.insert(buyDto);
 				//전달 값
 				request.setAttribute("point", point);
 				request.setAttribute("price", movieprice);
@@ -287,6 +278,16 @@ public class UsersServiceImpl implements UsersService{
 					moviedao.buyNumCount(moviedto1);
 					mView.addObject("id", id);
 					request.setAttribute("newpoint", resultPoint);
+					
+					BuyDto buyDto=new BuyDto();
+					buyDto.setTitle(title);
+					buyDto.setId(id);
+					buyDto.setPrice(price);
+					buyDto.setBuyNum(buyNum);
+					buyDto.setScore(score);
+					buyDto.setReleaseDate(releaseDate);
+			
+					buydao.insert(buyDto);
 				}
 				
 	}
